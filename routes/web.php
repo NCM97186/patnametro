@@ -46,3 +46,7 @@ Route::view('/admin/planyourvisit','admin.planyourvisit');
 Route::view('/admin/asklibrarian','admin.asklibrarian');
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
