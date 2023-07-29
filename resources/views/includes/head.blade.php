@@ -14,17 +14,17 @@
       <!-- site icon -->
       <!-- <link rel="icon" href="{{'../assets/images/layout_img/user_img.jpg'}}" type="image/png" /> -->
       <!-- bootstrap css -->
-      <link rel="stylesheet" href="{{'../assets/css/bootstrap.min.css'}}" />
+      <link rel="stylesheet" href="{{ URL::asset('/public/assets/css/bootstrap.min.css')}}" />
       <!-- site css -->
-      <link rel="stylesheet" href="{{'../assets/style.css'}}" />
+      <link rel="stylesheet" href="{{ URL::asset('/public/assets/style.css')}}" />
       <!-- responsive css -->
-      <link rel="stylesheet" href="{{'../assets/css/responsive.css'}}" />
+      <link rel="stylesheet" href="{{ URL::asset('/public/assets/css/responsive.css')}}" />
       <!-- color css -->
-      <link rel="stylesheet" href="{{'../assets/css/colors.css'}}" />
+      <link rel="stylesheet" href="{{ URL::asset('/public/assets/css/colors.css')}}" />
       <!-- select bootstrap -->
-      <link rel="stylesheet" href="{{'../assets/css/bootstrap-select.css'}}" />
+      <link rel="stylesheet" href="{{ URL::asset('/public/assets/css/bootstrap-select.css')}}" />
       <!-- scrollbar css -->
-      <link rel="stylesheet" href="{{'../assets/css/perfect-scrollbar.css'}}" />
+      <link rel="stylesheet" href="{{ URL::asset('/public/assets/css/perfect-scrollbar.css')}}" />
       <!-- custom css -->
-      <link rel="stylesheet" href="{{'../assets/css/custom.css'}}" />
+      <link rel="stylesheet" href="{{ URL::asset('/public/assets/css/custom.css')}}" />
    </head>
