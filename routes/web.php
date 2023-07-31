@@ -17,7 +17,7 @@ use App\Http\Controllers\LoginController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::post('login', [App\Http\Auth\LoginController::class, 'index'])->name('login');
+//Route::post('login', [App\Http\Auth\LoginController::class, 'index'])->name('login');
 Auth::routes();
 
 Route::group(['middleware' => ['auth','admin']], function () {
@@ -45,5 +45,6 @@ Route::group(['middleware' => ['auth','admin']], function () {
         Route::view('/admin/videogallery','admin.videogallery');
         Route::view('/admin/planyourvisit','admin.planyourvisit');
         Route::view('/admin/asklibrarian','admin.asklibrarian');
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+       
 });
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
