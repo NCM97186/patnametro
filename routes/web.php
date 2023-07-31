@@ -22,7 +22,8 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth','admin']], function () {
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::view('/admin/user', 'admin.users');
+        // Route::view('/admin/user', 'admin.users');
+        Route::get('/admin/user', [UserController::class, 'index']);
         Route::view('/admin/user_role', 'admin.user_role');
         Route::view('/admin/menu', 'admin.menu');
         Route::view('/admin/whatsnew', 'admin.whatsnew');
