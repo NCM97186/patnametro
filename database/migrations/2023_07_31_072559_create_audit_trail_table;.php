@@ -9,16 +9,9 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    //pushpendra
     public function up(): void
     {
-        Schema::create('visitors', function (Blueprint $table) {
-        $table->id();
-        $table->string('visitors_ip')->default(0);
-        $table->biginteger('visitors_count')->nullable();
-        $table->string('page_name');
-        $table->timestamps();
-        });
+        //
     }
 
     /**
@@ -26,6 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('visitors');
+        //
     }
 };

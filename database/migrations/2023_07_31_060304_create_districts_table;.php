@@ -12,7 +12,7 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('district', function (Blueprint $table) {
+        Schema::create('districts', function (Blueprint $table) {
             $table->integer('dist_id');
             $table->string('dist_name');
             $table->text('dist_hi_name');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('district');
+        Schema::dropIfExists('districts');
     }
 };
