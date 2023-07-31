@@ -12,12 +12,12 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('visitors', function (Blueprint $table) {
-        $table->id();
-        $table->string('visitors_ip')->default(0);
-        $table->bigint('visitors_count')->nullable();
-        $table->string('page_name');
-        $table->timestamps();
+        Schema::create('district', function (Blueprint $table) {
+            $table->integer('dist_id');
+            $table->string('dist_name');
+            $table->text('dist_hi_name');
+            $table->integer('state_id');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('visitors');
+        Schema::dropIfExists('district');
     }
 };

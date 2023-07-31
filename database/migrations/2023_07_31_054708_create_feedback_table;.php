@@ -12,13 +12,15 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('videogallery', function (Blueprint $table) {
+        Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('language');
-            $table->string('txtuplode')->default(0);
-            $table->integer('txtstatus');
-            $table->integer('admin_id');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('comments');
+            $table->text('review_comment');
+            $table->date('review_date');
+            $table->date('create_date');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('videogallery');
+        Schema::dropIfExists('feedback');
     }
 };

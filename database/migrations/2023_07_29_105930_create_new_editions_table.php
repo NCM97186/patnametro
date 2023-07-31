@@ -9,16 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //pushpendra
     public function up(): void
     {
         Schema::create('new_editions', function (Blueprint $table) {
             $table->id();
              $table->string('book_name')->nullable();
-              $table->int('language');
+              $table->integer('language');
                $table->string('txtuplode')->nullable();
-                $table->int('txtstatus');
+                $table->integer('txtstatus');
                  $table->string('isbn_no');
-                  $table->int('admin_id');
+                  $table->integer('admin_id');
                    $table->date('create_date');
                      $table->date('update_date');
                      $table->string('edited_by');

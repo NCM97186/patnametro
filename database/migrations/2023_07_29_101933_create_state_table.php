@@ -9,10 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //pushpendra
     public function up(): void
     {
         Schema::create('state', function (Blueprint $table) {
-            $table->int('state_id');
+            $table->integer('state_id');
             $table->string('state_name')->nullable();
             $table->text('state_hi_name');
             $table->timestamps();

@@ -12,23 +12,25 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('tbl_exhibitions', function (Blueprint $table) {
+        Schema::create('ministers', function (Blueprint $table) {
             $table->id();
-            $table->string('event_name')->nullable();
+            $table->string('title')->nullable();
+            $table->string('url')->nullable();
             $table->string('page_url');
-            $table->string('language');
+            $table->integer('language');
+            $table->string('designation');
+            $table->string('metakeyword');
+            $table->string('metadescription');
+            $table->longtext('description');
             $table->string('txtuplode')->nullable();
-            $table->integer('event_type');
-            $table->tinyint('menutype');
-            $table->string('pdf_upload')->nullable();
+            $table->string('txtweblink');
             $table->integer('txtstatus');
-            $table->text('sortdesc');
-            $table->longText('description');
             $table->integer('admin_id');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->time('create_date')->nullable();
+            $table->time('update_date');
             $table->timestamps();
-        });
+
+             });
     }
 
     /**
@@ -36,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_exhibitions');
+        Schema::dropIfExists('ministers');
     }
 };

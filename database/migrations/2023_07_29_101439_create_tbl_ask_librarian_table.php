@@ -9,6 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //pushpendra
     public function up(): void
     {
         Schema::create('tbl_ask_librarian', function (Blueprint $table) {
@@ -20,7 +21,7 @@ return new class extends Migration
         $table->text('suggestions');
         $table->string('request_ip');
         $table->string('resuest_date');
-        $table->int('status');
+        $table->integer('status');
         $table->timestamps();
         });
     }

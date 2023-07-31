@@ -9,10 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //pushpendra
     public function up(): void
     {
         Schema::create('photogallery_category', function (Blueprint $table) {
-            $table->int('id')->unsigned();
+            $table->integer('id')->unsigned();
             $table->string('name');
             $table->tinyint('language');
             $table->tinyint('status')->default(1)->comment('0 = Inactive and 1 = active');
