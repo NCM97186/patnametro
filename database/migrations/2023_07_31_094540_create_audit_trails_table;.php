@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('audit_trail', function (Blueprint $table) {
+        Schema::create('audit_trails', function (Blueprint $table) {
             $table->bigInteger('user_login_id');
             $table->bigInteger('page_id')->nullable();
             $table->string('page_name')->nullable();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('audit_trail');
+        Schema::dropIfExists('audit_trails');
     }
 };
