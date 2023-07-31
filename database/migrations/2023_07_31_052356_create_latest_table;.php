@@ -10,35 +10,37 @@ return new class extends Migration
      * Run the migrations.
      */
     //pushpendra
-    public function up(): void
+   public function up(): void
     {
-        Schema::create('whatsnews', function (Blueprint $table) {
+        Schema::create('latest', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->string('url')->nullable();
             $table->string('page_url');
-            $table->bigInteger('is_new');
-            $table->bigInteger('language');
-            $table->bigInteger('menutype');
+            $table->integer('is_new');
+            $table->integer('language');
+            $table->integer('menutype');
             $table->string('metakeyword');
             $table->string('metadescription');
-            $table->string('description');
-            $table->string('txtuplode')->nullable();;
+            $table->longtext('description')->nullable();
+            $table->string('txtuplode')->nullable();
             $table->string('txtweblink');
-            $table->bigInteger('txtstatus');
-            $table->bigInteger('admin_id');
-            $table->date('startdate');
-            $table->date('enddate');
-
+            $table->integer('txtstatus');
+            $table->integer('admin_id');
+            $table->time('startdate');
+            $table->time('enddate');
+            $table->time('create_date')->nullable();
+            $table->time('update_date')->nullable();
             $table->timestamps();
-            });
-            }
+
+             });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('whatsnews');
+        Schema::dropIfExists('latest');
     }
 };

@@ -9,6 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //pushpendra
     public function up(): void
     {
         Schema::create('photogallery', function (Blueprint $table) {
