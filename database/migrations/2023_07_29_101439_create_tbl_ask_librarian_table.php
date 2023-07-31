@@ -20,7 +20,7 @@ return new class extends Migration
         $table->text('suggestions');
         $table->string('request_ip');
         $table->string('resuest_date');
-        $table->int('status');
+        $table->integer('status');
         $table->timestamps();
         });
     }

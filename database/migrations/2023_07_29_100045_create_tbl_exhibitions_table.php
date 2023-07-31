@@ -17,13 +17,13 @@ return new class extends Migration
             $table->string('page_url');
             $table->string('language');
             $table->string('txtuplode')->nullable();
-            $table->int('event_type');
+            $table->integer('event_type');
             $table->tinyint('menutype');
             $table->string('pdf_upload')->nullable();
-            $table->int('txtstatus');
+            $table->integer('txtstatus');
             $table->text('sortdesc');
             $table->longText('description');
-            $table->int('admin_id');
+            $table->integer('admin_id');
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();

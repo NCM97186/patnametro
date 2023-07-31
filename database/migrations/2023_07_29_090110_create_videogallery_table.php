@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('videogallery', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->int('language');
+            $table->integer('language');
             $table->string('txtuplode')->default(0);
-            $table->int('txtstatus');
-            $table->int('admin_id');
+            $table->integer('txtstatus');
+            $table->integer('admin_id');
             $table->timestamps();
         });
     }

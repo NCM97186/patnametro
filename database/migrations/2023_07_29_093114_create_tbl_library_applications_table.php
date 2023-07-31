@@ -51,7 +51,7 @@ return new class extends Migration
         $table->string('final_doc');
         $table->string('administrative_head');
         $table->string('imgFwd_id');
-        $table->int('status');
+        $table->integer('status');
 
         $table->timestamps();
         });

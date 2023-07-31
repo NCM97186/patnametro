@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('photogallery', function (Blueprint $table) {
             $table->id();
              $table->string('title')->nullable();
-              $table->int('language');
+              $table->integer('language');
                $table->string('txtuplode')->nullable();
-                $table->int('txtstatus');
-                 $table->int('admin_id');
+                $table->integer('txtstatus');
+                 $table->integer('admin_id');
                   $table->date('create_date')->nullable();
                   $table->date('update_date');
-                   $table->int('category_id');
+                   $table->integer('category_id');
             $table->timestamps();
         });
     }
