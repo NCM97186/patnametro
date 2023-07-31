@@ -44,6 +44,7 @@
 
                             <div class="col-md-6">
                                 {!! captcha_image_html('ExampleCaptcha') !!}
+                                <br/>
                                 <input type="text" class="form-control @error('CaptchaCode') is-invalid @enderror" id="CaptchaCode" name="CaptchaCode">
                             </div>
                         </div>

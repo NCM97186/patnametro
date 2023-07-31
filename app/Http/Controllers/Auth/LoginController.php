@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -36,5 +36,30 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    public function index(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+            'CaptchaCode' => 'required',
+        ]);
+       // validate the user-entered Captcha code when the form is submitted
+        $code = $request->input('CaptchaCode');
+        $isHuman = captcha_validate($code);
+
+        if ($isHuman) {
+
+             $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
+    
+                return redirect()->route('home');
+            }
+        
+            return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
+       }else{
+        return back()->with('error', 'Captcha Code is incorrect');
+       }
     }
 }

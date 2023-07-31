@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
+                       
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
@@ -61,9 +61,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                        <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Captcha') }}</label>
+
                             <div class="col-md-6 offset-md-4">
                                 {!! captcha_image_html('ExampleCaptcha') !!}
-                                <input type="text" class="col-md-4 form-control" id="CaptchaCode" name="CaptchaCode">
+                                <br/>
+                                <input type="text" class="form-control" id="CaptchaCode" name="CaptchaCode">
 
                                 @error('CaptchaCode')
                                     <span class="invalid-feedback" role="alert">

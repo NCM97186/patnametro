@@ -17,9 +17,13 @@
                                  <li>
                                     <a class="dropdown-toggle" data-toggle="dropdown"><span class="name_user"><i class="fa fa-user fa-fw"></i>Admin</span></a>
                                     <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="#" >Change Password</a>
-                                       <a class="dropdown-item" href="#">Log Out <i class="fa fa-sign-out"></i></a>
-                                    </div>
+   <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+   class="dropdown-item" href="{{ route('logout') }}">Log Out <i class="fa fa-sign-out"></i>Change Password</a>
+                                        
+                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                                   </div>
                                  </li>
                               </ul>
                            </div>
