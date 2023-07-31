@@ -23,10 +23,10 @@ return new class extends Migration
         $table->string('metakeyword');
         $table->string('metadescription');
         $table->longText('description');
-        $table->string(' txtuplode');
+        $table->string('txtuplode');
         $table->string('txtweblink');
         $table->integer('txtstatus');
-        $table->admin_id('txtstatus');
+        $table->integer('admin_id');
         $table->date('start_date');
         $table->date('end_date');
         $table->timestamps();

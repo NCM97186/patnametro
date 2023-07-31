@@ -10,15 +10,12 @@ return new class extends Migration
      * Run the migrations.
      */
     //pushpendra
-    public function up(): void
+   public function up(): void
     {
-        Schema::create('videogallery', function (Blueprint $table) {
+        Schema::create('patnametro_sessions', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('language');
-            $table->string('txtuplode')->default(0);
-            $table->integer('txtstatus');
-            $table->integer('admin_id');
+            $table->string('ip_address');
+            $table->binary('data');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('videogallery');
+        Schema::dropIfExists('patnametro_sessions');
     }
 };

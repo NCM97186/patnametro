@@ -12,7 +12,7 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('tbl_ask_librarian', function (Blueprint $table) {
+        Schema::create('tbl_ask_librarians', function (Blueprint $table) {
         $table->id();
         $table->string('name');
         $table->string('email');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_ask_librarian');
+        Schema::dropIfExists('tbl_ask_librarians');
     }
 };

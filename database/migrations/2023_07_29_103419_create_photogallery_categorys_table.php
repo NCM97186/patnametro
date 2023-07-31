@@ -12,11 +12,11 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('photogallery_category', function (Blueprint $table) {
+        Schema::create('photogallery_categorys', function (Blueprint $table) {
             $table->integer('id')->unsigned();
             $table->string('name');
-            $table->tinyint('language');
-            $table->tinyint('status')->default(1)->comment('0 = Inactive and 1 = active');
+            $table->tinyInteger('language');
+            $table->tinyInteger('status')->default(1)->comment('0 = Inactive and 1 = active');
             $table->date('modified');
             $table->date('created');
             $table->timestamps();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('photogallery_category');
+        Schema::dropIfExists('photogallery_categorys');
     }
 };

@@ -12,7 +12,7 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('signup', function (Blueprint $table) {
+        Schema::create('signups', function (Blueprint $table) {
             
             $table->id();
             $table->string('user_name');
@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('user_status')->default(0);
             $table->datetime('last_login_date');
             $table->string('address');
-            $table->datetime('dateadded')->default(0);
-            $table->tinyint('deleted');
+            $table->datetime('dateadded');
+            $table->tinyInteger('deleted');
             $table->datetime('deletedon');
             $table->timestamps();
         });
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('signup');
+        Schema::dropIfExists('signups');
     }
 };

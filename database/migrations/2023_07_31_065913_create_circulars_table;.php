@@ -12,7 +12,7 @@ return new class extends Migration
     //pushpendra
    public function up(): void
     {
-        Schema::create('circular', function (Blueprint $table) {
+        Schema::create('circulars', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->string('url')->nullable();
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('circular');
+        Schema::dropIfExists('circulars');
     }
 };

@@ -12,15 +12,16 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('banner', function (Blueprint $table) {
+        Schema::create('photogallerys', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->integer('language');
             $table->string('txtuplode')->nullable();
             $table->integer('txtstatus');
             $table->integer('admin_id');
-            $table->date('create_date');
+            $table->date('create_date')->nullable();
             $table->date('update_date');
+            $table->integer('category_id');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banner');
+        Schema::dropIfExists('photogallerys');
     }
 };

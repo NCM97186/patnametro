@@ -12,7 +12,7 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('menu', function (Blueprint $table) {
+        Schema::create('menus', function (Blueprint $table) {
         $table->bigInteger('m_id');
         $table->integer('m_type');
         $table->integer('m_flag_id')->nullable();
@@ -21,8 +21,8 @@ return new class extends Migration
         $table->string('m_name')->nullable();
         $table->string('m_url')->nullable();
         $table->string('m_title')->nullable();
-        $table->text('m_keyword');
-        $table->text('m_description')->nullable();
+        $table->string('m_keyword');
+        $table->string('m_description')->nullable();
         $table->longtext('content');
         $table->string('doc_uplode')->nullable();
         $table->string('linkstatus')->nullable();
@@ -30,11 +30,11 @@ return new class extends Migration
         $table->time('end_date');
         $table->time('create_date');
         $table->time('update_date');
-        $table->tinyint('approve_status')->default(0);
+        $table->tinyInteger('approve_status')->default(0);
         $table->integer('admin_id');
         $table->integer('page_postion')->nullable();
         $table->integer('current_version');
-        $table->text('welcomedescription');
+        $table->string('welcomedescription');
         $table->timestamps();
 
              });
@@ -45,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu');
+        Schema::dropIfExists('menus');
     }
 };

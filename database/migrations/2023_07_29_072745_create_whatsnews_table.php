@@ -17,16 +17,16 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('url')->nullable();
             $table->string('page_url');
-            $table->bigInteger('is_new');
-            $table->bigInteger('language');
-            $table->bigInteger('menutype');
+            $table->integer('is_new');
+            $table->integer('language');
+            $table->integer('menutype');
             $table->string('metakeyword');
             $table->string('metadescription');
             $table->string('description');
             $table->string('txtuplode')->nullable();;
             $table->string('txtweblink');
-            $table->bigInteger('txtstatus');
-            $table->bigInteger('admin_id');
+            $table->integer('txtstatus');
+            $table->integer('admin_id');
             $table->date('startdate');
             $table->date('enddate');
 

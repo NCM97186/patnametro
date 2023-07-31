@@ -19,7 +19,7 @@ return new class extends Migration
         $table->string('phone')->default(0);
         $table->string('address');
         $table->date('txt_os_visitdate');
-        $table->taxt('suggestions');
+        $table->string('suggestions');
         $table->string('request_ip');
         $table->date('request_date');
         $table->timestamps();

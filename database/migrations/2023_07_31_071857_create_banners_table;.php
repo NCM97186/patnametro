@@ -12,19 +12,17 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('ministry_logos', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->string('language');
+            $table->integer('language');
             $table->string('txtuplode')->nullable();
             $table->integer('txtstatus');
             $table->integer('admin_id');
-            $table->date('create_date')->nullable();
+            $table->date('create_date');
             $table->date('update_date');
-            $table->string('page_url');
             $table->timestamps();
-
-             });
+        });
     }
 
     /**
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ministry_logos');
+        Schema::dropIfExists('banners');
     }
 };

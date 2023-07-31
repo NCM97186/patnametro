@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('language');
             $table->string('txtuplode')->nullable();
             $table->integer('event_type');
-            $table->tinyint('menutype');
+            $table->tinyInteger('menutype');
             $table->string('pdf_upload')->nullable();
             $table->integer('txtstatus');
-            $table->text('sortdesc');
+            $table->string('sortdesc');
             $table->longText('description');
             $table->integer('admin_id');
             $table->date('start_date');

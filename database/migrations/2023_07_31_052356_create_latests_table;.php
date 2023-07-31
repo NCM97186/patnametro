@@ -12,7 +12,7 @@ return new class extends Migration
     //pushpendra
    public function up(): void
     {
-        Schema::create('latest', function (Blueprint $table) {
+        Schema::create('latests', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->string('url')->nullable();
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('latest');
+        Schema::dropIfExists('latests');
     }
 };
