@@ -52,6 +52,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'CaptchaCode' => ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,10 +65,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $code =$data['CaptchaCode'];
+        $isHuman = captcha_validate($code);
+    
+        if ($isHuman) {
+            $name=$data['name'];
+            $email=$data['email'];
+            return User::create([
+                'name' => "$name",
+                'email' =>   "$email",
+                'user_name' =>   "$name",
+                'login_name' =>   "$name",
+                'password' => Hash::make($data['password']),
+            ]);
+       }else{
+        return back()->with('error', 'Captcha Code is incorrect');
+       }
     }
 }

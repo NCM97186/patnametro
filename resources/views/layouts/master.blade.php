@@ -7,21 +7,21 @@
          <div class="inner_container">
             <!-- Sidebar  -->
              @include('../includes.sidebar');
-            </div>
+         </div>
 
             <div id="content">
                <!-- topbar -->
                <div class="topbar">
-                 @include('../includes.header');
+                   @include('../includes.header');
                </div>
                <!-- end topbar -->
                <!-- dashboard inner -->
               
-                     <section id="container" class=""> 
-                    @yield('content')
-                     </section>
+               <section id="container" class=""> 
+               @yield('content')
+               </section>
 
-                  
-                @include('../includes.footer');
+            
+            @include('../includes.footer');
    </body>
 </html>
