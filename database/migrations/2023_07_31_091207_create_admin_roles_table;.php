@@ -9,16 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    //pushpendra
+     public function up(): void
     {
         Schema::create('admin_roles', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('role_id')->default(0);
-            $table->string('role_name')->default('null');
-            $table->string('module_id')->default('null');
-            $table->boolean('role_status');
-            $table->bigInteger('role_type')->default(0);
-            $table->string('user_id')->default('null');
+            $table->bigInteger('role_id');
+            $table->string('role_name')->nullable();
+            $table->string('module_id')->nullable();
+            $table->tinyInteger('role_status');
+            $table->integer('role_type')->nullable();
+            $table->string('user_id');
             $table->timestamps();
         });
     }
