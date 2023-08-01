@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 class LoginController extends Controller
 {
     /*
@@ -26,7 +27,9 @@ class LoginController extends Controller
      *
      * @var string
      */
-    //protected $redirectTo = RouteServiceProvider::HOME;
+
+   
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -37,29 +40,43 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    public function index(Request $request)
-    {
-        $request->validate([
-            'email' => 'required',
+    /**
+     * Create a new controller instance.
+     * New changes 
+     * @return RedirectResponse
+     */
+    public function login(Request $request): RedirectResponse
+    {   
+        
+        $input = $request->all();
+     
+        $this->validate($request, [
+            'email' => 'required|email',
             'password' => 'required',
-            'CaptchaCode' => 'required',
+            'CaptchaCode'=>'required',
         ]);
-       // validate the user-entered Captcha code when the form is submitted
         $code = $request->input('CaptchaCode');
         $isHuman = captcha_validate($code);
-
-        if ($isHuman) {
-
-             $credentials = $request->only('email', 'password');
-
-            if (Auth::attempt($credentials)) {
     
-                return redirect()->route('home');
-            }
+        if ($isHuman) {
+       
         
-            return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
-       }else{
-        return back()->with('error', 'Captcha Code is incorrect');
-       }
+            if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+            {  
+                if (auth()->user()->userType == 'admin') {
+                    return redirect()->route('admin.home');
+                }else if (auth()->user()->userType == 'vendor') {
+                    return redirect()->route('vendor.home');
+                }else{
+                    return redirect()->route('home');
+                }
+            }else{
+            
+                return redirect()->route('login')->with('error','Email-Address And Password Are Wrong.');
+            }
+        } else {
+            return redirect()->route('login')->with('error','Captcha Is Wrong.');
+        }
+          
     }
 }
