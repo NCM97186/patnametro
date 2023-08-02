@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,10 @@ Auth::routes();
 Route::group(['middleware' => ['auth','admin']], function () {
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         // Route::view('/admin/user', 'admin.users');
-        Route::get('/admin/user', [UserController::class, 'index']);
+         Route::resource('/admin/user', UserController::class);
+        // Route::get('/admin/user', [UserController::class, 'index']);
+        // Route::put('/admin/user/{id}',[UserController::class, 'edit'])->name('users.edit');
+        // Route::delete('/admin/user/{id}',[UserController::class, 'destroy'])->name('users.destroy');
         Route::view('/admin/user_role', 'admin.user_role');
         Route::view('/admin/menu', 'admin.menu');
         Route::view('/admin/whatsnew', 'admin.whatsnew');

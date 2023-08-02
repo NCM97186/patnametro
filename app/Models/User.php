@@ -31,7 +31,7 @@ class User extends Authenticatable
         'department',
         'flag_id',
         'email',
-        'password',
+        'password'
     ];
 
     /**

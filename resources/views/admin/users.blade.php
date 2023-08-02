@@ -17,7 +17,11 @@
                         <div class="panel-heading">
                             Manage User
                         </div>
-                        <!-- /.panel-heading -->
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                    </div>
+                    @endif
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover">
@@ -27,46 +31,34 @@
                                             <th>Name</th>
                                             <th>Username</th>
                                             <th>User Email Id</th>
-                                            <th>Designation</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
+
                                     <tbody>
+                                       
+                                         @foreach ($user as $users)
+                                         
 									       <tr>
-                                            <td>1</td>
-                                            <td>Niraj Kumar</td>
-                                            <td>nirajadmin</td>
-                                            <td>yaraditoli@gmail.com</td>
-                                            <td>ALIO</td>
+                                            <td>{{$users->id}}</td>
+                                            <td>{{$users->name}}</td>
+                                            <td>{{$users->user_name}}</td>
+                                            <td>{{$users->email}}</td>
                                             <td>Active</td>
-                                            <td><a href="#" class="btn btn-success btn-xs">Edit</a>
-                                             <a href="#" class="btn btn-danger btn-xs">Delete</a>
+                    <form action="{{ route('user.destroy',$users->id) }}" method="POST"> 
+                                            <td>
+                                                 <a class="btn btn-primary" href="{{ route('user.edit',$users->id) }}">Edit</a>
+                                            @csrf
+                                            @method('DELETE')
+
+                                   <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
                                               </td>
                                         </tr>
-									         <tr>
-                                            <td>2</td>
-                                            <td>kesh</td>
-                                            <td>kesh</td>
-                                            <td>pushpendrakumaadr044@gmail.com</td>
-                                            <td>php</td>
-                                            <td>Active</td>
-                                            <td><a href="#" class="btn btn-success btn-xs">Edit</a>
-                                                    <a href="#" class="btn btn-danger btn-xs">Delete</a>
-                                                	</td>
-                                        </tr>
-									        <tr>
-                                            <td>3</td>
-                                            <td>Rakesh Kumar</td>
-                                            <td>rakesh</td>
-                                            <td>rakesh@gmail.com</td>
-                                            <td>System Admin</td>
-                                            <td>Active</td>
-                                            <td><a href="#" class="btn btn-success btn-xs">Edit</a>
-                                                    <a href="#" class="btn btn-danger btn-xs">Delete</a>
-                                               </td>
-                                           </tr>
-									                                    </tbody>
+                                      
+                                        @endforeach
+									  </tbody>
                                 </table>
                             </div>
                             <!-- /.table-responsive -->

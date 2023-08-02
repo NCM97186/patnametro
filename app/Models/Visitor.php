@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Visitor extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'visitors_ip',
+        'visitors_count',
+        'page_name'
+
+
+    ];
 }
