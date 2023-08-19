@@ -1,10 +1,12 @@
 @extends('layouts.master')
 @section('content')
 @section('title', 'View Details')
+
+
 		<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-xm-12">
-                    <h1 class="page-header">View Details<a href="" title="Back" class="btn btn-primary pull-right">Back</a>
+                    <h1 class="page-header">View Details<a href="{{URL::to('admin/asklibrarian')}}" title="Back" class="btn btn-primary pull-right">Back</a>
 					</h1>
                 </div>
                 <!-- /.col-lg-12 col-md-12 col-xm-12 -->
@@ -22,7 +24,7 @@
 									<tbody>
 										<tr>
 											<th>Name</th>
-											<td>{{$Tbl_ask_librarians->name}}</td>
+											<td>{{$Tbl_ask_librarians[0]->name}}</td>
 										</tr>
 										<tr>
 											<th>E-mail</th>
@@ -60,7 +62,7 @@
                 <strong>{{ $message }}</strong>
             </div>
         @endif
-                        <form action ="{{route('admin/asklibrarian')}}" name="submit" method ="POST">
+                        <form action ="" name="submit" method ="POST">
                            @csrf
                      <div class="col-md-4 form-group">
                         <div class="row">

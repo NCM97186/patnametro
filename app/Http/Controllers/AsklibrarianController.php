@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tbl_ask_librarians;
+use App\Models\admin\Tbl_ask_librarians;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,7 +15,7 @@ class AsklibrarianController extends Controller
     {
         $asklibrarian=Tbl_ask_librarians::all();
         
-        
+       // dd($asklibrarian);
         return view('admin.Asklibrarian',compact(['asklibrarian']));
     }
 
@@ -48,6 +48,10 @@ class AsklibrarianController extends Controller
     public function show(Tbl_ask_librarians $Tbl_ask_librarians)
     {
          
+       //dd($Tbl_ask_librarians);
+         $Tbl_ask_librarians = Tbl_ask_librarians::find($Tbl_ask_librarians);
+    // dd($asklibrarian);
+    //     //dd($asklibrarian);
         return view('admin.asklibrarian_view',compact(['Tbl_ask_librarians']));
     }
 

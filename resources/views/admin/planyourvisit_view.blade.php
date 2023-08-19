@@ -4,7 +4,7 @@
 		<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-xm-12">
-                    <h1 class="page-header">View Details<a href="" title="Back" class="btn btn-primary pull-right">Back</a>
+                    <h1 class="page-header">View Details<a href="{{URL::to('admin/planyourvisit')}}" title="Back" class="btn btn-primary pull-right">Back</a>
 					</h1>
                 </div>
                 <!-- /.col-lg-12 col-md-12 col-xm-12 -->
@@ -60,7 +60,7 @@
                 <strong>{{ $message }}</strong>
             </div>
         @endif
-             <form action ="{{route('/admin/planyourvisit')}}" name="submit" method ="POST">
+             <form action ="" name="submit" method ="POST">
              	@csrf
                            
                      <div class="col-md-4 form-group">
