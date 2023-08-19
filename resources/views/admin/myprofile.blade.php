@@ -1,28 +1,27 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage User')
+@section('title', 'myprofile')
 
 <!-- <h1 class="page-header">Manage User</h1> -->
 <div id="page-wrapper">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Manage User<a href="{{URL::to('admin/user/create')}}" class="btn btn-primary pull-right">Add User</a></h1>
-                </div>
+                <!-- <div class="col-lg-12">
+                    <h1 class="page-header">Manage User<a href="#" class="btn btn-primary pull-right">Add User</a></h1>
+                </div> -->
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-12">
+				<div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Manage User
                         </div>
-                
-                        @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                        </div>
-                        @endif
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                    </div>
+                    @endif
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover">
@@ -46,19 +45,14 @@
                                             <td>{{$users->name}}</td>
                                             <td>{{$users->user_name}}</td>
                                             <td>{{$users->email}}</td>
-                                            @if($users->user_status==1)
                                             <td>Active</td>
-                                            @else
-                                            <td>InActive</td>
-                                            @endif
-
-                    <form action="{{ route('user.destroy',$users->id) }}"  method="POST"> 
+                    <form action="{{ route('user.destroy',$users->id) }}" method="POST"> 
                                             <td>
                                                  <a class="btn btn-primary" href="{{ route('user.edit',$users->id) }}">Edit</a>
                                             @csrf
                                             @method('DELETE')
 
-                                   <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                   <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                               </td>
                                         </tr>

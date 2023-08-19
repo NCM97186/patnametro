@@ -5,6 +5,7 @@
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
                            <a class="navbar-brand" href="javascript:void(0);" style="margin-left:15px; color: white;"> Welcome Super Admin( Super Admin )</a>
+                           <a  style="color:white;">Welcome: {{ ucfirst(Auth()->user()->name) }}</a>
                         </div>
                         <div class="right_topbar">
                            <div class="icon_info">
@@ -15,10 +16,13 @@
                               </ul> -->
                               <ul class="user_profile_dd">
                                  <li>
+
                                     <a class="dropdown-toggle" data-toggle="dropdown"><span class="name_user"><i class="fa fa-user fa-fw"></i>Admin</span></a>
                                     <div class="dropdown-menu">
-   <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
-   class="dropdown-item" href="{{ route('logout') }}">Log Out <i class="fa fa-sign-out"></i>Change Password</a>
+                                    <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+                                    class="dropdown-item" href="{{ route('logout') }}">Log Out</a>
+                                    
+                                    <a href ="#">Change Password</a>
                                         
                                                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf

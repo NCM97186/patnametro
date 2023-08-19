@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Planyourvisit;
+use App\Models\admin\tbl_plan_visits;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,10 @@ class PlanyourvisitController extends Controller
      */
     public function index()
     {
-        //
+        $Planyourvisit=tbl_plan_visits::all();
+        
+        
+        return view('admin.Planyourvisit',compact(['Planyourvisit']));
     }
 
     /**
@@ -21,7 +24,7 @@ class PlanyourvisitController extends Controller
      */
     public function create()
     {
-        //
+       return view('admin.Planyourvisit',compact(['Planyourvisit']));
     }
 
     /**
@@ -29,21 +32,29 @@ class PlanyourvisitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+             'status' => 'required'
+        ]);
+        Tbl_ask_librarians::create([
+            'status' => $request['status']
+        ]);
+         return redirect('admin/Planyourvisit')->with('success','User created successfully.');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Planyourvisit $planyourvisit)
+    public function show(tbl_plan_visits $tbl_plan_visits)
     {
-        //
+        //$Planyourvisit=tbl_plan_visits::all();
+        return view('admin.planyourvisit_view',compact(['tbl_plan_visits']));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Planyourvisit $planyourvisit)
+    public function edit(tbl_plan_visits $tbl_plan_visits)
     {
         //
     }
@@ -51,7 +62,7 @@ class PlanyourvisitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Planyourvisit $planyourvisit)
+    public function update(Request $request, tbl_plan_visits $tbl_plan_visits)
     {
         //
     }
@@ -59,7 +70,7 @@ class PlanyourvisitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Planyourvisit $planyourvisit)
+    public function destroy(tbl_plan_visits $tbl_plan_visits)
     {
         //
     }

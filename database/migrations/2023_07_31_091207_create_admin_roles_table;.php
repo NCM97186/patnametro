@@ -13,7 +13,9 @@ return new class extends Migration
      public function up(): void
     {
         Schema::create('admin_roles', function (Blueprint $table) {
-            $table->bigInteger('role_id');
+            $table->id();
+            $table->Integer('role_id');
+
             $table->string('role_name')->nullable();
             $table->string('module_id')->nullable();
             $table->tinyInteger('role_status');

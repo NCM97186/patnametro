@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\User_roleController;
+use App\Http\Controllers\AsklibrarianController;
+use App\Http\Controllers\PlanyourvisitController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,11 +26,17 @@ Auth::routes();
 Route::group(['middleware' => ['auth','admin']], function () {
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         // Route::view('/admin/user', 'admin.users');
+        
          Route::resource('/admin/user', UserController::class);
-        // Route::get('/admin/user', [UserController::class, 'index']);
-        // Route::put('/admin/user/{id}',[UserController::class, 'edit'])->name('users.edit');
-        // Route::delete('/admin/user/{id}',[UserController::class, 'destroy'])->name('users.destroy');
-        Route::view('/admin/user_role', 'admin.user_role');
+        Route::any('/admin/store', [UserController::class, 'store'])->name('/admin/user');
+        
+
+
+        Route::resource('/admin/user_role', User_roleController::class);
+       Route::post('/admin/user_role/{$admin_role}', [User_roleController::class, 'destroy'])->name('admin_role');
+       Route::resource('/admin/asklibrarian', AsklibrarianController::class);
+        Route::resource('/admin/planyourvisit', PlanyourvisitController::class);
+
         Route::view('/admin/menu', 'admin.menu');
         Route::view('/admin/whatsnew', 'admin.whatsnew');
         Route::view('/admin/minister', 'admin.minister');
@@ -48,8 +56,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
         Route::view('/admin/visitor','admin.visitor');
         Route::view('/admin/photogallery','admin.photogallery');
         Route::view('/admin/videogallery','admin.videogallery');
-        Route::view('/admin/planyourvisit','admin.planyourvisit');
-        Route::view('/admin/asklibrarian','admin.asklibrarian');
+        //Route::view('/admin/planyourvisit','admin.planyourvisit');
+       // Route::view('/admin/asklibrarian','admin.asklibrarian');
        
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,91 +1,182 @@
-@extends('layouts.app')
-
+@extends('layouts.master')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+@section('title', 'Update user')
+<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xm-12">
+                    <h1 class="page-header"><a href="{{URL::to('admin/user')}}" title="Back" class="btn btn-primary pull-right">Back</a></h1>
+                </div>
+                <!-- /.col-lg-12 col-md-12 col-xm-12 -->
+            </div>
+            <!-- /.row -->
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-                       
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Basic Form Elements
                         </div>
+                    @if (session('message'))
+                    <div class="alert alert-success">
+                    {{ session('message') }}
+                    </div>
+                    @endif
+                        <form action="{{ url::to('/admin/user',$user->id) }}"  method="POST" >
+                            @csrf
+                             @method('PUT')
+                            <div class="panel-body">
+                                
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-xm-3">
+                                        <div class="form-group">
+                                            <label>Username:</label>
+                                            <span class="star">*</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xm-6">
+                                        <div class="form-group">
+                                            <input name="user_name" autocomplete="off"  type="text" class="input_class form-control" id="login_name" value="{{$user->user_name}}"/>
+                                          </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-xm-3">
+                                        <div class="form-group">
+                                            <label>Password:</label>
+                                            <span class="star">*</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xm-6">
+                                        <div class="input_class form-group">
+                                            <input name="password" autocomplete="off"   type="password" class="input_class form-control" id="user_pass" value="{{$user->password}}"/>
+                                         </div>
+                                    </div>
+                                </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-xm-3">
+                                        <div class="form-group">
+                                            <label>Confirm Password:</label>
+                                            <span class="star">*</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xm-6">
+                                        <div class="input_class form-group">
+                                            <input name="password_confirmation" autocomplete="off"  type="password" class="input_class form-control" id="conf_pass" value="{{$user->password}}"/>
+                                          </div>
+                                    </div>
+                                </div>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-xm-3">
+                                        <div class="form-group">
+                                            <label>Name:</label>
+                                            <span class="star">*</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xm-6">
+                                        <div class="form-group">
+                                            <input name="name" autocomplete="off" type="text" class="input_class form-control" id="user_name" value="{{$user->name}}"/>
+                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-xm-3">
+                                        <div class="form-group">
+                                            <label>Login name:</label>
+                                            <span class="star">*</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xm-6">
+                                        <div class="form-group">
+                                            <input name="login_name" autocomplete="off" type="text" class="input_class form-control" id="login_name" value="{{$user->login_name}}"/>
+                                              </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-xm-3">
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <span class="star">*</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xm-6">
+                                        <div class="input_class form-group">
+                                            <input name="email" autocomplete="off"  type="text" class="input_class form-control" id="user_email" value="{{$user->email}}"/>
+                                         </div>
+                                    </div>
+                                </div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-xm-3">
+                                        <div class="form-group">
+                                            <label>Designation:</label>
+                                            <span class="star">*</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xm-6">
+                                        <div class="input_class form-group">
+                                            <input name="designation" autocomplete="off"  type="text" class="input_class form-control" id="designation" value="{{$user->designation}}"/>
+                                           </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-xm-3">
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <span class="star">*</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xm-6">
+                                        <div class="form-group">
+                                            <select name="user_status" class="input_class form-control" id="user_status" autocomplete="off">
+                            <option value=""> Select </option>
+
+                  <option value="0" @if($user->user_status == '0') ? selected : null @endif>InActive </option>
+                 <option value="1" @if($user->user_status == '1') ? selected : null @endif> Active</option>
+                                                
+                                                <!-- <option value="0" >InActive</option>
+                                                <option value="1" >Active</option> -->
+                                            </select>
+                                         </div>
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-xm-3">
+                                        <div class="form-group">
+                                            <label>User Type:</label>
+                                            <span class="star">*</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xm-6">
+                                        <div class="form-group">
+                                            <select name="user_status" class="input_class form-control" id="user_status" autocomplete="off">
+                            <option value=""> Select </option>
+
+                  <option value="0" @if($user->user_type == '2') ? selected : null @endif>Creator </option>
+                 <option value="1" @if($user->user_type == '3') ? selected : null @endif> Publisher</option>
+                                                
+                                                <!-- <option value="0" >InActive</option>
+                                                <option value="1" >Active</option> -->
+                                            </select>
+                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-xm-12">
+                                        <div class="pull-right">
+                    <input name="submit" type="submit" class="btn btn-success"  value="Update"  />&nbsp;
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-
-                       <!--  <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div> -->
-                        <div class="row mb-3">
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Captcha') }}</label>
-
-                            <div class="col-md-6 offset-md-4">
-                                {!! captcha_image_html('ExampleCaptcha') !!}
-                                <br/>
-                                <input type="text" class="form-control" id="CaptchaCode" name="CaptchaCode">
-
-                                @error('CaptchaCode')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Update') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>                 </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 @endsection

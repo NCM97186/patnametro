@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Asklibrarian;
+use App\Models\Tbl_ask_librarians;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,10 @@ class AsklibrarianController extends Controller
      */
     public function index()
     {
-        //
+        $asklibrarian=Tbl_ask_librarians::all();
+        
+        
+        return view('admin.Asklibrarian',compact(['asklibrarian']));
     }
 
     /**
@@ -21,7 +24,7 @@ class AsklibrarianController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.Asklibrarian',compact(['asklibrarian']));
     }
 
     /**
@@ -29,38 +32,47 @@ class AsklibrarianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+             'status' => 'required'
+        ]);
+        Tbl_ask_librarians::create([
+            'status' => $request['status']
+        ]);
+         return redirect('admin/asklibrarian')->with('success','User created successfully.');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Asklibrarian $asklibrarian)
+    public function show(Tbl_ask_librarians $Tbl_ask_librarians)
     {
-        //
+         
+        return view('admin.asklibrarian_view',compact(['Tbl_ask_librarians']));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Asklibrarian $asklibrarian)
+    public function edit(Tbl_ask_librarians $Tbl_ask_librarians)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Asklibrarian $asklibrarian)
+    public function update(Request $request, Tbl_ask_librarians $Tbl_ask_librarians)
     {
-        //
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Asklibrarian $asklibrarian)
+    public function destroy(Tbl_ask_librarians $Tbl_ask_librarians)
     {
-        //
+        $Tbl_ask_librarians->delete();
+        return redirect('admin/asklibrarian')->with('success', 'asklibrarian deleted successfully');
     }
 }
