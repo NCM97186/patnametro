@@ -6,6 +6,8 @@
          </div>
       </div>
       <!-- jQuery -->
+      <script src="{{ url('/public/assets/js/cryptojs-aes.min.js')}}"></script>
+      <script src="{{ url('/public/assets/js/cryptojs-aes-format.js')}}"></script>
       <script src="{{ URL::asset('/public/assets/js/jquery.min.js')}}"></script>
       <script src="{{ URL::asset('/public/assets/js/popper.min.js')}}"></script>
       <script src="{{ URL::asset('/public/assets/js/bootstrap.min.js')}}"></script>

@@ -8,6 +8,7 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
+                <p>Date: {{ convertYmdToMdy('2022-02-12') }}</p>
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}

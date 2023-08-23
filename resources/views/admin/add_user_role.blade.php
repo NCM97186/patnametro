@@ -106,7 +106,7 @@
                            <div class="checkbox">
                             <label style="font-size: 1.5em">
                             <input type="checkbox" class="form-check-input" name="check_module[]"  id="3" value="3" data-id='3'>
-                            Manage Minister's Profile</label>
+                            Manage PMRCL Profile</label>
                             </div>
                             </li>
 
@@ -180,7 +180,7 @@
                             Manage Faq </label>
                             </div>
                             </li>
-
+<!-- 
                             <li>
 
                             <div class="checkbox">
@@ -191,9 +191,9 @@
 
                             Manage Feedback</label>
                             </div>
-                            </li>
+                            </li> -->
 
-                            <li>
+                            <!-- <li>
 
                             <div class="checkbox">
 
@@ -203,7 +203,7 @@
 
                             Manage Discussion Forum            </label>
                             </div>
-                            </li>
+                            </li> 
 
                             <li>
 
@@ -289,7 +289,7 @@
                             </div>
                             </li>
 
-                            <li>
+                            <li>-->
 
                             <div class="checkbox">
 
@@ -301,7 +301,7 @@
                             </div>
                             </li>
 
-                            <li>
+                            <!-- <li>
 
                             <div class="checkbox">
 
@@ -323,7 +323,7 @@
 
                             Manage Discussion Topics </label>
                             </div>
-                            </li>
+                            </li> -->
 
                             <li>
 
@@ -366,7 +366,7 @@
                             </div>
                             </li>
 
-                            <li>
+                            <!-- <li>
 
                             <div class="checkbox">
 
@@ -383,7 +383,7 @@
                             <input type="checkbox" class="form-check-input" name="check_module[]"  id="37" value="37" data-id='37'>
                             Manage Ask Librarian</label>
                             </div>
-                            </li>
+                            </li> -->
                             </ul>
                             </div>
                             </div>

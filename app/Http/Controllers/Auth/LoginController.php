@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use Carbon\Carbon;
 class LoginController extends Controller
 {
     /*
@@ -62,7 +64,8 @@ class LoginController extends Controller
        
         
             if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-            {  
+            {   $date=Carbon::now();
+                User::where('email', $input['email'])->update(['last_login_date' => $date]);
                 if (auth()->user()->userType == 'admin') {
                     return redirect()->route('admin.home');
                 }else if (auth()->user()->userType == 'vendor') {

@@ -4,8 +4,64 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30a87e2551b41a718432cb3f6cd589e6",
+    "content-hash": "359fc8990c99a9bd732f5f2ca6fef1a8",
     "packages": [
+        {
+            "name": "brainfoolong/cryptojs-aes-php",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brainfoolong/cryptojs-aes-php.git",
+                "reference": "bdc1cc675995784d899f6288ce35987977bd8e5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brainfoolong/cryptojs-aes-php/zipball/bdc1cc675995784d899f6288ce35987977bd8e5d",
+                "reference": "bdc1cc675995784d899f6288ce35987977bd8e5d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-openssl": "*",
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nullix\\CryptoJsAes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roland Eigelsreiter",
+                    "homepage": "https://github.com/brainfoolong/cryptojs-aes-php",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CryptoJS 3.x AES encryption/decryption on client side with Javascript and on server side with PHP",
+            "homepage": "https://github.com/brainfoolong/cryptojs-aes-php",
+            "keywords": [
+                "aes",
+                "encryption",
+                "javascript",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/brainfoolong/cryptojs-aes-php/issues",
+                "source": "https://github.com/brainfoolong/cryptojs-aes-php/tree/2.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/brainfoolong",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-13T08:59:00+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",
