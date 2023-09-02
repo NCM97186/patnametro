@@ -24,5 +24,5 @@ class Circular extends Model
         'admin_id',
         'startdate',
         'enddate'
-];
+   ];
 }

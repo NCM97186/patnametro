@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\User_roleController;
-use App\Http\Controllers\AsklibrarianController;
-use App\Http\Controllers\PlanyourvisitController;
+use App\Http\Controllers\Admin\AjaxRequestController;
+use App\Http\Controllers\Admin\MenuController as menu;
+use App\Http\Controllers\Admin\WebsiteSettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,27 +17,31 @@ use App\Http\Controllers\PlanyourvisitController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::group(['middleware' => ['XSS']], function () {
+        Route::get('/', function () {
+        return view('welcome');
+        });
+});
 //Route::post('login', [App\Http\Auth\LoginController::class, 'index'])->name('login');
 Auth::routes();
+// Route::middleware(['auth','admin','XSS','ajax.csrf'])->group(function () {
 
-Route::group(['middleware' => ['auth','admin']], function () {
-        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        // Route::view('/admin/user', 'admin.users');
-        
-         Route::resource('/admin/user', UserController::class);
+//       Route::any('/admin/get_primarylink_menu', [AjaxRequestController::class,'get_primarylink_menu'])->name('/admin/get_primarylink_menu');
+
+// });
+
+Route::group(['middleware' => ['auth','admin','XSS']], function () {
+        Route::resource('/admin/user', UserController::class);
+        Route::resource('/admin/setting', WebsiteSettingController::class);
+        Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
         Route::any('/admin/store', [UserController::class, 'store'])->name('/admin/user');
-        
-
-
+        Route::any('/admin/update', [UserController::class, 'update'])->name('/admin/user');
         Route::resource('/admin/user_role', User_roleController::class);
-       Route::post('/admin/user_role/{$admin_role}', [User_roleController::class, 'destroy'])->name('admin_role');
-       Route::resource('/admin/asklibrarian', AsklibrarianController::class);
-        Route::resource('/admin/planyourvisit', PlanyourvisitController::class);
-
+        Route::post('/admin/user_role/{$admin_role}', [User_roleController::class, 'destroy'])->name('admin_role');
+        Route::resource('/admin/menu', menu::class);
+        Route::any('/admin/get_primarylink_menu', [AjaxRequestController::class,'get_primarylink_menu'])->name('/admin/get_primarylink_menu');
+        Route::any('/admin/get_filter_menu', [AjaxRequestController::class,'get_filter_menu'])->name('/admin/get_filter_menu');
+ 
         // Route::view('/admin/menu', 'admin.menu');
         // Route::view('/admin/whatsnew', 'admin.whatsnew');
         // Route::view('/admin/minister', 'admin.minister');

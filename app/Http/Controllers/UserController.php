@@ -3,25 +3,24 @@
 namespace App\Http\Controllers;
 //use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-//use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
-//use DB;
+use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public function index()
     {
       
-     $user=user::where('user_type','!=',1)->get();
-         //$user = DB::select("select * from users where user_type!=1  ");
-
-        return view('admin.users',compact(['user']));
-     //}
+        $user=user::where('user_type','!=',1)->get();
+        $title="User List";
+        return view('admin/user/users',compact(['user','title']));
+ 
     
     }
 
      public function create()
-    {
-         return view('admin.adduser');
+    {    $title="Add User";
+         return view('admin/user/adduser',compact(['title']));
     }
     public function store(Request $request)
     {
@@ -41,7 +40,7 @@ class UserController extends Controller
            'name' => $request['name'],
            'user_name' => $request['user_name'],
            'email' => $request['email'],
-          'login_name' => $request['login_name'],
+            'login_name' => $request['login_name'],
            'password' => \Hash::make($request['password']),
            'designation' => $request['designation'],
            'user_status' => $request['user_status'],
@@ -58,38 +57,49 @@ class UserController extends Controller
    
     public function edit(User $user)
     {
-        //$User = User::find($user);
-        return view('admin.useredit',compact('user'));
+        //dd($user);
+        $User = User::find($user);
+        return view('admin/user/useredit',compact('user'));
 
     }
     public function update(Request $request, User $user)
     {
-        $request->validate([
+
+        $rules = array(
             'name' => 'required |max:255',
             'user_name' => 'required|max:255',
             'email'=>'required|email|unique:users',
-            'login_name'=>'required',
-            'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required',
             'designation'=>'required',
             'user_status'=>'required',
             'user_type'=>'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
 
+        // process the login
+        if ($validator->fails()) {
+          //  dd($user);
+            return redirect('admin/user')->with('error','Something went wrong. Try again');
+        } else {
+            // store
+        //dd($request);
+            $id=$request['name'];
+            $user = User::find($id);
+            $user->name = $request['name'];
+            $user->user_name = $request['user_name'];
+            $user->email  = $request['email'];
+            $user->login_name  =  $request['login_name'];
+            $user->password  =  \Hash::make($request['password']);
+            $user->designation  =  $request['designation'];
+            $user->user_status  =  $request['user_status'];
+            $user->user_type  =  $request['user_type'];
+            
+            $user->save();
 
-        ]);
-       User::edit([
-           'name' => $request['name'],
-           'user_name' => $request['user_name'],
-           'email' => $request['email'],
-           'login_name' => $request['login_name'],
-           'password' => \Hash::make($request['password']),
-           'designation' => $request['designation'],
-           'user_status' => $request['user_status'],
-           'user_type' => $request['user_type']
-        ]);
-       
-      
-        return redirect('admin/user')->with('success','User updated successfully');
+            // redirect
+            return redirect('admin/user')->with('success','User updated successfully');
+        }
+        //dd($request);
+        
     }
 
      public function destroy(User $user)

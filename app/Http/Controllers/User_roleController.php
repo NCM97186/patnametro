@@ -15,8 +15,8 @@ class User_roleController extends Controller
      {
         $user_role=admin_role::all();
         
-        
-        return view('admin.user_role',compact(['user_role']));
+        $title="Role List";
+        return view('admin.user_role',compact(['user_role','title']));
      }
 
     /**
@@ -25,11 +25,12 @@ class User_roleController extends Controller
     public function create()
     {
 
-         $user_role=admin_role::leftJoin('users', 'users.id', '=', 'admin_roles.role_id')
-      ->select('admin_roles.*','users.name')
-      ->get();
+        $user_role=admin_role::leftJoin('users', 'users.id', '=', 'admin_roles.role_id')
+        ->select('admin_roles.*','users.name')
+        ->get();
+        $title="Role Add";
         
-        return view('admin.add_user_role',compact(['user_role']));
+        return view('admin.add_user_role',compact(['user_role','title']));
         
     }
 

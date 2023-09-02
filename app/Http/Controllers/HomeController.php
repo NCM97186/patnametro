@@ -22,7 +22,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('admin/dashboard');
+    {   $title="Dashboard";
+        return view('admin/dashboard',compact(['title']));
     }
 }

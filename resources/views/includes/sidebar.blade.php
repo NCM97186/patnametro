@@ -1,16 +1,12 @@
-  
-            <nav id="sidebar">
+<!--nav id="sidebar">
                <div class="sidebar_blog_1">
                   <div class="sidebar-header">
-                     <!-- <div class="logo_section">
-                        <a href="index.html"><img class="logo_icon img-responsive" src="{{'../assets/images/logo/logo_icon.png'}}" alt="#" /></a>
-                     </div> -->
+                  
                   </div>
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <!-- <div class="user_img"><img class="img-responsive" src="{{'../images/layout_img/user_img.jpg'}}" alt="#" /></div> -->
-                        <div class="user_info">
+                         <div class="user_info">
                            <h6>Admin</h6>
                            <p><span class="online_animation"></span> Online</p>
                         </div>
@@ -63,4 +59,53 @@
                   
                   </ul>
                </div>
-            </nav>
+            </nav-->
+
+<div class="main-sidebar sidebar-style-2">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            
+            <a href="{{ url('/')}}">{{ !empty(get_setting()->website_name)?get_setting()->website_name:'Website Name' }} </a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="{{ url('/')}}">{{ !empty(get_setting()->website_short_name)?get_setting()->website_short_name:'W N' }} </a>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active">
+                <a href="{{ url('/')}}" class="nav-link"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Dashboard</span></a>
+            </li>
+            <li class="">
+                <a href="{{ url('/admin/setting')}}" class="nav-link"><i class="fas fa-cog"></i><span>Common Setting</span></a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fa fa-user fa-fw"></i> <span>Manage User </span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="nav-link" href="{{ url('/admin/user')}}"><i class="fa fa-users"></i> <span>Users</span></a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{ url('/admin/user_role')}}"><i class="fa fa-user fa-fw"></i> <span>Manage Role</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="{{ url('/admin/menu')}}"><i class="fa fa-bars"></i></i> <span>Manage Menu</span></a></li>
+                     
+            <li>
+                <a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a>
+            </li>
+            <li>
+                <a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a>
+            </li>
+        </ul>
+    </aside>
+</div>
+<div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <h1>{{ $title }}</h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item"><a href="{{ url('/admin/dashboard')}}">Dashboard</a></div>
+              <div class="breadcrumb-item active">{{ $title }}</div>
+            </div>
+          </div>
+          <div class="section-body">

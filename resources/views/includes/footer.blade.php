@@ -1,34 +1,38 @@
- <!-- footer -->
-                 
-               </div>
-               <!-- end dashboard inner -->
-            </div>
-         </div>
-      </div>
-      <!-- jQuery -->
-      <script src="{{ url('/public/assets/js/cryptojs-aes.min.js')}}"></script>
-      <script src="{{ url('/public/assets/js/cryptojs-aes-format.js')}}"></script>
-      <script src="{{ URL::asset('/public/assets/js/jquery.min.js')}}"></script>
-      <script src="{{ URL::asset('/public/assets/js/popper.min.js')}}"></script>
-      <script src="{{ URL::asset('/public/assets/js/bootstrap.min.js')}}"></script>
-      <!-- wow animation -->
-      <script src="{{ URL::asset('/public/assets/js/animate.js')}}"></script>
-      <!-- select country -->
-      <script src="{{ URL::asset('/public/assets/js/bootstrap-select.js')}}"></script>
-      <!-- owl carousel -->
-      <script src="{{ URL::asset('/public/assets/js/owl.carousel.js')}}"></script> 
-      <!-- chart js -->
-      <script src="{{ URL::asset('/public/assets/js/Chart.min.js')}}"></script>
-      <script src="{{ URL::asset('/public/assets/js/Chart.bundle.min.js')}}"></script>
-      <script src="{{ URL::asset('/public/assets/js/utils.js')}}"></script>
-      <script src="{{ url('/public/assets/js/analyser.js')}}"></script>
-      <!-- nice scrollbar -->
-      <script src="{{ URL::asset('/public/assets/js/perfect-scrollbar.min.js')}}"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-      <!-- custom js -->
-      <script src="{{ URL::asset('/public/assets/js/custom.js')}}"></script>
-      <script src="{{ URL::asset('/public/assets/js/chart_custom_style1.js')}}"></script>
-   </body>
+
+</div>
+  </section>
+</div>
+<footer class="main-footer">
+    <div class="footer-left">
+        Copyright &copy; 2023 <div class="bullet"></div> Design By <a href="https://www.netcreativemind.com/">Netcreativemind</a>
+    </div>
+    <div class="footer-right">
+
+  </div>
+</footer>
+ 
+
+  <!-- General JS Scripts -->
+  <script src="{{ URL::asset('/public/assets/modules/jquery.min.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/modules/popper.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/modules/tooltip.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/modules/bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/modules/moment.min.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/js/stisla.js')}}"></script>
+  
+  <!-- JS Libraies -->
+  <script src="{{ URL::asset('/public/assets/modules/jquery.sparkline.min.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/modules/chart.min.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/modules/owlcarousel2/dist/owl.carousel.min.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/modules/summernote/summernote-bs4.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
+
+  <!-- Page Specific JS File -->
+  <script src="{{ URL::asset('/public/assets/js/page/index.js')}}"></script>
+  
+  <!-- Template JS File -->
+  <script src="{{ URL::asset('/public/assets/js/scripts.js')}}"></script>
+  <script src="{{ URL::asset('/public/assets/js/custom.js')}}"></script>
+</body>
 </html>

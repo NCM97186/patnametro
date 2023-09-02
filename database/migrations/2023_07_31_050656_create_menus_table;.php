@@ -13,6 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('menus', function (Blueprint $table) {
+        $table->id();     
         $table->bigInteger('m_id');
         $table->integer('m_type');
         $table->integer('m_flag_id')->nullable();
@@ -28,8 +29,8 @@ return new class extends Migration
         $table->string('linkstatus')->nullable();
         $table->time('start_date');
         $table->time('end_date');
-        $table->time('create_date');
-        $table->time('update_date');
+        // $table->time('create_date');
+        // $table->time('update_date');
         $table->tinyInteger('approve_status')->default(0);
         $table->integer('admin_id');
         $table->integer('page_postion')->nullable();
