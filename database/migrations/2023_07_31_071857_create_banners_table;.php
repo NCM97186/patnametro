@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('txtuplode')->nullable();
             $table->integer('txtstatus');
             $table->integer('admin_id');
-            $table->date('create_date');
-            $table->date('update_date');
             $table->timestamps();
         });
     }

@@ -496,3 +496,19 @@ function language($val)
 	else
 	echo "English";
 }
+function status($val){
+		if($val=='1')
+		{
+		echo "Draft";
+		}
+		else if($val=='2')
+		{
+		echo "For Approval";
+		}
+		else if($val=='3')
+		{
+		echo "Publish";
+		}else
+		  echo "Review";
+     	}
+	

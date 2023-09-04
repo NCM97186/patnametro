@@ -20,7 +20,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                 <div class="search-from">
-                <form action="#" class="search_inbox" name="form1" id="form1" method="post" accept-charset="utf-8">
+                <!--form action="#" class="search_inbox" name="form1" id="form1" method="post" accept-charset="utf-8">
                   
                 @csrf
                     <div class="form-row">
@@ -55,7 +55,7 @@
                            <button type="submit" id="SearchFrom" class="btn btn-primary btn-xs SearchFrom"> <i class="fa fa-search"></i> Search</button>
                         </div>
                      </div> 
-                    </form>
+                    </form-->
                    
                 </div>
                 </div>
@@ -68,7 +68,7 @@
                 @endif
                 <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped table-bordered table-hover">
+					<table class="table table-striped table-bordered table-hover" >
 						<thead>
 							<tr>
 								<th>#</th>
@@ -79,7 +79,7 @@
 							</tr>
 						</thead>
 						
-						<tbody>
+						<tbody id="list">
 						
 						<?php
 							if(count($list) > 0)
@@ -90,12 +90,25 @@
 							<tr>
 								<td><?php echo $count++; ?></td>
 								<td><?php echo $row->m_name; ?></td>
-								<td></td> 
+								<td><?php //print_r(has_child($row->id, $row->language_id));die();
+                                    if(count(has_child($row->id, $row->language_id)) > 0):
+                                        ?>
+                                        <strong><a href="{{route('menu.show', $row->id)}}"><?php echo status($row->approve_status); ?></a></strong><br/>(Click for Sub Menu)
+                                        <?php
+                                    else:
+                                        echo status($row->approve_status);
+                                    endif;
+                                    
+                                    ?></td> 
 								<td><?php echo language($row->language_id); ?></td>
 								<td>
-									<a href="{{URL::to('admin/menu/edit/'.$row->id.'/'.$row->language_id)}}" class="btn btn-success btn-xs">Edit</a>
-									<a href="{{URL::to('admin/menu/deleteMenu/'.$row->id.'/'.$row->language_id)}}" class="btn btn-danger btn-xs">Delete</a>
-								</td>
+									<a href="{{route('menu.edit', $row->id)}}" class="btn btn-success btn-xs">Edit</a>
+                                    <form action="{{ route('menu.destroy',$row->id) }}"  method="POST"> 
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')">Delete</button>  
+                                    </form>
+                                </td>
 							</tr>
 						<?php
 							endforeach;
@@ -127,5 +140,28 @@
     <!-- /.row -->
 </div>
 <!-- Button trigger modal -->
+<script src="{{ URL::asset('/public/assets/modules/jquery.min.js')}}"></script>
+<script>
+     var linkurl = "{{ url('/admin/get_filter_menu')}}";
+        //alert(linkurl);
+        jQuery.ajax({
+            url: linkurl,
+            type: "POST",
+            //headers: headers,
+            data: {id: id ,get_filter_menu:'get_filter_menu'},
+            cache: false,
+            success: function (html) {
+                var Obj = JSON.parse(html);
+             
+                jQuery("#loading").hide();
+
+                //add the content retrieved from ajax and put it in the #content div
+                jQuery("#list").html(Obj.html);
+
+                //display the body with fadeIn transition
+                jQuery("#list").fadeIn("slow");
+            },
+        });
+</script>
 
 @endsection;

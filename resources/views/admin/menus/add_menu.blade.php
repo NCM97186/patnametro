@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metakeyword" autocomplete="off" type="text" class="input_class form-control" id="metakeyword" value="" />
+                                        <input name="metakeyword" autocomplete="off" type="text" class="input_class form-control" id="metakeyword" value="{{old('metakeyword')}}" />
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metadescription" autocomplete="off" type="text" class="input_class form-control" id="metadescription" value="" />
+                                        <input name="metadescription" autocomplete="off" type="text" class="input_class form-control" id="metadescription" value="{{old('metadescription')}}" />
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +212,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <textarea name="description" id="description" class="form-control summernote-simple " rows="3" aria-hidden="true" style="display: none;"></textarea>
+                                        <textarea name="description" id="description" class="form-control summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo old('description'); ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -239,7 +239,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" name="txtweblink" id="txtweblink" class="input_class form-control" autocomplete="off" placeholder="https://www.xyz.com" value="" />
+                                    <input type="text" name="txtweblink" id="txtweblink" class="input_class form-control" autocomplete="off" placeholder="https://www.xyz.com" value="{{old('txtweblink')}}" />
                                 </div>
                             </div>
                         </div>

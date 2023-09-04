@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\User_roleController;
 use App\Http\Controllers\Admin\AjaxRequestController;
 use App\Http\Controllers\Admin\MenuController as menu;
+use App\Http\Controllers\Admin\BannerController as banner;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::group(['middleware' => ['auth','admin','XSS']], function () {
         Route::resource('/admin/user_role', User_roleController::class);
         Route::post('/admin/user_role/{$admin_role}', [User_roleController::class, 'destroy'])->name('admin_role');
         Route::resource('/admin/menu', menu::class);
+        Route::resource('/admin/banner', banner::class);
         Route::any('/admin/get_primarylink_menu', [AjaxRequestController::class,'get_primarylink_menu'])->name('/admin/get_primarylink_menu');
         Route::any('/admin/get_filter_menu', [AjaxRequestController::class,'get_filter_menu'])->name('/admin/get_filter_menu');
  

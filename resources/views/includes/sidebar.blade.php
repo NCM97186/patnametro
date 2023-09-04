@@ -89,13 +89,9 @@
                 </ul>
             </li>
             <li><a href="{{ url('/admin/menu')}}"><i class="fa fa-bars"></i></i> <span>Manage Menu</span></a></li>
-                     
-            <li>
-                <a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a>
-            </li>
-            <li>
-                <a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a>
-            </li>
+            <li><a href="{{ url('/admin/banner')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>Manage Banner</span></a></li>
+                    
+           
         </ul>
     </aside>
 </div>
