@@ -98,7 +98,7 @@ class WebsiteSettingController extends Controller
             $logo1 ='upload/admin/setting/'.$logo; //die();
 				
             if (file_exists($logo1)) {
-                unlink($logo1);
+                unlink($logo);
             }
             $favicon1 ='upload/admin/setting/'.$favicon; //die();
 				

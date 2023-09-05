@@ -86,7 +86,7 @@
                                     @enderror
 								</div>
                                 @if(!empty($data->txtuplode))
-                                <img style="margin-bottom: 5%;" class="w-50 img-responsive" alt="image" id="logoimg" src="{{ URL::asset('public/upload/admin/cmsfiles/banner/')}}/{{$data->txtuplode}}" class="rounded-circle mr-1" />
+                                <img style="margin-bottom: 5%;" class="w-50 img-responsive" alt="image" id="logoimg" src="{{ URL::asset('public/upload/admin/cmsfiles/banner/thumbnail/')}}/{{$data->txtuplode}}" class="rounded-circle mr-1" />
                               
                                 @endif
                                 <input type="hidden" name="oldimg" value="{{ !empty($data->txtuplode)?$data->txtuplode:''}}" >

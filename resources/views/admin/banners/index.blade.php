@@ -1,4 +1,4 @@
-@extends('layouts.master'); @section('content') @section('title', 'Manage menu')
+@extends('layouts.master'); @section('content') @section('title', 'Banner menu')
 <div class="card">
     <div class="card-body">
         <div id="page-wrapper">

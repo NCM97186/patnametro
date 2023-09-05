@@ -55,15 +55,34 @@ class BannerController extends Controller
             if (!is_dir('public/upload/admin/cmsfiles/banner/')) {
                 mkdir('public/upload/admin/cmsfiles/banner/', 0777, TRUE);
             }
+            if (!is_dir('public/upload/admin/cmsfiles/banner/thumbnail/')) {
+                mkdir('public/upload/admin/cmsfiles/banner/thumbnail/', 0777, TRUE);
+            }
             if(!empty($request->txtuplode)){
-                $txtuplode = str_replace(' ','_',$request->menu_title).'_banner'.'.'.$request->txtuplode->extension();  
-                $request->txtuplode->move(public_path('upload/admin/cmsfiles/banner/'), $txtuplode);
-            }
-            $txtuplode1 ='public/upload/admin/cmsfiles/banner/'.$txtuplode; //die();
+
+                $txtuplode = str_replace(' ','_',clean_single_input($request->menu_title)).'_banner'.'.'.$request->txtuplode->extension();  
+                $image = $request->file('txtuplode');
+                $destinationPathThumbnail = public_path('upload/admin/cmsfiles/banner/thumbnail');
+                $img = Image::make($image->path());
+                $img->resize(1350, 380, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPathThumbnail.'/'.$txtuplode);
+             
+                $destinationPath = public_path('upload/admin/cmsfiles/banner/');
+                $image->move($destinationPath, $txtuplode);
+
+                $txtuplode1 ='upload/admin/cmsfiles//banner/'.$txtuplode; //die();
 				
-            if (file_exists($txtuplode1)) {
-                unlink($txtuplode1);
+                if (file_exists($txtuplode1)) {
+                    unlink($txtuplode);
+                }
+                $thumbnail1 ='upload/admin/cmsfiles//banner/'.$destinationPathThumbnail; //die();
+				
+                if (file_exists($thumbnail1)) {
+                    unlink($destinationPathThumbnail);
+                }
             }
+            
             $user_login_id=Auth()->user()->id;
             $dataArr = array(); 
             $pArray['title']    					= clean_single_input($request->menu_title); 
@@ -149,22 +168,31 @@ class BannerController extends Controller
             if (!is_dir('public/upload/admin/cmsfiles/banner/')) {
                 mkdir('public/upload/admin/cmsfiles/banner/', 0777, TRUE);
             }
+            if (!is_dir('public/upload/admin/cmsfiles/banner/thumbnail/')) {
+                mkdir('public/upload/admin/cmsfiles/banner/thumbnail/', 0777, TRUE);
+            }
             if(!empty($request->txtuplode)){
                 $txtuplode = str_replace(' ','_',clean_single_input($request->menu_title)).'_banner'.'.'.$request->txtuplode->extension();  
                 $image = $request->file('txtuplode');
                 $destinationPathThumbnail = public_path('upload/admin/cmsfiles/banner/thumbnail');
                 $img = Image::make($image->path());
-                $img->resize(100, 100, function ($constraint) {
+                $img->resize(1350, 380, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($destinationPathThumbnail.'/'.$txtuplode);
              
                 $destinationPath = public_path('upload/admin/cmsfiles/banner/');
+              
                 $image->move($destinationPath, $txtuplode);
 
-                $txtuplode1 ='public/upload/admin/cmsfiles/'.$txtuplode; //die();
+                $txtuplode1 ='upload/admin/cmsfiles//banner/'.$txtuplode; //die();
 				
                 if (file_exists($txtuplode1)) {
-                    unlink($txtuplode);
+                    unlink($txtuplode1);
+                }
+                $thumbnail1 ='upload/admin/cmsfiles//banner/'.$destinationPathThumbnail; //die();
+				
+                if (file_exists($thumbnail1)) {
+                    unlink($destinationPathThumbnail);
                 }
             }else{
                 $oldimg=$request->oldimg;
@@ -177,17 +205,20 @@ class BannerController extends Controller
 			$pArray['txtuplode']  				    = !empty($txtuplode)?$txtuplode:$oldimg;
 			$pArray['admin_id']  					= $user_login_id;
 			$pArray['txtstatus']  			        = clean_single_input($request->txtstatus);
-			// $create 	= Banner::where('id', $id)->update($pArray);
-            // $lastInsertID = $id;
-            $create = Banner::updateOrCreate([ 'admin_id' =>   "$user_login_id",'id' =>   "$id",'language' =>   "$request->language"],$pArray);
+
+			$create = Banner::updateOrCreate([ 'admin_id' =>   "$user_login_id",'id' =>   "$id",'language' =>   "$request->language"],$pArray);
             $lastInsertID = $create->id;
-           
+            if($lastInsertID==$id){
+                $action="Update";
+            }else{
+                 $action="Insert";
+            }
 
             if($lastInsertID > 0){
 				$audit_data = array('user_login_id'     =>  $user_login_id,
 								'page_id'           	=>  $lastInsertID,
 								'page_name'             =>  clean_single_input($request->menu_title),
-								'page_action'           =>  'Insert',
+								'page_action'           =>  $action,
 								'page_category'         =>  '',
 								'lang'                  =>  clean_single_input($request->language),
 								'page_title'        	=> 'Banner Model',
@@ -196,7 +227,7 @@ class BannerController extends Controller
 							);
 							
 				audit_trail($audit_data);
-                return redirect('admin/banner')->with('success','Banner has successfully Updated');
+                return redirect('admin/Banner')->with('success','Banner has successfully Updated');
 			}
            
         }
@@ -205,8 +236,10 @@ class BannerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Banner $banner)
     {
-        //
+        $banner->delete();
+       
+        return redirect('admin/banner')->with('success','Banner deleted successfully');
     }
 }

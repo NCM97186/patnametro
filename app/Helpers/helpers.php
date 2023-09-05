@@ -33,12 +33,7 @@ if (! function_exists('convertMdyToYmd')) {
     }
 }
 
-if (! function_exists('convertMdyToYmd')) {
-    function convertMdyToYmd($date)
-    { 
-        return Carbon::createFromFormat('m-d-Y', $date)->format('Y-m-d');
-    }
-}
+
 if (! function_exists('get_setting')) {
     function get_setting()
     { 

@@ -14,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('tenders', function (Blueprint $table) {
         $table->id();
-        $table->string('title')->default(0);
-        $table->string('url')->default(0);
+        $table->string('tender_title');
+        $table->string('url');
         $table->string('page_url');
         $table->integer('is_new');
         $table->integer('language');
+        $table->integer('tendertype');
         $table->integer('menutype');
         $table->string('metakeyword');
         $table->string('metadescription');
