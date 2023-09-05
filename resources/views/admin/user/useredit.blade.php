@@ -33,12 +33,12 @@
 
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="form-group">
-                                    <input name="user_name" disabled autocomplete="off" type="text" class="input_class form-control" id="login_name" value="{{$user->user_name}}" />
+                                    <input name="user_name"  autocomplete="off" type="text" class="input_class form-control" id="login_name" value="{{$user->user_name}}" />
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-lg-3 col-md-3 col-xm-3">
                                 <div class="form-group">
                                     <label>Password:</label>
@@ -51,8 +51,8 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
+ -->
+                       <!--  <div class="row">
                             <div class="col-lg-3 col-md-3 col-xm-3">
                                 <div class="form-group">
                                     <label>Confirm Password:</label>
@@ -64,7 +64,7 @@
                                     <input name="password_confirmation" autocomplete="off" type="password" class="input_class form-control" id="conf_pass" value="" />
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-xm-3">
@@ -90,6 +90,19 @@
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
                                     <input name="email" autocomplete="off" disabled type="text" class="input_class form-control" id="user_email" value="{{$user->email}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-xm-3">
+                                <div class="form-group">
+                                    <label>Login name:</label>
+                                    <span class="star">*</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-xm-6">
+                                <div class="input_class form-group">
+                                    <input name="login_name" autocomplete="off" disabled type="text" class="input_class form-control" id="user_email" value="{{$user->login_name}}" />
                                 </div>
                             </div>
                         </div>
@@ -136,7 +149,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="form-group">
-                                    <select name="user_status" class="input_class form-control" id="user_status" autocomplete="off">
+                                    <select name="user_type" class="input_class form-control" id="user_type" autocomplete="off">
                                         <option value=""> Select </option>
 
                                         <option value="0" @if($user->user_type == '2') ? selected : null @endif>Creator </option>

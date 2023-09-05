@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\User_roleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\User_roleController;
 use App\Http\Controllers\Admin\AjaxRequestController;
 use App\Http\Controllers\Admin\MenuController as menu;
 use App\Http\Controllers\Admin\BannerController as banner;
