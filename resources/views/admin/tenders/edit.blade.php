@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage menu')
+@section('title', 'Manage Tender')
 <script type="text/javascript">
 
 
@@ -54,24 +54,44 @@
                         </ul>
                     </div>
                 @endif
-                <form  action="{{ route('menu.update' , $data->id) }}" name="form1" id="form1" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+               
+                <form  action="{{ route('tender.update' , $data->id) }}" name="form1" id="form1" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                     @csrf
                     @method('PUT')
-                   
                     <div class="panel-body">
+                        <div class="row">
+                                <div class="col-12 col-md-3 col-lg-3">
+                                    <div class="form-group">
+                                        <label>Page Language:</label>
+                                        <span class="star">*</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="input_class form-group">
+                                        <input type="radio" name="language" autocomplete="off" id="txtlanguage" value="1"  @if((!empty($data->language)?$data->language:old('language'))==1) checked @endif  class="@error('language') is-invalid @enderror" />English &nbsp;
+                                        <input type="radio" name="language" autocomplete="off" id="txtlanguage" value="2"  @if((!empty($data->language)?$data->language:old('language'))==2) checked @endif  class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
+                                        
+                                    </div>
+                                    @error('language')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                </div>
+                            </div>
                         <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
-                                    <label>Menu Title:</label>
+                                    <label>Tender Title:</label>
                                     <span class="star">*</span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input name="menu_title" maxlength="36"
+                                    <input name="tender_title" maxlength="36"
                                     minlength="2" autocomplete="off" type="text" 
-                                    class="input_class form-control  @error('menu_title') is-invalid @enderror" id="menu_title"   value="{{ !empty($data->m_title)?$data->m_title:old('menu_title')}}"  />
-                                    @error('menu_title')
+                                    class="input_class form-control  @error('tender_title') is-invalid @enderror" id="tender_title" value="{{ !empty($data->tender_title)?$data->tender_title:old('tender_title')}}"  />
+                                    @error('tender_title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -91,7 +111,7 @@
                                     <input name="url" autocomplete="off" type="text" maxlength="36"
                                     minlength="2" 
                                     class="input_class form-control @error('url') is-invalid @enderror " id="txtepage_title"
-                                    value="{{!empty($data->m_url)?$data->m_url:old('url')}}" />
+                                    value="{{!empty($data->url)?$data->url:old('url')}}" />
                                     @error('url')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -101,34 +121,26 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-md-3 col-lg-3">
+                            <div class="col-lg-3 col-md-3 col-xm-3">
                                 <div class="form-group">
-                                    <label>Page Language:</label>
+                                    <label>Is New:</label>
                                     <span class="star">*</span>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
-                                    <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if((!empty($data->language_id)?$data->language_id:old('language'))==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
-                                    <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if((!empty($data->language_id)?$data->language_id:old('language'))==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
-                                    @error('language')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                  
+                                    <input type="radio" name="is_new" autocomplete="off" id="is_new" value="1"   @if((!empty($data->is_new)?$data->is_new:old('is_new'))==1) checked @endif />Yes &nbsp;
+                                    <input type="radio" name="is_new" autocomplete="off" id="is_new" value="2"   @if((!empty($data->is_new)?$data->is_new:old('is_new'))==2) checked @endif />No
+                                        @error('language')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                 </div>
                             </div>
                         </div>
-                        
-                                <div id="content1" class="row" style="display:!empty($data->language_id)?$data->language_id:isset(old('language'))? "block" : "none" ">
-                                <?php  $language_id=!empty($data->language_id)?$data->language_id:old('language'); if(isset($language_id)): ?>
-										<?php if(!isset($data->m_flag_id))$data->m_flag_id=''; ?>
-										<?php echo primarylink_menu($language_id, $data->m_flag_id) ?>
-									<?php endif; ?>
-								</div>
-                       
-                    
-                        <div class="row">
+                         <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
                                     <label>Menu Type:</label>
@@ -141,11 +153,11 @@
                                     <select name="menutype" id="menutype" class="form-control @error('menutype') is-invalid @enderror" autocomplete="off" onchange="addmenutype(this.value)">
                                     <option value="">Select</option>
                                         <?php 
-                                        $menuTypeArray = array("1"=>" Content ","2"=>"PDF file Upload","3"=>"Web Site Url");
+                                        $menuTypeArray = array("1"=>" Content ","2"=>"PDF file Upload","3"=>"Url");
                                         foreach($menuTypeArray as $key=>$value)
                                         {
                                         ?>
-                                        <option value="{{$key}}"  @if((!empty($data->m_type)?$data->m_type:old('menutype'))==$key) selected @endif ><?php echo $value; ?></option>
+                                        <option value="{{$key}}"  @if((!empty($data->menutype)?$data->menutype:old('menutype'))==$key) selected @endif ><?php echo $value; ?></option>
                                         <?php 
                                         }
                                         ?>
@@ -158,24 +170,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12 col-md-3 col-lg-3">
-                                <div class="form-group">
-                                    <label>Welcome Description:</label>
-                                    <span class="star">*</span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <textarea name="welcomedescription" autocomplete="off" class="input_class @error('welcomedescription') is-invalid @enderror  summernote-simple">{{!empty($data->welcomedescription)?$data->welcomedescription:old('welcomedescription')}}</textarea>
-                                    @error('welcomedescription')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <div id="txtDoc" style="display: none;">
                             <div class="row">
@@ -187,10 +182,16 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metakeyword" autocomplete="off" type="text" class="input_class form-control" id="metakeyword" value="{{!empty($data->m_keyword)?$data->m_keyword:old('metakeyword')}}" />
+                                        <input name="metakeyword" autocomplete="off" type="text" class="input_class form-control" id="metakeyword" value="{{!empty($data->metakeyword)?$data->metakeyword:old('metakeyword')}}" />
                                     </div>
+                                    @error('metakeyword')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
+                            
                             <div class="row">
                                 <div class="col-12 col-md-3 col-lg-3">
                                     <div class="form-group">
@@ -200,8 +201,13 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metadescription" autocomplete="off" type="text" class="input_class form-control" id="metadescription" value="{{!empty($data->m_description)?$data->m_description:old('metadescription')}}" />
+                                        <input name="metadescription" autocomplete="off" type="text" class="input_class form-control" id="metadescription" value="{{!empty($data->metadescription)?$data->metadescription:old('metadescription')}}" />
                                     </div>
+                                    @error('metadescription')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">
@@ -213,12 +219,18 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <textarea name="description" id="description" class="form-control summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo !empty($data->content)?$data->content:old('description'); ?></textarea>
+                                        <textarea name="description" id="description" class="form-control summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo !empty($data->description)?$data->description:old('description'); ?></textarea>
                                     </div>
+                                    @error('description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-                        <div class="row" id="txtPDF" style="display: none;">
+                        <div class="" id="txtPDF" style="display: none;">
+                          <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
                                     <label>Document Upload:</label>
@@ -227,14 +239,22 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="file"  name="txtuplode" class="input_class inline-block" id="txtuplode" />
-                                    @if(!empty($data->txtuplode))
-                                    <a href="{{$data->txtuplode }}">view PDF</a>
-                                     @endif
+                                    <input type="file" value="{{old('txtuplode')}}" name="txtuplode"  onchange="onlytxtuplodepdf(this);"  class="input_class w-50 inline-block" id="txtuplode" />
+                                    <a  class="w-50" target="_blank" href="{{ URL::asset('public/upload/admin/cmsfiles/tenders/')}}/{{$data->txtuplode}}" > View PDF</a>
+                              
                                 </div>
+                                <input type="hidden" name="olduplode" class="input_class w-50 inline-block" value="<?php echo !empty($data->txtuplode)?$data->txtuplode:''; ?>" />
+                                 <span class="txtuplode_error" style="color:red;"></span>
+                                @error('txtuplode')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                            </div>
                             </div>
                         </div>
-                        <div class="row" id="txtweb" style="display: none;">
+                        <div class="" id="txtweb" style="display: none;">
+                        <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
                                     <label>Web Site Link:</label>
@@ -243,29 +263,80 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" name="txtweblink" id="txtweblink" class="input_class form-control" autocomplete="off" placeholder="https://www.xyz.com" value="{{!empty($data->linkstatus)?$data->linkstatus:old('txtweblink')}}" />
+                                    <input type="text" name="txtweblink" id="txtweblink" class="input_class form-control" autocomplete="off" placeholder="https://www.xyz.com" value="{{!empty($data->txtweblink)?$data->txtweblink:old('txtweblink')}}" />
                                 </div>
+                                @error('txtweblink')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                             </div>
                         </div>
+
+                        <div class="row">
+									<div class="col-lg-3 col-md-3 col-xm-3">
+										<div class="form-group">
+											<label>Start Date:</label>
+											<span class="star">*</span>
+                                        </div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-xm-6">
+										<div class="form-group">
+										
+											<input type="date" name="startdate" id="startdate" class="input_class form-control" autocomplete="off" value="{{!empty($data->start_date)?$data->start_date:old('startdate')}}">
+                                        </div>
+                                        @error('startdate')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-3 col-md-3 col-xm-3">
+										<div class="form-group">
+											<label>End Date:</label>
+											<span class="star">*</span>
+                                        </div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-xm-6">
+										<div class="form-group">
+											
+											<input  onchange="ValidateTodate();" type="date" name="enddate" id="enddate" class="input_class form-control" autocomplete="off" value="{{!empty($data->end_date)?$data->end_date:old('enddate')}}">
+                                        </div>
+                                        <span class="enddate_error" style="color:red;"></span>
+                                        @error('enddate')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+									</div>
+								</div>
+
                         <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
-                                    <label>Content Position:</label>
+                                    <label>Tender  Type:</label>
                                     <span class="star">*</span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <select name="txtpostion" class="input_class form-control" id="txtpostion" autocomplete="off">
+                                    <select name="tendertype" class="input_class form-control" id="tendertype" autocomplete="off">
                                         <option value=""> Select </option>
                                             <?php
-                                            $statusArray = get_content_postion();
+                                            $statusArray = 
+                                             array(
+                                                '1' => "Property Development & Business",
+                                                '2' => "GCC & Other Guidelines"
+                                            );
                                             foreach($statusArray as $key=>$value) {
                                                 ?>
-                                                <option value="<?php echo $key; ?>" <?php if((!empty($data->menu_positions)?$data->menu_positions:old('txtpostion'))==$key) echo "selected"; ?>><?php echo $value; ?></option>
+                                                <option value="<?php echo $key; ?>" <?php if((!empty($data->tendertype)?$data->tendertype:old('tendertype'))==$key) echo "selected"; ?>><?php echo $value; ?></option>
                                             <?php  }?>
                                     </select>
-                                    @error('txtpostion')
+                                    @error('tendertype')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -288,7 +359,7 @@
                                         $statusArray = get_status();
                                         foreach($statusArray as $key=>$value) {
                                             ?>
-                                            <option value="<?php echo $key; ?>" <?php if((!empty($data->approve_status)?$data->approve_status:old('txtstatus'))==$key) echo "selected"; ?>><?php echo $value; ?></option>
+                                            <option value="<?php echo $key; ?>" <?php if((!empty($data->txtstatus)?$data->txtstatus:old('txtstatus'))==$key) echo "selected"; ?>><?php echo $value; ?></option>
                                         <?php  }?>
                                 </select>
                                     @error('txtstatus')
@@ -305,8 +376,7 @@
                                 <div class="pull-right">
                                
                                     <input name="cmdsubmit" type="submit" class="btn btn-success" id="cmdsubmit" value="Submit" />&nbsp;
-                                   <a href="{{ url('/admin/menu')}}" class="btn btn-primary" >Back</a>
-                                    <input type="hidden" name="random" value="" />
+                                    <a href="{{URL::to('admin/tender/')}}" class="btn btn-primary" >back</a>
                                 </div>
                             </div>
                         </div>
@@ -320,48 +390,16 @@
     </div>
 </div>
 <script src="{{ URL::asset('/public/assets/modules/jquery.min.js')}}"></script>
+<script src="{{ URL::asset('/public/assets/js/page/validate.js')}}"></script>
 <script type="text/javascript">
 
-    function getPage(id) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-      //  var csrfHash = $('input[name="_token"]').val();
-        //generate the parameter for the php script
-        var data = "language=" + id;
-       
-        var linkurl = "{{ url('/admin/get_primarylink_menu')}}";
-        //alert(linkurl);
-        jQuery.ajax({
-            url: linkurl,
-            type: "POST",
-            //headers: headers,
-            data: {id: id ,get_primarylink_menu:'get_primarylink_menu'},
-            cache: false,
-            success: function (html) {
-                var Obj = JSON.parse(html);
-                ///alert(Obj);
-                //jQuery('input[name="_token"]').val("");
-              //  jQuery('input[name="_token"]').val(Obj.csrfhash);
-
-                //hide the progress bar
-                jQuery("#loading").hide();
-
-                //add the content retrieved from ajax and put it in the #content div
-                jQuery("#content1").html(Obj.html);
-
-                //display the body with fadeIn transition
-                jQuery("#content1").fadeIn("slow");
-            },
-        });
-    }
+    
 
     $(document).ready(function() {
+       
 
-        var id=@if(!empty(old('menutype'))){{old('menutype')}} @else {{!empty($data->m_type)?$data->m_type:0 }}  @endif;
-      //alert(id);
+        var id=@if(!empty(old('menutype'))){{old('menutype')}} @else{{!empty($data->menutype)?$data->menutype:0 }}@endif;
+        //alert(id);
         if(id=='1')
             { 	
                 jQuery('#txtDoc').css('display', 'block')
@@ -389,5 +427,6 @@
                 jQuery('#txtweb').css('txtPDF', 'none')
             }
     });
+    
 </script>
 @endsection

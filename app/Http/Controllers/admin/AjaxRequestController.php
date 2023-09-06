@@ -12,8 +12,10 @@ class AjaxRequestController extends Controller
 	{
         if($request->get_primarylink_menu=='get_primarylink_menu'){
             $language =clean_single_input($request->id);
+            
             $data = array();
             $data['html'] = primarylink_menu($language);
+           // dd( $data);
             echo json_encode($data);
             die();
         }

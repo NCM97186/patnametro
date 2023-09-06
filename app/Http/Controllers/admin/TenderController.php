@@ -59,25 +59,30 @@ class TenderController extends Controller
             
            $validator = Validator::make($request->all(), $rules);
        }elseif($request->menutype == 2){
-           if (!empty($request->txtuplode)){
+          if (!empty($request->txtuplode)){
 
             if (!is_dir('public/upload/admin/cmsfiles/tenders/')) {
                 mkdir('public/upload/admin/cmsfiles/tenders/', 0777, TRUE);
             }
             
-               $rules = array(
+               $rulesdsad = array(
                    'txtuplode' => 'required|mimes:pdf,xlx,csv|max:2048',
                );
-               $txtuplode = $request->file('txtuplode');
-
-               $txtuplode1 = rand() . '.' . $txtuplode->getClientOriginalExtension();
-               $res=  $txtuplode->move(public_path('upload/admin/cmsfiles/tenders/'), $txtuplode1);
+               $txtuplode1 = str_replace(' ','_',clean_single_input($request->tender_title)).'_tender'.'.'.$request->txtuplode->extension();  
+       
+                $res= $request->txtuplode->move(public_path('upload/admin/cmsfiles/tenders/'), $txtuplode1);
+              
                
-                  if($res){
+                if($res){
                    $txtuplode1 =$txtuplode1;
-                  }
-                  $validator = Validator::make($request->all(), $rules);
-           }
+                }
+                $txtuplode2 ='upload/admin/cmsfiles//tenders/'.$txtuplode1; //die();
+                
+                if (file_exists($txtuplode2)) {
+                    unlink($txtuplode2);
+                }
+                 $validator = Validator::make($request->all(), $rulesdsad);
+          }
        }elseif($request->menutype == 3){
            $rules = array(
                'txtweblink' => 'required'
@@ -89,7 +94,6 @@ class TenderController extends Controller
        
        if ($validator->fails()) {
         return  back()->withErrors($validator)->withInput();
-         //  return redirect('admin/tender/create')->withErrors($validator)->withInput();
            
        }else{
            $user_login_id=Auth()->user()->id;
@@ -110,23 +114,21 @@ class TenderController extends Controller
            $pArray['tendertype']  		            = clean_single_input($request->tendertype); 
            $pArray['is_new']  				        = clean_single_input($request->is_new); 
            
-
-           //dd($pArray);
            $create 	= Tender::create($pArray);
            $lastInsertID = $create->id;
            $user_login_id=Auth()->user()->id;
 
            if($lastInsertID > 0){
-               $audit_data = array('user_login_id'     =>  $user_login_id,
-                               'page_id'           	=>  $lastInsertID,
-                               'page_name'             =>  $request->tender_title,
-                               'page_action'           =>  'Insert',
-                               'page_category'         =>  $request->menutype,
-                               'lang'                  =>  $request->language,
-                               'page_title'        	=> 'Tender Model',
-                               'approve_status'        => $request->txtstatus,
-                               'usertype'          	=> 'Admin'
-                           );
+            $audit_data = array('user_login_id'     =>  $user_login_id,
+            'page_id'           	=>  $id,
+            'page_name'             =>  clean_single_input($request->tender_title),
+            'page_action'           =>  'Insert',
+            'page_category'         =>  clean_single_input($request->menutype),
+            'lang'                  =>  clean_single_input($request->language),
+            'page_title'        	=> 'Tender Model',
+            'approve_status'        => clean_single_input($request->txtstatus),
+            'usertype'          	=> 'Admin'
+        );
                            
                audit_trail($audit_data);
                return redirect('admin/tender')->with('success','Tender has successfully added');
@@ -151,7 +153,7 @@ class TenderController extends Controller
         $title="Edit Tender ";
         $id=clean_single_input($id);
         $data = Tender::find($id);
-        return view('admin/tender/edit',compact(['title','data']));
+        return view('admin/tenders/edit',compact(['title','data']));
     }
 
     /**
@@ -159,7 +161,8 @@ class TenderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $txtuplode1 ='';
+        $id=  clean_single_input($id);
+       $txtuplode1 ='';
        $rules = array(
            
            'language' => 'required',
@@ -182,26 +185,35 @@ class TenderController extends Controller
             
            $validator = Validator::make($request->all(), $rules);
        }elseif($request->menutype == 2){
+
            if (!empty($request->txtuplode)){
 
             if (!is_dir('public/upload/admin/cmsfiles/tenders/')) {
                 mkdir('public/upload/admin/cmsfiles/tenders/', 0777, TRUE);
             }
             
-               $rules = array(
+               $rulesdsad = array(
                    'txtuplode' => 'required|mimes:pdf,xlx,csv|max:2048',
                );
-               $txtuplode = $request->file('txtuplode');
-
-               $txtuplode1 = rand() . '.' . $txtuplode->getClientOriginalExtension();
-               $res=  $txtuplode->move(public_path('upload/admin/cmsfiles/tenders/'), $txtuplode1);
+               $txtuplode1 = str_replace(' ','_',clean_single_input($request->tender_title)).'_tender'.'.'.$request->txtuplode->extension();  
+       
+                $res= $request->txtuplode->move(public_path('upload/admin/cmsfiles/tenders/'), $txtuplode1);
+              
                
                   if($res){
-                   $txtuplode1 =$txtuplode1;
+                    $txtuplode1 =$txtuplode1;
                   }
-                  $validator = Validator::make($request->all(), $rules);
+                $txtuplode2 ='upload/admin/cmsfiles//tenders/'.$txtuplode1; //die();
+
+                if (file_exists($txtuplode2)) {
+                    unlink($txtuplode2);
+                }
+                 $validator = Validator::make($request->all(), $rulesdsad);
+           }else{
+            $txtuplode1 =$request->olduplode;
            }
        }elseif($request->menutype == 3){
+        
            $rules = array(
                'txtweblink' => 'required'
            );
@@ -211,51 +223,59 @@ class TenderController extends Controller
         $validator = Validator::make($request->all(), $rules);
        
        if ($validator->fails()) {
-        return  back()->withErrors($validator)->withInput();
-         //  return redirect('admin/tender/create')->withErrors($validator)->withInput();
-           
+            return  back()->withErrors($validator)->withInput();
        }else{
            $user_login_id=Auth()->user()->id;
           
+         
            $pArray['tender_title']    				= clean_single_input($request->tender_title); 
            $pArray['url']    					    = clean_single_input(seo_url($request->tender_title)); 
            $pArray['language']    			        = clean_single_input($request->language); 
            $pArray['menutype']  					= clean_single_input($request->menutype); 
-           $pArray['metakeyword']    			    = clean_single_input($request->metakeyword); 
-           $pArray['metadescription']				= clean_single_input($request->metadescription); 
+           if($request->menutype == 1){
+               $pArray['txtuplode']  				    = ''; 
+               $pArray['txtweblink']    				= '';
+               $pArray['metakeyword']    			    = clean_single_input($request->metakeyword); 
+               $pArray['metadescription']				= clean_single_input($request->metadescription); 
+            }elseif($request->menutype == 2){
+                $pArray['metakeyword']    			    = ''; 
+                $pArray['metadescription']				= ''; 
+                $pArray['txtweblink']    				= ''; 
+                $pArray['txtuplode']  				    = clean_single_input($txtuplode1); 
+                
+           }elseif($request->menutype == 3){
+            $pArray['metakeyword']    			    = ''; 
+            $pArray['metadescription']				= ''; 
+            $pArray['txtuplode']    				= ''; 
+            $pArray['txtweblink']  				    = clean_single_input($request->txtweblink); 
+           }else{
+
+           }
+          
            $pArray['description']    				= clean_single_input($request->description); 
-           $pArray['txtuplode']  				    = clean_single_input($txtuplode1); 
-           $pArray['txtweblink']    				= clean_single_input($request->txtweblink); 
            $pArray['admin_id']  					= clean_single_input($user_login_id); 
-           $pArray['startdate']  			        = convertYmdToMdy(clean_single_input($request->startdate));
-		   $pArray['enddate']  			            = convertYmdToMdy(clean_single_input($request->enddate));
+           $pArray['start_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->startdate)));
+		   $pArray['end_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->enddate)));
            $pArray['txtstatus']  			        = clean_single_input($request->txtstatus); 
            $pArray['tendertype']  		            = clean_single_input($request->tendertype); 
            $pArray['is_new']  				        = clean_single_input($request->is_new); 
-
-           //dd($pArray);
-           $create 	= Tender::updateOrCreate([ 'admin_id' =>   "$user_login_id",'id' =>   "$id",'language' =>   "clean_single_input($request->language)"],$pArray);
-           $lastInsertID = $create->id;
            $user_login_id=Auth()->user()->id;
-           if($lastInsertID==$id){
-               $action="Update";
-           }else{
-                $action="Insert";
-           }
-           if($lastInsertID > 0){
-               $audit_data = array('user_login_id'     =>  $user_login_id,
-                               'page_id'           	   =>  $lastInsertID,
-                               'page_name'             =>  $request->tender_title,
-                               'page_action'           =>  $action,
-                               'page_category'         =>  $request->menutype,
-                               'lang'                  =>  $request->language,
-                               'page_title'            => 'Tender Model',
-                               'approve_status'        => $request->txtstatus,
-                               'usertype'          	   => 'Admin'
-                           );
+
+           $create 	= Tender::where('id', $id)->update($pArray);
+           if($create > 0){
+            $audit_data = array('user_login_id'     =>  $user_login_id,
+                    'page_id'           	=>  $id,
+                    'page_name'             =>  clean_single_input($request->tender_title),
+                    'page_action'           =>  'update',
+                    'page_category'         =>  clean_single_input($request->menutype),
+                    'lang'                  =>  clean_single_input($request->language),
+                    'page_title'        	=> 'Tender Model',
+                    'approve_status'        => clean_single_input($request->txtstatus),
+                    'usertype'          	=> 'Admin'
+                );
                            
                audit_trail($audit_data);
-               return redirect('admin/tender')->with('success','Tender has successfully added');
+               return redirect('admin/tender')->with('success','Tender has successfully Updated');
            }
           
        }
@@ -268,6 +288,6 @@ class TenderController extends Controller
     {
         $tender->delete();
        
-        return redirect('admin/banner')->with('success','Tender deleted successfully');
+        return redirect('admin/tender')->with('success','Tender deleted successfully');
     }
 }

@@ -217,20 +217,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" id="txtPDF" style="display: none;">
-                            <div class="col-12 col-md-3 col-lg-3">
-                                <div class="form-group">
-                                    <label>Document Upload:</label>
-                                    <span class="star">*</span>
+                        <div id="txtPDF" style="display: none;">
+                            <div class="row" >
+                                <div class="col-12 col-md-3 col-lg-3">
+                                    <div class="form-group">
+                                        <label>Document Upload:</label>
+                                        <span class="star">*</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <input type="file" name="txtuplode" class="input_class inline-block" id="txtuplode" />
+                                <div class="col-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="file" onchange="onlytxtuplodepdf(this);"  name="txtuplode" class="input_class inline-block" id="txtuplode" />
+                                    </div>
+                                    <span class="txtuplode_error" style="color:red;"></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="row" id="txtweb" style="display: none;">
+                        <div  id="txtweb" style="display: none;">
+                        <div class="row" >
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
                                     <label>Web Site Link:</label>
@@ -241,6 +245,7 @@
                                 <div class="form-group">
                                     <input type="text" name="txtweblink" id="txtweblink" class="input_class form-control" autocomplete="off" placeholder="https://www.xyz.com" value="{{old('txtweblink')}}" />
                                 </div>
+                            </div>
                             </div>
                         </div>
                         <div class="row">
@@ -316,6 +321,7 @@
     </div>
 </div>
 <script src="{{ URL::asset('/public/assets/modules/jquery.min.js')}}"></script>
+<script src="{{ URL::asset('/public/assets/js/page/validate.js')}}"></script>
 <script type="text/javascript">
 
     function getPage(id) {

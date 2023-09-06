@@ -28,8 +28,6 @@
   <script src="{{ URL::asset('/public/assets/modules/summernote/summernote-bs4.js')}}"></script>
   <script src="{{ URL::asset('/public/assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
 
-  <!-- Page Specific JS File -->
-  <script src="{{ URL::asset('/public/assets/js/page/index.js')}}"></script>
   
   <!-- Template JS File -->
   <script src="{{ URL::asset('/public/assets/js/scripts.js')}}"></script>
