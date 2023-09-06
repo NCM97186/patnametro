@@ -38,14 +38,14 @@ class UserController extends Controller
 
         ]);
         User::create([
-           'name' => $request['name'],
-           'user_name' => $request['user_name'],
-           'email' => $request['email'],
-          'login_name' => $request['login_name'],
-           'password' => \Hash::make($request['password']),
-           'designation' => $request['designation'],
-           'user_status' => $request['user_status'],
-           'user_type' => $request['user_type']
+           'name' => clean_single_input($request['name']),
+           'user_name' => clean_single_input($request['user_name']),
+           'email' => clean_single_input($request['email']),
+           'login_name' => clean_single_input($request['login_name']),
+           'password' => \Hash::make(clean_single_input($request['password'])),
+           'designation' => clean_single_input($request['designation']),
+           'user_status' => clean_single_input($request['user_status']),
+           'user_type' => clean_single_input($request['user_type'])
         ]);
        
         return redirect('admin/user')->with('success','User created successfully.');
@@ -59,7 +59,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //$User = User::find($user);
-        return view('admin..user.useredit',compact('user'));
+        return view('admin.user.useredit',compact('user'));
 
     }
     public function update(Request $request, User $user)
@@ -67,24 +67,16 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required |max:255',
             'user_name' => 'required|max:255',
-            'email'=>'required|email|unique:users',
+            'email'=>'required|email',
             'login_name'=>'required',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required',
             'designation'=>'required',
             'user_status'=>'required',
-            'user_type'=>'required'
-
-
-        ]);
-       User::edit([
-           'name' => $request['name'],
-           'user_name' => $request['user_name'],
-           'email' => $request['email'],
-           'login_name' => $request['login_name'],
-           'password' => \Hash::make($request['password']),
-           'designation' => $request['designation'],
-           'user_status' => $request['user_status'],
-           'user_type' => $request['user_type']
-        ]);
+            'user_type'=>'required',
+]);
+        $user->fill($request->post())->save();
+       
        
       
         return redirect('admin/user')->with('success','User updated successfully');

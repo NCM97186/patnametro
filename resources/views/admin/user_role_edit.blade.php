@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'User role')
+@section('title', 'Manage User')
+
 
 		<div id="page-wrapper">
             <div class="row">
@@ -14,23 +15,10 @@
 			<div class="row">
                 <div class="col-lg-12 col-md-12 col-xm-12">
                     <div class="panel panel-default">
-                        @if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-                @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                <p>{{ $message }}</p>
-                </div>
-                @endif
-						<form action="{{ url::to('/admin/user_role') }}" method="POST">
+                        <div class="panel-heading">
+                            Basic Form Elements
+                        </div>
+						<form action="{{ url::to('/admin/user_role') }}"  name="add-role-form" id="add-role-form" method="post" >
                             @csrf
 							<div class="panel-body">
 							<div class="row">
@@ -45,12 +33,12 @@
 										 
                             <select class="input_class form-control" name="user" id="user" >
 
-                            <option value="" > Select </option>
-                            @foreach($user_role as $users)
-                           <option value="{{$users->name}}">{{$users->name}}</option>
+                            <option value=""> Select </option>
+                            @foreach($user_role_edit as $users)
+                           <option value="{{$users->id}}">{{$users->name}}</option>
                             @endforeach
                             </select>
-                            <!--input type="hidden" name="user_name" value="" id="user_name"-->
+                            <input type="hidden" name="user_name" value="" id="user_name">
                             </div>
                             </div>
 
@@ -97,7 +85,7 @@
 
                             <div class="checkbox">
                             <label style="font-size: 1.5em">
-                            <input type="checkbox" class="form-check-input" name="check_module[]"  id="1" value="1" data-id='1'>
+                            <input type="checkbox" class="form-check-input" name="check_module[]"  id="1" value="1" >
                             Manage Menu  </label>
                             </div>
                             </li>
@@ -114,7 +102,7 @@
                            <div class="checkbox">
                             <label style="font-size: 1.5em">
                             <input type="checkbox" class="form-check-input" name="check_module[]"  id="3" value="3" data-id='3'>
-                            Manage PMRCL Profile</label>
+                            Manage Minister's Profile</label>
                             </div>
                             </li>
 
@@ -188,7 +176,7 @@
                             Manage Faq </label>
                             </div>
                             </li>
-<!-- 
+
                             <li>
 
                             <div class="checkbox">
@@ -199,9 +187,9 @@
 
                             Manage Feedback</label>
                             </div>
-                            </li> -->
+                            </li>
 
-                            <!-- <li>
+                            <li>
 
                             <div class="checkbox">
 
@@ -211,7 +199,7 @@
 
                             Manage Discussion Forum            </label>
                             </div>
-                            </li> 
+                            </li>
 
                             <li>
 
@@ -297,7 +285,7 @@
                             </div>
                             </li>
 
-                            <li>-->
+                            <li>
 
                             <div class="checkbox">
 
@@ -309,7 +297,7 @@
                             </div>
                             </li>
 
-                            <!-- <li>
+                            <li>
 
                             <div class="checkbox">
 
@@ -331,7 +319,7 @@
 
                             Manage Discussion Topics </label>
                             </div>
-                            </li> -->
+                            </li>
 
                             <li>
 
@@ -374,7 +362,7 @@
                             </div>
                             </li>
 
-                            <!-- <li>
+                            <li>
 
                             <div class="checkbox">
 
@@ -391,7 +379,7 @@
                             <input type="checkbox" class="form-check-input" name="check_module[]"  id="37" value="37" data-id='37'>
                             Manage Ask Librarian</label>
                             </div>
-                            </li> -->
+                            </li>
                             </ul>
                             </div>
                             </div>
@@ -401,14 +389,13 @@
                             <div class="row">
                             <div class="col-lg-12 col-md-12 col-xm-12">
                             <div class="pull-right">
-                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                            <input name="cmdsubmit" type="button" class="btn btn-success" id="cmdsubmit" value="Submit" />&nbsp;
                             </div>
                             </div>
                             </div>
-                        </div>
-                              </form>
+
                             </div>
-                       					
+                            </form>					
                             </div>
                             </div>
                             </div>
@@ -430,4 +417,5 @@
                   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  @endsection
     
+
 

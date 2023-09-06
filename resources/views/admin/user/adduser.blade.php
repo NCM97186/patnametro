@@ -46,7 +46,7 @@
 									</div>
 									<div class="col-lg-6 col-md-6 col-xm-6">
 										<div class="form-group">
-											<input name="user_name" autocomplete="off"  type="text" class="input_class form-control" id="login_name" value=""/>
+											<input name="user_name" autocomplete="off"  type="text" class="input_class form-control" id="user_name" value="{{old('user_name')}}"/>
 											  </div>
 									</div>
 								</div>
@@ -60,7 +60,7 @@
 									</div>
 									<div class="col-lg-6 col-md-6 col-xm-6">
 										<div class="input_class form-group">
-											<input name="password" autocomplete="off"   type="password" class="input_class form-control" id="user_pass" value=""/>
+											<input name="password" autocomplete="off"   type="password" class="input_class form-control" id="user_pass" value="{{old('password')}}"/>
 											 </div>
 									</div>
 								</div>
@@ -74,7 +74,7 @@
 									</div>
 									<div class="col-lg-6 col-md-6 col-xm-6">
 										<div class="input_class form-group">
-											<input name="password_confirmation" autocomplete="off"  type="password" class="input_class form-control" id="conf_pass" value=""/>
+											<input name="password_confirmation" autocomplete="off"  type="password" class="input_class form-control" id="conf_pass" value="{{old('password_confirmation')}}"/>
 											 </div>
 									</div>
 								</div>
@@ -88,7 +88,7 @@
 									</div>
 									<div class="col-lg-6 col-md-6 col-xm-6">
 										<div class="form-group">
-                                            <input name="name" autocomplete="off" type="text" class="input_class form-control" id="user_name" value=""/>
+                                            <input name="name" autocomplete="off" type="text" class="input_class form-control" id="user_name" value="{{old('name')}}"/>
 											  </div>
 									</div>
 								</div>
@@ -101,7 +101,7 @@
 									</div>
 									<div class="col-lg-6 col-md-6 col-xm-6">
 										<div class="form-group">
-                                            <input name="login_name" autocomplete="off" type="text" class="input_class form-control" id="login_name" value=""/>
+                                            <input name="login_name" autocomplete="off" type="text" class="input_class form-control" id="login_name" value="{{old('login_name')}}"/>
 											  </div>
 									</div>
 								</div>
@@ -114,7 +114,7 @@
 									</div>
 									<div class="col-lg-6 col-md-6 col-xm-6">
 										<div class="input_class form-group">
-											<input name="email" autocomplete="off"  type="text" class="input_class form-control" id="user_email" value=""/>
+											<input name="email" autocomplete="off"  type="text" class="input_class form-control" id="user_email" value="{{old('email')}}"/>
 											</div>
 									</div>
 								</div>
@@ -128,7 +128,7 @@
 									</div>
 									<div class="col-lg-6 col-md-6 col-xm-6">
 											<div class="input_class form-group">
-												<input name="designation" autocomplete="off"  type="text" class="input_class form-control" id="designation" value=""/>
+												<input name="designation" autocomplete="off"  type="text" class="input_class form-control" id="designation" value="{{old('designation')}}"/>
 										</div>
 									</div>
 								</div>

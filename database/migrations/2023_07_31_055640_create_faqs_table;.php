@@ -22,7 +22,6 @@ return new class extends Migration
             $table->longtext('description');
             $table->integer('txtstatus')->nullable();
             $table->integer('admin_id');
-            $table->date('create_date');
             $table->timestamps();
         });
     }

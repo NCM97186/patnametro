@@ -9,14 +9,22 @@
     <!-- /.row -->
 
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-xm-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Basic Form Elements
-                </div>
-                @if (session('message'))
+                <div class="col-lg-12 col-md-12 col-xm-12">
+                    <div class="panel panel-default">
+                        @if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+                @if ($message = Session::get('success'))
                 <div class="alert alert-success">
-                    {{ session('message') }}
+                <p>{{ $message }}</p>
                 </div>
                 @endif
                 <form action="{{ url::to('/admin/user',$user->id) }}" method="POST">
@@ -33,12 +41,12 @@
 
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="form-group">
-                                    <input name="user_name"  autocomplete="off" type="text" class="input_class form-control" id="login_name" value="{{$user->user_name}}" />
+                                    <input name="user_name"  autocomplete="off" type="text" class="input_class form-control" id="login_name" value="{{ old('user_name')?? $user->user_name}}" />
                                 </div>
                             </div>
                         </div>
 
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-lg-3 col-md-3 col-xm-3">
                                 <div class="form-group">
                                     <label>Password:</label>
@@ -47,12 +55,12 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
-                                    <input name="password" autocomplete="off" type="password" class="input_class form-control" id="user_pass" value="" />
+                                    <input name="password" autocomplete="off" type="password" class="input_class form-control" id="user_pass" value="{{old('password') ?? $user->password}}" />
                                 </div>
                             </div>
                         </div>
- -->
-                       <!--  <div class="row">
+
+                          <div class="row">
                             <div class="col-lg-3 col-md-3 col-xm-3">
                                 <div class="form-group">
                                     <label>Confirm Password:</label>
@@ -61,10 +69,10 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
-                                    <input name="password_confirmation" autocomplete="off" type="password" class="input_class form-control" id="conf_pass" value="" />
+                                    <input name="password_confirmation" autocomplete="off" type="password" class="input_class form-control" id="conf_pass" value="{{old('password') ?? $user->password}}" />
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-xm-3">
@@ -75,7 +83,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="form-group">
-                                    <input name="name" autocomplete="off" type="text" class="input_class form-control" id="user_name" value="{{$user->name}}" />
+                                    <input name="name" autocomplete="off" type="text" class="input_class form-control" id="user_name" value="{{old('name')??$user->name}}" />
                                 </div>
                             </div>
                         </div>
@@ -89,7 +97,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
-                                    <input name="email" autocomplete="off" disabled type="text" class="input_class form-control" id="user_email" value="{{$user->email}}" />
+                                    <input name="email" autocomplete="off"  type="text" class="input_class form-control" id="user_email" value="{{old('email')??$user->email}}" />
                                 </div>
                             </div>
                         </div>
@@ -102,7 +110,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
-                                    <input name="login_name" autocomplete="off" disabled type="text" class="input_class form-control" id="user_email" value="{{$user->login_name}}" />
+                                    <input name="login_name" autocomplete="off"  type="text" class="input_class form-control" id="user_email" value="{{old('login_name')??$user->login_name}}" />
                                 </div>
                             </div>
                         </div>
@@ -116,7 +124,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
-                                    <input name="designation" autocomplete="off" type="text" class="input_class form-control" id="designation" value="{{$user->designation}}" />
+                                    <input name="designation" autocomplete="off" type="text" class="input_class form-control" id="designation" value="{{old('designation')??$user->designation}}" />
                                 </div>
                             </div>
                         </div>
@@ -152,8 +160,8 @@
                                     <select name="user_type" class="input_class form-control" id="user_type" autocomplete="off">
                                         <option value=""> Select </option>
 
-                                        <option value="0" @if($user->user_type == '2') ? selected : null @endif>Creator </option>
-                                        <option value="1" @if($user->user_type == '3') ? selected : null @endif> Publisher</option>
+                                        <option value="2" @if($user->user_type == '2') ? selected : null @endif>Creator </option>
+                                        <option value="3" @if($user->user_type == '3') ? selected : null @endif> Publisher</option>
 
                                         <!-- <option value="0" >InActive</option>
                                                 <option value="1" >Active</option> -->
