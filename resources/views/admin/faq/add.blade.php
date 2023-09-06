@@ -96,7 +96,7 @@
                                              </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-lg-3 col-md-3 col-xm-3">
                                         <div class="form-group">
                                             <label>Category:</label>
@@ -108,7 +108,7 @@
                                             <input name="category" autocomplete="off"   type="text" class="input_class form-control" id="user_pass" value="{{old('category')}}"/>
                                              </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
