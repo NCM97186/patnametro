@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage User')
+
 
 
 		<div id="page-wrapper">

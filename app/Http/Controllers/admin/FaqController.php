@@ -12,7 +12,7 @@ class FaqController extends Controller
      */
     public function index()
     {
-      
+      $title="Faq";
         
          $list = Faq::paginate(10);
          return view('admin/faq/index',compact(['list']));
@@ -71,6 +71,7 @@ class FaqController extends Controller
      */
     public function edit($id)
     {
+         $title=" Edit Faq";
       $list=faq::find($id);
         return view('admin.faq.edit',compact(['list']));
     }

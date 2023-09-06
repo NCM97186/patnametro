@@ -12,6 +12,7 @@ class User_roleController extends Controller
      */
      public function index()
      {
+        $title="User role";
         $user_role=admin_role::all();
         
         
@@ -71,6 +72,7 @@ class User_roleController extends Controller
      */
     public function edit(admin_role $admin_role)
     {
+        $title=" Edit User role";
         $user_role_edit = $user_role=admin_role::leftJoin('users', 'users.id', '=', 'admin_roles.role_id')
       ->select('admin_roles.*','users.name')
       ->get();

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage Faq')
+
 
 <div class="row">
     <div class="col-12 col-md-12 col-lg-12">

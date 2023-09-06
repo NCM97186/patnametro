@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+
 class UserController extends Controller
 {
     public function index()
     {
+        $title="User List";
       
      $user=user::where('user_type','!=',1)->get();
          //$user = DB::select("select * from users where user_type!=1  ");
@@ -58,7 +60,7 @@ class UserController extends Controller
    
     public function edit(User $user)
     {
-        //$User = User::find($user);
+         $title=" Edit USer";
         return view('admin.user.useredit',compact('user'));
 
     }

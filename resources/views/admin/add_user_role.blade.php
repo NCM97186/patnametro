@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'User role')
+
 
 		<div id="page-wrapper">
             <div class="row">
