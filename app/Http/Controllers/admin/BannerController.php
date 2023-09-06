@@ -206,17 +206,10 @@ class BannerController extends Controller
 			$pArray['admin_id']  					= $user_login_id;
 			$pArray['txtstatus']  			        = clean_single_input($request->txtstatus);
 
-			$create = Banner::updateOrCreate([ 'admin_id' =>   "$user_login_id",'id' =>   "$id",'language' =>   "$request->language"],$pArray);
-            $lastInsertID = $create->id;
-            if($lastInsertID==$id){
-                $action="Update";
-            }else{
-                 $action="Insert";
-            }
-
-            if($lastInsertID > 0){
+            $create 	= Tender::where('id', $id)->update($pArray);
+            if($create > 0){
 				$audit_data = array('user_login_id'     =>  $user_login_id,
-								'page_id'           	=>  $lastInsertID,
+								'page_id'           	=>  $id,
 								'page_name'             =>  clean_single_input($request->menu_title),
 								'page_action'           =>  $action,
 								'page_category'         =>  '',

@@ -33,7 +33,12 @@ if (! function_exists('convertMdyToYmd')) {
     }
 }
 
-
+if (! function_exists('convertMdyToYmd')) {
+    function convertMdyToYmd($date)
+    { 
+        return Carbon::createFromFormat('m-d-Y', $date)->format('Y-m-d');
+    }
+}
 if (! function_exists('get_setting')) {
     function get_setting()
     { 
@@ -324,12 +329,11 @@ if(!function_exists('audit_trail'))
 		return $numRows;
 	}
 }
+############################menu 
 if ( ! function_exists('primarylink_menu'))
 {
 	function primarylink_menu($language_id, $menu_positions='')
 	{
-		
-
 		$selected = "";
 		if($menu_positions != '')
 		{
@@ -350,11 +354,10 @@ if ( ! function_exists('primarylink_menu'))
 									<option value ="0" '.$selected.'>It is Root Category</option>';
 			
 			$whEre = array(	'approve_status'	=> 3,
-							//'m_flag_id'			=> 0,
+							'm_flag_id'			=> 0,
 							'language_id'		=> $language_id
 						);
-			$nav_query =DB::table('menus')->select('*')->where($whEre)->get();
-			
+			$nav_query = DB::table('menus')->select('*')->where($whEre)->get();
 			foreach($nav_query as $row)
 			{
 				$selected = "";
@@ -364,7 +367,8 @@ if ( ! function_exists('primarylink_menu'))
 						$selected="selected";
 				}
 				$returnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>'.$row->m_name.'</strong></option>';
-				$returnValue .= build_child($row->id, '', $menu_positions);
+
+                                $returnValue .= build_child_one($row->id, '', $menu_positions);
 			}
 		$returnValue .=    		'</select>
 							</div>
@@ -373,13 +377,13 @@ if ( ! function_exists('primarylink_menu'))
 		return $returnValue;
 	}
 }
-if ( ! function_exists('build_child'))
-{
-	function build_child($parent_id, $tempReturnValue, $menu_positions)
-	{
-		$tempReturnValue .= $tempReturnValue;
-		
 
+if ( ! function_exists('build_child_one'))
+{
+	function build_child_one($parent_id, $tempReturnValue, $menu_positions)
+	{
+            
+		$tempReturnValue .= $tempReturnValue;
 		$whEre = array(	'approve_status'	=> 3,
 						'm_flag_id'			=> $parent_id
 						);
@@ -392,13 +396,183 @@ if ( ! function_exists('build_child'))
 				if($row->id == $menu_positions)
 					$selected="selected";
 			}
-			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>'.$row->m_name.'</option>';
-			$tempReturnValue .= build_child($row->id, $tempReturnValue='', $menu_positions);
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>&nbsp;--&nbsp;'.$row->name.'</strong></option>';
+			$tempReturnValue .= build_child_two($row->id, $tempReturnValueAnother='', $menu_positions);
 		}
 
 		return $tempReturnValue;
 	}
 }
+
+if ( ! function_exists('build_child_two'))
+{
+	function build_child_two($parent_id, $tempReturnValue, $menu_positions)
+	{
+            
+		$tempReturnValue .= $tempReturnValue;
+		$whEre = array(	'approve_status'	=> 3,
+						'm_flag_id'			=> $parent_id
+						);
+		$nav_query = DB::table('menus')->select('*')->where($whEre)->get();
+		foreach($nav_query as $row)
+		{
+			$selected = "";
+			if($menu_positions != '')
+			{
+				if($row->id == $menu_positions)
+					$selected="selected";
+			}
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</strong></option>';
+			$tempReturnValue .= build_child_three($row->id, $tempReturnValueAnother='', $menu_positions);
+		}
+
+		return $tempReturnValue;
+	}
+}
+
+if ( ! function_exists('build_child_three'))
+{
+	function build_child_three($parent_id, $tempReturnValue, $menu_positions)
+	{
+            
+		$tempReturnValue .= $tempReturnValue;
+		$whEre = array(	'approve_status'	=> 3,
+						'm_flag_id'			=> $parent_id
+						);
+		$nav_query = DB::table('menus')->select('*')->where($whEre)->get();
+		foreach($nav_query as $row)
+		{
+			$selected = "";
+			if($menu_positions != '')
+			{
+				if($row->id == $menu_positions)
+					$selected="selected";
+			}
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+			$tempReturnValue .= build_child_four($row->id, $tempReturnValueAnother='', $menu_positions);
+		}
+
+		return $tempReturnValue;
+	}
+}
+
+
+
+if ( ! function_exists('build_child_four'))
+{
+	function build_child_four($parent_id, $tempReturnValue, $menu_positions)
+	{
+            
+		$tempReturnValue .= $tempReturnValue;
+		$whEre = array(	'approve_status'	=> 3,
+						'm_flag_id'			=> $parent_id
+						);
+		$nav_query = DB::table('menus')->select('*')->where($whEre)->get();
+		foreach($nav_query as $row)
+		{
+			$selected = "";
+			if($menu_positions != '')
+			{
+				if($row->id == $menu_positions)
+					$selected="selected";
+			}
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+			$tempReturnValue .= build_child_five($row->id, $tempReturnValueAnother='', $menu_positions);
+		}
+
+		return $tempReturnValue;
+	}
+}
+
+
+
+if ( ! function_exists('build_child_five'))
+{
+	function build_child_five($parent_id, $tempReturnValue, $menu_positions)
+	{
+            
+		$tempReturnValue .= $tempReturnValue;
+		$whEre = array(	'approve_status'	=> 3,
+						'm_flag_id'			=> $parent_id
+						);
+		$nav_query = DB::table('menus')->select('*')->where($whEre)->get();
+		foreach($nav_query as $row)
+		{
+			$selected = "";
+			if($menu_positions != '')
+			{
+				if($row->id == $menu_positions)
+					$selected="selected";
+			}
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+			$tempReturnValue .= build_child_six($row->id, $tempReturnValueAnother='', $menu_positions);
+		}
+
+		return $tempReturnValue;
+	}
+}
+
+
+if ( ! function_exists('build_child_six'))
+{
+	function build_child_six($parent_id, $tempReturnValue, $menu_positions)
+	{
+            
+		$tempReturnValue .= $tempReturnValue;
+		
+
+		$whEre = array(	'approve_status'	=> 3,
+						'm_flag_id'			=> $parent_id
+						);
+		
+		$nav_query = DB::table('menus')->select('*')->where($whEre)->get();
+		foreach($nav_query as $row)
+		{
+			$selected = "";
+			if($menu_positions != '')
+			{
+				if($row->id == $menu_positions)
+					$selected="selected";
+			}
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+			$tempReturnValue .= build_child_seven($row->id, $tempReturnValueAnother='', $menu_positions);
+		}
+
+		return $tempReturnValue;
+	}
+}
+
+
+if ( ! function_exists('build_child_seven'))
+{
+	function build_child_seven($parent_id, $tempReturnValue, $menu_positions)
+	{
+            
+		$tempReturnValue .= $tempReturnValue;
+		
+
+		$whEre = array(	'approve_status'	=> 3,
+						'm_flag_id'			=> $parent_id
+						);
+		
+		$nav_query = DB::table('menus')->select('*')->where($whEre)->get();
+		foreach($nav_query as $row)
+		{
+			$selected = "";
+			if($menu_positions != '')
+			{
+				if($row->id == $menu_positions)
+					$selected="selected";
+			}
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+		}
+
+		return $tempReturnValue;
+	}
+}
+
+
+############################menu end
 if ( ! function_exists('seo_url'))
 {
 	function seo_url($seo_url){

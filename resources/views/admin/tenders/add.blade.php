@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage menu')
+@section('title', 'Manage Tender')
 <script type="text/javascript">
 
 
@@ -56,8 +56,9 @@
                 @endif
                 <form  action="{{URL::to('admin/tender/')}}" name="form1" id="form1" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                     @csrf
-                   
+                  
                     <div class="panel-body">
+                   
                         <div class="row">
                                 <div class="col-12 col-md-3 col-lg-3">
                                     <div class="form-group">
@@ -152,7 +153,7 @@
                                     <select name="menutype" id="menutype" class="form-control @error('menutype') is-invalid @enderror" autocomplete="off" onchange="addmenutype(this.value)">
                                     <option value="">Select</option>
                                         <?php 
-                                        $menuTypeArray = array("1"=>" Content ","2"=>"PDF file Upload","3"=>"Web Site Url");
+                                        $menuTypeArray = array("1"=>" Content ","2"=>"PDF file Upload","3"=>"Url");
                                         foreach($menuTypeArray as $key=>$value)
                                         {
                                         ?>
@@ -238,8 +239,9 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="file" name="txtuplode" class="input_class inline-block" id="txtuplode" />
+                                    <input type="file" onchange="onlytxtuplodepdf(this);" name="txtuplode" class="input_class inline-block" id="txtuplode" />
                                 </div>
+                                <span class="txtuplode_error" style="color:red;"></span>
                                 @error('txtuplode')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -298,7 +300,8 @@
 									<div class="col-lg-6 col-md-6 col-xm-6">
 										<div class="form-group">
 											
-											<input type="date" name="enddate" id="enddate" class="input_class form-control" autocomplete="off"value="{{old('enddate')}}">
+											<input type="date" onchange="ValidateTodate();" name="enddate" id="enddate" class="input_class form-control" autocomplete="off"value="{{old('enddate')}}">
+                                            <span class="enddate_error" style="color:red;"></span>
                                         </div>
                                         @error('enddate')
                                         <span class="invalid-feedback" role="alert">
@@ -384,13 +387,13 @@
     </div>
 </div>
 <script src="{{ URL::asset('/public/assets/modules/jquery.min.js')}}"></script>
+<script src="{{ URL::asset('/public/assets/js/page/validate.js')}}"></script>
 <script type="text/javascript">
 
     
 
     $(document).ready(function() {
-        $('#startdate').datepicker({format: 'dd-mm-yyyy',autoclose:true});
-		$('#enddate').datepicker({format: 'dd-mm-yyyy',autoclose:true});
+       
 
         var id=@if(!empty(old('menutype'))){{old('menutype')}} @else 0 @endif;
     
@@ -421,5 +424,6 @@
                 jQuery('#txtweb').css('txtPDF', 'none')
             }
     });
+   
 </script>
 @endsection

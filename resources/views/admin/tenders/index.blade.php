@@ -39,6 +39,7 @@
                             <th>#</th>
                             <th>Title</th>
                             <th>Status</th>
+                            <th>Language</th>
                             <th>Actions</th>
                         </tr>
 						</thead>
@@ -58,6 +59,7 @@
                                             <td><?php echo $row->tender_title; ?></td>
                                             
                                             <td><?php echo status($row->txtstatus); ?></td>
+                                            <td><?php echo language($row->language); ?></td>
                                             <td>
                                                 <a href="{{route('tender.edit', $row->id)}}" class="btn btn-success btn-xs">Edit</a>
                                                 <form action="{{ route('tender.destroy',$row->id) }}"  method="POST"> 

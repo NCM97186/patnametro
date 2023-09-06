@@ -22,6 +22,7 @@ class Tender extends Model
                     'txtweblink',
                     'txtstatus',
                     'admin_id',
+                    'tendertype',
                     'start_date',
                     'end_date'
                 ];

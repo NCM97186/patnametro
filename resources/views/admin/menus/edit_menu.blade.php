@@ -120,11 +120,12 @@
                             </div>
                         </div>
                         
-                                <div id="content1" class="row" style="display:!empty($data->language_id)?$data->language_id:isset(old('language'))? "block" : "none" ">
-                                <?php  $language_id=!empty($data->language_id)?$data->language_id:old('language'); if(isset($language_id)): ?>
+                                <div id="content1" style="display:<?php echo !empty($data->language_id)? "block" : "none" ;?>">
+                               <div class="row" > <?php  $language_id=!empty($data->language_id)?$data->language_id:old('language'); if(isset($language_id)): ?>
 										<?php if(!isset($data->m_flag_id))$data->m_flag_id=''; ?>
 										<?php echo primarylink_menu($language_id, $data->m_flag_id) ?>
 									<?php endif; ?>
+                                    </div>
 								</div>
                        
                     
@@ -218,7 +219,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" id="txtPDF" style="display: none;">
+                        <div id="txtPDF" style="display: none;">
+                        <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
                                     <label>Document Upload:</label>
@@ -226,13 +228,21 @@
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <input type="file"  name="txtuplode" class="input_class inline-block" id="txtuplode" />
-                                    @if(!empty($data->txtuplode))
-                                    <a href="{{$data->txtuplode }}">view PDF</a>
-                                     @endif
+                            <div class="form-group">
+                                    <input type="file" value="{{old('txtuplode')}}" name="txtuplode"  onchange="onlytxtuplodepdf(this);"  class="input_class w-50 inline-block" id="txtuplode" />
+                                    <a  class="w-50" target="_blank" href="{{ URL::asset('public/upload/admin/cmsfiles/menus/')}}/{{$data->doc_uplode}}" > View PDF</a>
+                              
+                                
+                                <input type="hidden" name="olduplode" class="input_class w-50 inline-block" value="<?php echo !empty($data->doc_uplode)?$data->doc_uplode:''; ?>" />
+                                 <span class="txtuplode_error" style="color:red;"></span>
+                                @error('txtuplode')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
+                        </div>
                         </div>
                         <div class="row" id="txtweb" style="display: none;">
                             <div class="col-12 col-md-3 col-lg-3">
@@ -320,6 +330,7 @@
     </div>
 </div>
 <script src="{{ URL::asset('/public/assets/modules/jquery.min.js')}}"></script>
+<script src="{{ URL::asset('/public/assets/js/page/validate.js')}}"></script>
 <script type="text/javascript">
 
     function getPage(id) {

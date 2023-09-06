@@ -18,10 +18,10 @@ class MenuController extends Controller
         $title="Menu List";
         $whEre  = "";
       
-        $langid=!empty($langid)?$langid:1;
+        
        
 		$list = Menu::paginate(10);
-         return view('admin/menus/menu',compact(['list','langid','title']));
+         return view('admin/menus/menu',compact(['list','title']));
     }
 
     /**
@@ -61,22 +61,27 @@ class MenuController extends Controller
 		}elseif($request->menutype == 2){
 			if (!empty($request->txtuplode)){
 
-                if (!is_dir('upload/admin/cmsfiles/')) {
-                    mkdir('upload/admin/cmsfiles/', 0777, TRUE);
+                if (!is_dir('public/upload/admin/cmsfiles/menus/')) {
+                    mkdir('public/upload/admin/cmsfiles/menus/', 0777, TRUE);
                 }
-
-                $rules = array(
-                    'txtuplode' => 'required|mimes:pdf,xlx,csv|max:2048',
-                );
-                $txtuplode = $request->file('txtuplode');
-
-                $txtuplode1 = rand() . '.' . $txtuplode->getClientOriginalExtension();
-                $res=  $txtuplode->move(public_path('upload/admin/cmsfiles/'), $txtuplode1);
                 
-                   if($res){
-                    $txtuplode1 =$txtuplode1;
-                   }
-                   $validator = Validator::make($request->all(), $rules);
+                    $rulesdsad = array(
+                        'txtuplode' => 'required|mimes:pdf,xlx,csv|max:2048',
+                    );
+                    $txtuplode1 = str_replace(' ','_',clean_single_input($request->menu_title)).'menu'.'.'.$request->txtuplode->extension();  
+            
+                    $res= $request->txtuplode->move(public_path('upload/admin/cmsfiles/menus/'), $txtuplode1);
+                    
+                    
+                    if($res){
+                        $txtuplode1 =$txtuplode1;
+                    }
+                    $txtuplode2 ='upload/admin/cmsfiles//menus/'.$txtuplode1; //die();
+                    
+                    if (file_exists($txtuplode2)) {
+                        unlink($txtuplode2);
+                    }
+                        $validator = Validator::make($request->all(), $rulesdsad);
 			}
 		}elseif($request->menutype == 3){
             $rules = array(
@@ -87,14 +92,6 @@ class MenuController extends Controller
         }
             $validator = Validator::make($request->all(), $rules);
         
-        
-		
-		
-		// if(isset($_POST['m_id']) && $_POST['menutype'] == 2){
-		// 	$_POST['txtuplode'] = $_POST['pretxtuplode'];
-		// }else{
-		// 	$_POST['txtuplode'] = "";
-		// }
         if ($validator->fails()) {
       
             return redirect('admin/menu/create')->withErrors($validator)->withInput();
@@ -102,21 +99,21 @@ class MenuController extends Controller
         }else{
             $user_login_id=Auth()->user()->id;
             $dataArr = array(); 
-            $pArray['m_name']    					= $request->menu_title; 
-			$pArray['m_url']  						= seo_url($request->url);
-			$pArray['language_id']    			    = $request->language;
-			$pArray['m_flag_id']    				= $request->menucategory;
-			$pArray['m_type']  						= $request->menutype;
-			$pArray['m_title']  					= $request->url;
-			$pArray['m_keyword']    				= $request->metakeyword;
-			$pArray['welcomedescription']  	        = $request->welcomedescription;
-			$pArray['m_description']				= $request->metadescription;
-			$pArray['content']    					= $request->description;
-			$pArray['doc_uplode']  				    = $txtuplode1;
-			$pArray['linkstatus']    				= $request->txtweblink;
-			$pArray['admin_id']  					= $user_login_id;
-			$pArray['approve_status']  			    = $request->txtstatus;
-			$pArray['menu_positions']  		        = $request->txtpostion;
+            $pArray['m_name']    					= clean_single_input($request->menu_title); 
+			$pArray['m_url']  						= seo_url(clean_single_input($request->url));
+			$pArray['language_id']    			    = clean_single_input($request->language);
+			$pArray['m_flag_id']    				= clean_single_input($request->menucategory);
+			$pArray['m_type']  						= clean_single_input($request->menutype);
+			$pArray['m_title']  					= clean_single_input($request->url);
+			$pArray['m_keyword']    				= clean_single_input($request->metakeyword);
+			$pArray['welcomedescription']  	        = clean_single_input($request->welcomedescription);
+			$pArray['m_description']				= clean_single_input($request->metadescription);
+			$pArray['content']    					= clean_single_input($request->description);
+			$pArray['doc_uplode']  				    = clean_single_input($txtuplode1);
+			$pArray['linkstatus']    				= clean_single_input($request->txtweblink);
+			$pArray['admin_id']  					= clean_single_input($user_login_id);
+			$pArray['approve_status']  			    = clean_single_input($request->txtstatus);
+			$pArray['menu_positions']  		        =clean_single_input( $request->txtpostion);
 			$pArray['current_version']  			= 0;
 			
 			$create 	= Menu::create($pArray);
@@ -126,12 +123,12 @@ class MenuController extends Controller
             if($lastInsertID > 0){
 				$audit_data = array('user_login_id'     =>  $user_login_id,
 								'page_id'           	=>  $lastInsertID,
-								'page_name'             =>  $request->menu_title,
+								'page_name'             =>  clean_single_input($request->menu_title),
 								'page_action'           =>  'Insert',
-								'page_category'         =>  $request->menutype,
-								'lang'                  =>  $request->language,
+								'page_category'         =>  clean_single_input($request->menutype),
+								'lang'                  =>  clean_single_input($request->language),
 								'page_title'        	=> 'Menu Model',
-								'approve_status'        => $request->txtstatus,
+								'approve_status'        => clean_single_input($request->txtstatus),
 								'usertype'          	=> 'Admin'
 							);
 							
@@ -153,7 +150,7 @@ class MenuController extends Controller
         
 		$list = Menu::where('id',$id)->paginate(10);
        // User::where('votes', '>', 100)->paginate(15);
-         return view('admin/menus/menu',compact(['list','langid','title']));
+         return view('admin/menus/menu',compact(['list','title']));
     }
 
     /**
@@ -171,6 +168,7 @@ class MenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $id= clean_single_input($id);
         $txtuplode1 ='';
         $rules = array(
             'menu_title' => 'required',
@@ -193,23 +191,30 @@ class MenuController extends Controller
 		}elseif($request->menutype == 2){
 			if (!empty($request->txtuplode)){
 
-                // if (!is_dir('upload/admin/cmsfiles/')) {
-                //     mkdir('upload/admin/cmsfiles/', 0777, TRUE);
-                // }
+                if (!is_dir('public/upload/admin/cmsfiles/menus/')) {
+                    mkdir('public/upload/admin/cmsfiles/menus/', 0777, TRUE);
+                }
                 
-                $rules = array(
-                    'txtuplode' => 'required|mimes:pdf,xlx,csv|max:2048',
-                );
-                $txtuplode = $request->file('txtuplode');
-
-                $txtuplode1 = rand() . '.' . $txtuplode->getClientOriginalExtension();
-                $res=  $txtuplode->move(public_path('upload/admin/cmsfiles/'), $txtuplode1);
-                
-                   if($res){
-                    $txtuplode1 =$txtuplode1;
-                   }
-                   $validator = Validator::make($request->all(), $rules);
-			}
+                   $rulesdsad = array(
+                       'txtuplode' => 'required|mimes:pdf,xlx,csv|max:2048',
+                   );
+                   $txtuplode1 = str_replace(' ','_',clean_single_input($request->menu_title)).'menu'.'.'.$request->txtuplode->extension();  
+           
+                    $res= $request->txtuplode->move(public_path('upload/admin/cmsfiles/menus/'), $txtuplode1);
+                  
+                   
+                    if($res){
+                       $txtuplode1 =$txtuplode1;
+                    }
+                    $txtuplode2 ='upload/admin/cmsfiles//menus/'.$txtuplode1; //die();
+                    
+                    if (file_exists($txtuplode2)) {
+                        unlink($txtuplode2);
+                    }
+                     $validator = Validator::make($request->all(), $rulesdsad);
+			}else{
+                $txtuplode1 =$request->olduplode;
+            }
 		}elseif($request->menutype == 3){
             $rules = array(
                 'txtweblink' => 'required'
@@ -227,24 +232,40 @@ class MenuController extends Controller
             $user_login_id=Auth()->user()->id;
             $dataArr = array(); 
           
-			//$dataArr = clean_data_array($request);  // clean posted data 
-			///*
-			//$pArray = array();
-			$pArray['m_name']    					= $request->menu_title; 
-			$pArray['m_url']  						= seo_url($request->url);
-			$pArray['language_id']    			    = $request->language;
-			$pArray['m_flag_id']    				= $request->menucategory;
-			$pArray['m_type']  						= $request->menutype;
-			$pArray['m_title']  					= $request->url;
-			$pArray['m_keyword']    				= $request->metakeyword;
-			$pArray['welcomedescription']  	        = $request->welcomedescription;
-			$pArray['m_description']				= $request->metadescription;
-			$pArray['content']    					= $request->description;
-			$pArray['doc_uplode']  				    = $txtuplode1;
-			$pArray['linkstatus']    				= $request->txtweblink;
+			$pArray['m_name']    					= clean_single_input($request->menu_title); 
+			$pArray['m_url']  						= seo_url(clean_single_input($request->url));
+			$pArray['language_id']    			    = clean_single_input($request->language);
+			$pArray['m_flag_id']    				= clean_single_input($request->menucategory);
+			$pArray['m_type']  						= clean_single_input($request->menutype);
+			$pArray['m_title']  					= clean_single_input($request->url);
+			$pArray['welcomedescription']  	        = clean_single_input($request->welcomedescription);
+
+
+            if($request->menutype == 1){
+                $pArray['doc_uplode']  				    = ''; 
+                $pArray['linkstatus']    				= '';
+                $pArray['content']    			        = clean_single_input($request->description); 
+                $pArray['m_keyword']    			    = clean_single_input($request->metakeyword); 
+                $pArray['m_description']				= clean_single_input($request->metadescription); 
+             }elseif($request->menutype == 2){
+                 $pArray['m_keyword']    			    = ''; 
+                 $pArray['m_description']				= ''; 
+                 $pArray['linkstatus']    				= ''; 
+                 $pArray['content']    			        = '';
+                 $pArray['doc_uplode']  				= clean_single_input($txtuplode1); 
+                 
+            }elseif($request->menutype == 3){
+             $pArray['m_keyword']    			    = ''; 
+             $pArray['m_description']				= ''; 
+             $pArray['doc_uplode']    				= ''; 
+             $pArray['content']    			        = '';
+             $pArray['linkstatus']  				    = clean_single_input($request->txtweblink); 
+            }else{
+ 
+            }
 			$pArray['admin_id']  					= $user_login_id;
-			$pArray['approve_status']  			    = $request->txtstatus;
-			$pArray['menu_positions']  		        = $request->txtpostion;
+			$pArray['approve_status']  			    = clean_single_input($request->txtstatus);
+			$pArray['menu_positions']  		        = clean_single_input($request->txtpostion);
 			$pArray['current_version']  			= 0;
 			
 			$create 	= Menu::where('id', $id)->update($pArray);
@@ -254,12 +275,12 @@ class MenuController extends Controller
             if($create > 0){
 				$audit_data = array('user_login_id'     =>  $user_login_id,
 								'page_id'           	=>  $lastInsertID,
-								'page_name'             =>  $request->menu_title,
+								'page_name'             =>  clean_single_input($request->menu_title),
 								'page_action'           =>  'Update',
-								'page_category'         =>  $request->menutype,
-								'lang'                  =>  $request->language,
+								'page_category'         =>  clean_single_input($request->menutype),
+								'lang'                  =>  clean_single_input($request->language),
 								'page_title'        	=> 'Menu Model',
-								'approve_status'        => $request->txtstatus,
+								'approve_status'        => clean_single_input($request->txtstatus),
 								'usertype'          	=> 'Admin'
 							);
 							
