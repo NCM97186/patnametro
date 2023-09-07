@@ -2,7 +2,8 @@
 @section('content')
 @section('title', 'Manage User')
 
-<!-- <h1 class="page-header">Manage User</h1> -->
+<div class="card">
+    <div class="card-body">
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -75,4 +76,7 @@
 			</div>
             <!-- /.row -->
 		</div>
+        </div>
+            <!-- /.row -->
+        </div>
 @endsection

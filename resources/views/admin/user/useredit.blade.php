@@ -1,4 +1,8 @@
-@extends('layouts.master') @section('content') @section('title', 'Update user')
+@extends('layouts.master')
+ @section('content')
+ @section('title', 'Update user')
+ <div class="card">
+ <div class="card-body">
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-xm-12">
@@ -42,6 +46,9 @@
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="form-group">
                                     <input name="user_name"  autocomplete="off" type="text" class="input_class form-control" id="login_name" value="{{ old('user_name')?? $user->user_name}}" />
+                                    @if($errors->has('user_name'))
+                  <span class="text-danger">{{ $errors->first('user_name') }}</span>
+                @endif
                                 </div>
                             </div>
                         </div>
@@ -56,6 +63,9 @@
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
                                     <input name="password" autocomplete="off" type="password" class="input_class form-control" id="user_pass" value="{{old('password') ?? $user->password}}" />
+                                    @if($errors->has('password'))
+                  <span class="text-danger">{{ $errors->first('password') }}</span>
+                @endif
                                 </div>
                             </div>
                         </div>
@@ -70,6 +80,10 @@
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
                                     <input name="password_confirmation" autocomplete="off" type="password" class="input_class form-control" id="conf_pass" value="{{old('password') ?? $user->password}}" />
+                                     @if($errors->has('password_confirmation'))
+                  <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+                @endif
+
                                 </div>
                             </div>
                         </div>
@@ -84,6 +98,9 @@
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="form-group">
                                     <input name="name" autocomplete="off" type="text" class="input_class form-control" id="user_name" value="{{old('name')??$user->name}}" />
+                                    @if($errors->has('name'))
+                  <span class="text-danger">{{ $errors->first('name') }}</span>
+                @endif
                                 </div>
                             </div>
                         </div>
@@ -98,6 +115,9 @@
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
                                     <input name="email" autocomplete="off"  type="text" class="input_class form-control" id="user_email" value="{{old('email')??$user->email}}" />
+                                    @if($errors->has('email'))
+                  <span class="text-danger">{{ $errors->first('email') }}</span>
+                @endif
                                 </div>
                             </div>
                         </div>
@@ -111,6 +131,9 @@
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
                                     <input name="login_name" autocomplete="off"  type="text" class="input_class form-control" id="user_email" value="{{old('login_name')??$user->login_name}}" />
+                                    @if($errors->has('login_name'))
+                  <span class="text-danger">{{ $errors->first('login_name') }}</span>
+                @endif
                                 </div>
                             </div>
                         </div>
@@ -125,6 +148,9 @@
                             <div class="col-lg-6 col-md-6 col-xm-6">
                                 <div class="input_class form-group">
                                     <input name="designation" autocomplete="off" type="text" class="input_class form-control" id="designation" value="{{old('designation')??$user->designation}}" />
+                                     @if($errors->has('designation'))
+                  <span class="text-danger">{{ $errors->first('designation') }}</span>
+                @endif
                                 </div>
                             </div>
                         </div>
@@ -180,5 +206,7 @@
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 @endsection

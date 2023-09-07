@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 use App\Models\admin\Faq;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class FaqController extends Controller
 {
@@ -15,7 +17,7 @@ class FaqController extends Controller
       $title="Faq";
         
          $list = Faq::paginate(10);
-         return view('admin/faq/index',compact(['list']));
+         return view('admin/faq/index',compact(['list','title']));
         
     }
 
@@ -24,7 +26,8 @@ class FaqController extends Controller
      */
     public function create()
     {
-         return view('admin/faq/add');
+        $title=" add Faq";
+         return view('admin/faq/add',compact(['title']));
     }
 
     /**
@@ -53,6 +56,7 @@ class FaqController extends Controller
         ]);
        
         return redirect('admin/faq')->with('success','Faq created successfully.');
+
     }
     
 
@@ -70,14 +74,15 @@ class FaqController extends Controller
     public function edit($id)
     {
          $title=" Edit Faq";
+         $id=clean_single_input($id);
       $list=faq::find($id);
-        return view('admin.faq.edit',compact(['list']));
+        return view('admin.faq.edit',compact(['list','title']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, faq $faq)
+    public function update(Request $request,$id)
     {
        $request->validate([
                 'title' => 'required |max:255',
@@ -88,7 +93,20 @@ class FaqController extends Controller
                 'txtstatus'=>'required',
             
              ]);
-             $faq->fill($request->post())->save(); 
+
+            $product = Faq::find($id);
+            $product['title'] = clean_single_input($request['title']);
+            $product['url'] = clean_single_input($request['url']);
+            $product['page_url'] = clean_single_input($request['page_url']);
+            $product['language'] = clean_single_input($request['language']);
+            $product['description'] = clean_single_input($request['description']);
+            $product['txtstatus'] = clean_single_input($request['txtstatus']);
+            $product->save();
+           
+           
+    
+       //$create  = Faq::where('id', $id)->update($pArray);
+
               return redirect('admin/faq')->with('success','faq updated successfully');
     }
 
