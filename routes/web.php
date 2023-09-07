@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TenderController as tender;
 use App\Http\Controllers\Admin\WhatsnewsController as whatsnews;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\VideogalleryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,7 @@ Route::group(['middleware' => ['auth','admin','XSS']], function () {
         Route::any('/admin/get_primarylink_menu', [AjaxRequestController::class,'get_primarylink_menu'])->name('/admin/get_primarylink_menu');
         Route::any('/admin/get_filter_menu', [AjaxRequestController::class,'get_filter_menu'])->name('/admin/get_filter_menu');
         Route::resource('/admin/faq', FaqController::class);
+         Route::resource('/admin/videogallery', VideogalleryController::class);
  
        
 });

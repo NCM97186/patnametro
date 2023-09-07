@@ -2,14 +2,10 @@
 @section('content')
 @section('title', 'Manage User')
 
-<!-- <h1 class="page-header">Manage User</h1> -->
+<div class="card">
+    <div class="card-body">
 <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Manage User<a href="{{URL::to('admin/user/create')}}" class="btn btn-primary pull-right">Add User</a></h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
+            
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
@@ -75,4 +71,7 @@
 			</div>
             <!-- /.row -->
 		</div>
+        </div>
+            <!-- /.row -->
+        </div>
 @endsection

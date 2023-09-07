@@ -4,6 +4,7 @@
 /public/hot
 /route/web.php
 /public/storage
+/route/web.php
 /storage/*.key
 /vendor
 .env

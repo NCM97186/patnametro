@@ -91,6 +91,7 @@
             <li><a href="{{ url('/admin/menu')}}"><i class="fa fa-bars"></i></i> <span>Manage Menu</span></a></li>
             <li><a href="{{ url('/admin/banner')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>Manage Banner</span></a></li>
              <li><a href="{{ url('/admin/faq')}}"><i class="fa fa-question-circle" aria-hidden="true"></i> <span>Faq</span></a></li>
+              <li><a href="{{ url('/admin/Videogallery')}}"><i class="fa fa-toggle-right"></i> <span>Manage Video Gallery</span></a></li>
                     
            
         </ul>
@@ -99,10 +100,10 @@
 <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>{{ $title }}</h1>
+            <h1>{{$title}}</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item"><a href="{{ url('/admin/dashboard')}}">Dashboard</a></div>
-              <div class="breadcrumb-item active">{{ $title }}</div>
+              <div class="breadcrumb-item active">{{$title}}</div>
             </div>
           </div>
           <div class="section-body">

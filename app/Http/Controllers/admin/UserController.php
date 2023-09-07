@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,15 +12,19 @@ class UserController extends Controller
     public function index()
     {
         $title="User List";
-        $user=user::where('user_type','!=',1)->get();
-        return view('admin.user.users',compact(['user','title']));
-    
+      
+     $user=user::where('user_type','!=',1)->get();
+         //$user = DB::select("select * from users where user_type!=1  ");
+
+        return view('admin.user.users',compact(['user']));
+     //}
     
     }
 
      public function create()
     {
-         return view('admin.user.adduser');
+        $title="User List";
+         return view('admin.user.adduser',compact(['title']));
     }
     public function store(Request $request)
     {
@@ -57,10 +62,10 @@ class UserController extends Controller
     public function edit(User $user)
     {
          $title=" Edit USer";
-        return view('admin.user.useredit',compact(['user','title']));
+        return view('admin.user.useredit',compact('user'));
 
     }
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required |max:255',
@@ -72,7 +77,7 @@ class UserController extends Controller
             'designation'=>'required',
             'user_status'=>'required',
             'user_type'=>'required',
-         ]);
+]);
         $user->fill($request->post())->save();
        
        

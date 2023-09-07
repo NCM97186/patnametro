@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 use App\Models\admin\Faq;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class FaqController extends Controller
 {
@@ -23,9 +25,8 @@ class FaqController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {  
-         $title="Add Faq";
-         return view('admin/faq/add',compact(['title']));
+    {
+         return view('admin/faq/add');
     }
 
     /**
@@ -37,7 +38,6 @@ class FaqController extends Controller
             'title' => 'required |max:255',
             'url' => 'required|max:255',
             'page_url'=>'required',
-            'category'=>'required',
             'language'=>'required',
             'description'=>'required',
             'txtstatus'=>'required',
@@ -47,7 +47,6 @@ class FaqController extends Controller
            'title' => clean_single_input($request['title']),
            'url' => clean_single_input($request['url']),
            'page_url' => clean_single_input($request['page_url']),
-           'category' => clean_single_input($request['category']),
            'language' => clean_single_input($request['language']),
            'description' => clean_single_input($request['description']),
            'txtstatus' => clean_single_input($request['txtstatus']),
@@ -56,6 +55,7 @@ class FaqController extends Controller
         ]);
        
         return redirect('admin/faq')->with('success','Faq created successfully.');
+
     }
     
 
@@ -73,27 +73,26 @@ class FaqController extends Controller
     public function edit($id)
     {
          $title=" Edit Faq";
-         $list=faq::find($id);
-        return view('admin.faq.edit',compact(['list','title']));
+      $list=faq::find($id);
+        return view('admin.faq.edit',compact(['list']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, faq $faq)
+    public function update(Request $request,$id)
     {
              $request->validate([
                 'title' => 'required |max:255',
                 'url' => 'required|max:255',
                 'page_url'=>'required',
-                'category'=>'required',
                 'language'=>'required',
                 'description'=>'required',
                 'txtstatus'=>'required',
             
              ]);
-              $faq->fill($request->post())->save(); 
-              return redirect('admin/faq')->with('success','Faq updated successfully');
+             $faq->fill($request->post())->save(); 
+              return redirect('admin/faq')->with('success','faq updated successfully');
     }
 
     /**
