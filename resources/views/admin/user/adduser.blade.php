@@ -4,13 +4,13 @@
 <div class="card">
     <div class="card-body">
 <div id="page-wrapper">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-12 col-md-12 col-xm-12">
                      <h1 class="page-header">Add User<a href="{{URL::to('admin/user')}}" title="Back" class="btn btn-primary pull-right">Back</a>
                     </h1> 
                 </div>
-                <!-- /.col-lg-12 col-md-12 col-xm-12 -->
-            </div>
+                 /.col-lg-12 col-md-12 col-xm-12 -->
+            </div> 
             <!-- /.row -->
 
 			<div class="row">
@@ -192,13 +192,14 @@
 								</div>
 
 								<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-12 ">
-						<div class="pull-right">
-				<button type="submit" name="submit" class="btn btn-primary">Submit</button>
-											
-										</div>
-									</div>
-								</div>
+                            <div class="col-lg-12 col-md-12 col-xm-12">
+                                <div class="pull-right">
+                               
+                                    <input name="cmdsubmit" type="submit" class="btn btn-success" id="cmdsubmit" value="Submit" />&nbsp;
+                                    <a href="{{URL::to('admin/user/')}}" class="btn btn-primary" >back</a>
+                                </div>
+                            </div>
+                        </div>
 
 							</div>
 						</form>					</div>
