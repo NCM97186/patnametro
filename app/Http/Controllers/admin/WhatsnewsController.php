@@ -1,24 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\admin\Tender;
+
+use App\Models\admin\Whatsnew;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class TenderController extends Controller
+class WhatsnewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $title="Tenders List";
+        $title="Whatsnews List";
         $langid=!empty($langid)?$langid:1;
-        $list = Tender::paginate(100);
-        return view('admin/tenders/index',compact(['list','langid','title']));
+        $list = Whatsnew::paginate(100);
+        return view('admin/Whatsnews/index',compact(['list','langid','title']));
     }
 
     /**
@@ -26,9 +24,9 @@ class TenderController extends Controller
      */
     public function create()
     {
-        $title="Add Tender";
+        $title="Add Whatsnews";
         
-        return view('admin/tenders/add',compact(['title']));
+        return view('admin/whatsnews/add',compact(['title']));
     }
 
     /**
@@ -40,7 +38,7 @@ class TenderController extends Controller
        $rules = array(
            
            'language' => 'required',
-           'tender_title' => 'required',
+           'title' => 'required',
            'url' => 'required',
            'menutype' => 'required',
            'tendertype' => 'required',
@@ -61,22 +59,22 @@ class TenderController extends Controller
        }elseif($request->menutype == 2){
           if (!empty($request->txtuplode)){
 
-            if (!is_dir('public/upload/admin/cmsfiles/tenders/')) {
-                mkdir('public/upload/admin/cmsfiles/tenders/', 0777, TRUE);
+            if (!is_dir('public/upload/admin/cmsfiles/whatsnews/')) {
+                mkdir('public/upload/admin/cmsfiles/whatsnews/', 0777, TRUE);
             }
             
                $rulesdsad = array(
                    'txtuplode' => 'required|mimes:pdf,xlx,csv|max:2048',
                );
-               $txtuplode1 = str_replace(' ','_',clean_single_input($request->tender_title)).'_tender'.'.'.$request->txtuplode->extension();  
+               $txtuplode1 = str_replace(' ','_',clean_single_input($request->title)).'_whatsnews'.'.'.$request->txtuplode->extension();  
        
-                $res= $request->txtuplode->move(public_path('upload/admin/cmsfiles/tenders/'), $txtuplode1);
+                $res= $request->txtuplode->move(public_path('upload/admin/cmsfiles/whatsnews/'), $txtuplode1);
               
                
                 if($res){
                    $txtuplode1 =$txtuplode1;
                 }
-                $txtuplode2 ='upload/admin/cmsfiles//tenders/'.$txtuplode1; //die();
+                $txtuplode2 ='upload/admin/cmsfiles//whatsnews/'.$txtuplode1; //die();
                 
                 if (file_exists($txtuplode2)) {
                     unlink($txtuplode2);
@@ -98,8 +96,8 @@ class TenderController extends Controller
        }else{
            $user_login_id=Auth()->user()->id;
           
-           $pArray['tender_title']    				= clean_single_input($request->tender_title); 
-           $pArray['url']    					    = clean_single_input(seo_url($request->tender_title)); 
+           $pArray['title']    				        = clean_single_input($request->title); 
+           $pArray['url']    					    = clean_single_input(seo_url($request->title)); 
            $pArray['language']    			        = clean_single_input($request->language); 
            $pArray['menutype']  					= clean_single_input($request->menutype); 
            $pArray['metakeyword']    			    = clean_single_input($request->metakeyword); 
@@ -111,27 +109,26 @@ class TenderController extends Controller
            $pArray['start_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->startdate)));
 		   $pArray['end_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->enddate)));
            $pArray['txtstatus']  			        = clean_single_input($request->txtstatus); 
-           $pArray['tendertype']  		            = clean_single_input($request->tendertype); 
            $pArray['is_new']  				        = clean_single_input($request->is_new); 
            
-           $create 	= Tender::create($pArray);
+           $create 	= Whatsnew::create($pArray);
            $lastInsertID = $create->id;
            $user_login_id=Auth()->user()->id;
 
            if($lastInsertID > 0){
             $audit_data = array('user_login_id'     =>  $user_login_id,
             'page_id'           	=>  $id,
-            'page_name'             =>  clean_single_input($request->tender_title),
+            'page_name'             =>  clean_single_input($request->title),
             'page_action'           =>  'Insert',
             'page_category'         =>  clean_single_input($request->menutype),
             'lang'                  =>  clean_single_input($request->language),
-            'page_title'        	=> 'Tender Model',
+            'page_title'        	=> 'Whatsnew Model',
             'approve_status'        => clean_single_input($request->txtstatus),
             'usertype'          	=> 'Admin'
         );
                            
                audit_trail($audit_data);
-               return redirect('admin/tender')->with('success','Tender has successfully added');
+               return redirect('admin/tender')->with('success','Whatsnews has successfully added');
            }
           
        }
@@ -150,10 +147,10 @@ class TenderController extends Controller
      */
     public function edit(string $id)
     {
-        $title="Edit Tender ";
+        $title="Edit Whatsnews";
         $id=clean_single_input($id);
-        $data = Tender::find($id);
-        return view('admin/tenders/edit',compact(['title','data']));
+        $data = Whatsnew::find($id);
+        return view('admin/whatsnews/edit',compact(['title','data']));
     }
 
     /**
@@ -166,7 +163,7 @@ class TenderController extends Controller
        $rules = array(
            
            'language' => 'required',
-           'tender_title' => 'required',
+           'title' => 'required',
            'url' => 'required',
            'menutype' => 'required',
            'tendertype' => 'required',
@@ -188,22 +185,22 @@ class TenderController extends Controller
 
            if (!empty($request->txtuplode)){
 
-            if (!is_dir('public/upload/admin/cmsfiles/tenders/')) {
-                mkdir('public/upload/admin/cmsfiles/tenders/', 0777, TRUE);
+            if (!is_dir('public/upload/admin/cmsfiles/whatsnews/')) {
+                mkdir('public/upload/admin/cmsfiles/whatsnews/', 0777, TRUE);
             }
             
                $rulesdsad = array(
                    'txtuplode' => 'required|mimes:pdf,xlx,csv|max:2048',
                );
-               $txtuplode1 = str_replace(' ','_',clean_single_input($request->tender_title)).'_tender'.'.'.$request->txtuplode->extension();  
+               $txtuplode1 = str_replace(' ','_',clean_single_input($request->title)).'_whatsnews'.'.'.$request->txtuplode->extension();  
        
-                $res= $request->txtuplode->move(public_path('upload/admin/cmsfiles/tenders/'), $txtuplode1);
+                $res= $request->txtuplode->move(public_path('upload/admin/cmsfiles/whatsnews/'), $txtuplode1);
               
                
                   if($res){
                     $txtuplode1 =$txtuplode1;
                   }
-                $txtuplode2 ='upload/admin/cmsfiles//tenders/'.$txtuplode1; //die();
+                $txtuplode2 ='upload/admin/cmsfiles//whatsnews/'.$txtuplode1; //die();
 
                 if (file_exists($txtuplode2)) {
                     unlink($txtuplode2);
@@ -228,8 +225,8 @@ class TenderController extends Controller
            $user_login_id=Auth()->user()->id;
           
          
-           $pArray['tender_title']    				= clean_single_input($request->tender_title); 
-           $pArray['url']    					    = clean_single_input(seo_url($request->tender_title)); 
+           $pArray['title']    				= clean_single_input($request->title); 
+           $pArray['url']    					    = clean_single_input(seo_url($request->title)); 
            $pArray['language']    			        = clean_single_input($request->language); 
            $pArray['menutype']  					= clean_single_input($request->menutype); 
            if($request->menutype == 1){
@@ -257,25 +254,24 @@ class TenderController extends Controller
            $pArray['start_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->startdate)));
 		   $pArray['end_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->enddate)));
            $pArray['txtstatus']  			        = clean_single_input($request->txtstatus); 
-           $pArray['tendertype']  		            = clean_single_input($request->tendertype); 
            $pArray['is_new']  				        = clean_single_input($request->is_new); 
            $user_login_id=Auth()->user()->id;
 
-           $create 	= Tender::where('id', $id)->update($pArray);
+           $create 	= Whatsnew::where('id', $id)->update($pArray);
            if($create > 0){
             $audit_data = array('user_login_id'     =>  $user_login_id,
                     'page_id'           	=>  $id,
-                    'page_name'             =>  clean_single_input($request->tender_title),
+                    'page_name'             =>  clean_single_input($request->title),
                     'page_action'           =>  'update',
                     'page_category'         =>  clean_single_input($request->menutype),
                     'lang'                  =>  clean_single_input($request->language),
-                    'page_title'        	=> 'Tender Model',
+                    'page_title'        	=> 'Whatsnew Model',
                     'approve_status'        => clean_single_input($request->txtstatus),
                     'usertype'          	=> 'Admin'
                 );
                            
                audit_trail($audit_data);
-               return redirect('admin/tender')->with('success','Tender has successfully Updated');
+               return redirect('admin/whatsnews')->with('success','Whatsnews has successfully Updated');
            }
           
        }
@@ -284,10 +280,10 @@ class TenderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tender $tender)
+    public function destroy(Whatsnews $whatsnew)
     {
-        $tender->delete();
+        $whatsnew->delete();
        
-        return redirect('admin/tender')->with('success','Tender deleted successfully');
+        return redirect('admin/whatsnews')->with('success','Whatsnews deleted successfully');
     }
 }

@@ -90,8 +90,8 @@
 							<tr>
 								<td><?php echo $count++; ?></td>
 								<td><?php echo $row->m_name; ?></td>
-								<td><?php //print_r(has_child($row->id, $row->language_id));die();
-                                    if(count(has_child($row->id, $row->language_id)) > 0):
+								<td><?php  
+                                    if(has_child($row->id, $row->language_id) > 0):
                                         ?>
                                         <strong><a href="{{route('menu.show', $row->id)}}"><?php echo status($row->approve_status); ?></a></strong><br/>(Click for Sub Menu)
                                         <?php

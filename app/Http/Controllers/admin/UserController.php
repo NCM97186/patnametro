@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\admin;
-
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,12 +11,9 @@ class UserController extends Controller
     public function index()
     {
         $title="User List";
-      
-     $user=user::where('user_type','!=',1)->get();
-         //$user = DB::select("select * from users where user_type!=1  ");
-
-        return view('admin.user.users',compact(['user']));
-     //}
+        $user=user::where('user_type','!=',1)->get();
+        return view('admin.user.users',compact(['user','title']));
+    
     
     }
 
@@ -61,7 +57,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
          $title=" Edit USer";
-        return view('admin.user.useredit',compact('user'));
+        return view('admin.user.useredit',compact(['user','title']));
 
     }
     public function update(Request $request, User $user)
@@ -76,7 +72,7 @@ class UserController extends Controller
             'designation'=>'required',
             'user_status'=>'required',
             'user_type'=>'required',
-]);
+         ]);
         $user->fill($request->post())->save();
        
        

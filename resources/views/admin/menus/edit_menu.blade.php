@@ -168,7 +168,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <textarea name="welcomedescription" autocomplete="off" class="input_class @error('welcomedescription') is-invalid @enderror  summernote-simple">{{!empty($data->welcomedescription)?$data->welcomedescription:old('welcomedescription')}}</textarea>
+                                    <textarea name="welcomedescription"  maxlength="120" autocomplete="off" class="input_class @error('welcomedescription') is-invalid @enderror  summernote-simple">{{!empty($data->welcomedescription)?$data->welcomedescription:old('welcomedescription')}}</textarea>
                                     @error('welcomedescription')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metakeyword" autocomplete="off" type="text" class="input_class form-control" id="metakeyword" value="{{!empty($data->m_keyword)?$data->m_keyword:old('metakeyword')}}" />
+                                        <input name="metakeyword" maxlength="64" autocomplete="off" type="text" class="input_class form-control" id="metakeyword" value="{{!empty($data->m_keyword)?$data->m_keyword:old('metakeyword')}}" />
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metadescription" autocomplete="off" type="text" class="input_class form-control" id="metadescription" value="{{!empty($data->m_description)?$data->m_description:old('metadescription')}}" />
+                                        <input name="metadescription" maxlength="64" autocomplete="off" type="text" class="input_class form-control" id="metadescription" value="{{!empty($data->m_description)?$data->m_description:old('metadescription')}}" />
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +214,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <textarea name="description" id="description" class="form-control summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo !empty($data->content)?$data->content:old('description'); ?></textarea>
+                                        <textarea name="description"  id="description" class="form-control summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo !empty($data->content)?$data->content:old('description'); ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -244,7 +244,8 @@
                             </div>
                         </div>
                         </div>
-                        <div class="row" id="txtweb" style="display: none;">
+                        <div  id="txtweb" style="display: none;">
+                        <div class="row" >
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
                                     <label>Web Site Link:</label>
@@ -253,8 +254,9 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" name="txtweblink" id="txtweblink" class="input_class form-control" autocomplete="off" placeholder="https://www.xyz.com" value="{{!empty($data->linkstatus)?$data->linkstatus:old('txtweblink')}}" />
+                                    <input type="text" maxlength="64" name="txtweblink" id="txtweblink" class="input_class form-control" autocomplete="off" placeholder="https://www.xyz.com" value="{{!empty($data->linkstatus)?$data->linkstatus:old('txtweblink')}}" />
                                 </div>
+                            </div>
                             </div>
                         </div>
                         <div class="row">
