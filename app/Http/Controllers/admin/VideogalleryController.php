@@ -1,21 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\admin;
-use App\Models\admin\Videogallery;
+namespace App\Http\Controllers\Admin;
+use App\Models\admin\Videogallerys;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
+use video;
 class VideogalleryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-     public function index()
+    public function index()
     {
-        $title="Videogallery";
+            
+          $title="Videogallery List";
         
-         $list = Videogallery::paginate(10);
-         return view('admin/videogallery/index',compact(['list','title']));
+         $list = Videogallerys::paginate(10);
+         return view('admin.videogallery.index',compact(['list','title']));
         
     }
 
@@ -24,8 +27,8 @@ class VideogalleryController extends Controller
      */
     public function create()
     {
-          $title=" add Videogallery";
-         return view('admin/videogallery/add',compact(['title']));
+        $title="Add videogallery ";
+        return view('admin/videogallery/add',compact(['title']));
     }
 
     /**
@@ -33,36 +36,52 @@ class VideogalleryController extends Controller
      */
     public function store(Request $request)
     {
-            $request->validate([
-            'language'=>'required',
+       $request->validate([
             'title' => 'required |max:255',
+            'language' => 'required|max:255',
             'txtstatus'=>'required',
-            'txtuplode'=> 'required|mimes:mp4,YouTube, Vimeo, Wistia|max:1999',
+            'txtuplode'=>'mimes:wmv|mp4|avi|mov|max:300024',
+            
 
-            ]);
-        Videogallery::create([
-           'language' => clean_single_input($request['language']),
+        ]);
+        videogallery::create([
            'title' => clean_single_input($request['title']),
+           'language' => clean_single_input($request['language']),
            'txtstatus' => clean_single_input($request['txtstatus']),
-           'txtuplode' => clean_single_input($request['txtuplode']),
-           
+           'admin_id' => auth()->id(),
            
            
         ]);
+
+        $file = new videogallery();
+        
+           if ($request->file('video')){
+            $file_name = time().'_'.$request->file->getClientOriginalName();
+            $file_path = $request->file('video')->storeAs('upload\admin\cmsfiles\video', $file_name, 'public');
+
+            $file->name = time().'_'.$request->file->getClientOriginalName();
+            $file->file = '/storage/' . $file_path;
+            $videogallery->update(['video' => $file_name]);
+            $videogallery->update(['videoPath' => $file_path]);
+    }
+}
+           
+      
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $title="Edit videogallery ";
+        $id=clean_single_input($id);
+        $data = videogallery::find($id);
+        return view('admin/videogallerys/edit',compact(['title','data']));
     }
 
     /**
@@ -70,14 +89,16 @@ class VideogalleryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+       
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Videogallery $videogallery)
+    public function destroy(videogallery $videogallery)
     {
-        //
+        $videogallery->delete();
+       
+        return redirect('admin/videogallery')->with('success','videogallery deleted successfully');
     }
 }

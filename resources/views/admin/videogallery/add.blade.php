@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage faq')
-
+@section('title', 'videogallery ')
 
 <div class="row">
     <div class="col-12 col-md-12 col-lg-12">
@@ -22,110 +21,72 @@
                         </ul>
                     </div>
                 @endif
-                <form  action="{{URL::to('admin/faq/')}}" name="form1" id="form1" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+                <form  action="{{URL::to('admin/Videogallery/')}}" name="form1" id="form1" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                     @csrf
                    
                     <div class="panel-body">
+						
+					<div class="row">
+						<div class="col-12 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label>Page Language:</label>
+								<span class="star">*</span>
+							</div>
+						</div>
+						<div class="col-12 col-md-6 col-lg-6">
+							<div class="input_class form-group">
+								<input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if(old('language')==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
+								<input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if(old('language')==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
+								@error('language')
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $message }}</strong>
+								</span>
+								@enderror
+							</div>
+						</div>
+					</div>
                         <div class="row">
-                        <div class="col-12 col-md-3 col-lg-3">
-                            <div class="form-group">
-                                <label>Page Language:</label>
-                                <span class="star">*</span>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-6">
-                            <div class="input_class form-group">
-                                <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if(old('language')==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
-                                <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if(old('language')==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
-                                @error('language')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                        <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-xm-3">
-                                        <div class="form-group">
-                                            <label>Title:</label>
-                                            <span class="star">*</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-xm-6">
-                                        <div class="form-group">
-                                            <input name="title" autocomplete="off"  type="text" class="input_class form-control" id="user_name" value="{{old('title')}}"/>
-                                            @if($errors->has('title'))
-                  <span class="text-danger">{{ $errors->first('title') }}</span>
-                @endif
-
-                                              </div>
-                                               
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-xm-3">
-                                        <div class="form-group">
-                                            <label>Url:</label>
-                                            <span class="star">*</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-xm-6">
-                                        <div class="form-group">
-                                            <input name="url" autocomplete="off"  type="text" class="input_class form-control" id="user_name" value="{{old('url')}}"/>
-                                 @if($errors->has('url'))
-                  <span class="text-danger">{{ $errors->first('url') }}</span>
-                @endif
-
-                                              </div>
-                                    </div>
-                                </div>
-                               <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
-                                    <label> Description:</label>
+                                    <label>Video Title:</label>
                                     <span class="star">*</span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <textarea name="description" autocomplete="off" class="input_class @error('description') is-invalid @enderror  summernote-simple">{{old('description')}}</textarea>
-                                    @if($errors->has('description'))
-                  <span class="text-danger">{{ $errors->first('description') }}</span>
-                @endif
+                                    <input name="title" maxlength="36"
+                                    minlength="2" autocomplete="off" type="text" 
+                                    class="input_class form-control  @error('title') is-invalid @enderror" id="txtename"   value="{{old('title')}}"  />
+                                    @error('title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-xm-3">
-                                        <div class="form-group">
-                                            <label>Page url:</label>
-                                            <span class="star">*</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-xm-6">
-                                        <div class="input_class form-group">
-                                            <input name="page_url" autocomplete="off"   type="text" class="input_class form-control" id="user_pass" value="{{old('page_url')}}"/>
-                                           @if($errors->has('page_url'))
-                  <span class="text-danger">{{ $errors->first('page_url') }}</span>
-                @endif
-                                             </div>
-                                    </div>
+                       
+                       
+                            
+                        <div class="row" id="txtPDF" >
+                            <div class="col-12 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <label>Video Upload:</label>
+                                    <span class="star">*</span>
                                 </div>
-                                <!-- <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-xm-3">
-                                        <div class="form-group">
-                                            <label>Category:</label>
-                                            <span class="star">*</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-xm-6">
-                                        <div class="input_class form-group">
-                                            <input name="category" autocomplete="off"   type="text" class="input_class form-control" id="user_pass" value="{{old('category')}}"/>
-                                             </div>
-                                    </div>
-                                </div> -->
-                                <div class="row">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="file" name="txtuplode" class="input_class  @error('txtuplode') is-invalid @enderror  inline-block" id="txtuplode" />
+									@error('txtuplode')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+								</div>
+                            </div>
+                        </div>
+						<div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
                                     <label> Status:</label>
@@ -143,20 +104,21 @@
                                             <option value="<?php echo $key; ?>" <?php if(old('txtstatus')==$key) echo "selected"; ?>><?php echo $value; ?></option>
                                         <?php  }?>
                                 </select>
-                                     @if($errors->has('txtstatus'))
-                  <span class="text-danger">{{ $errors->first('txtstatus') }}</span>
-                @endif
+                                    @error('txtstatus')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-                            
 
-                         <div class="row">
+                        <div class="row">
                             <div class="col-lg-12 col-md-12 col-xm-12">
                                 <div class="pull-right">
                                
                                     <input name="cmdsubmit" type="submit" class="btn btn-success" id="cmdsubmit" value="Submit" />&nbsp;
-                                    <a href="{{URL::to('admin/faq/')}}" class="btn btn-primary" >back</a>
+                                    <a href="{{URL::to('admin/videogallery/')}}" class="btn btn-primary" >back</a>
                                 </div>
                             </div>
                         </div>

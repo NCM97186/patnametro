@@ -5,7 +5,7 @@ namespace App\Models\admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Videogallery extends Model
+class Videogallerys extends Model
 {
     use HasFactory;
     protected $fillable =[
