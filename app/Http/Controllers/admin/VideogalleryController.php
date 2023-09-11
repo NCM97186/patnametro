@@ -53,7 +53,7 @@ class VideogalleryController extends Controller
            
         ]);
 
-        $file = new videogallery();
+        $file = new videogallerys();
         
            if ($request->file('video')){
             $file_name = time().'_'.$request->file->getClientOriginalName();
@@ -76,12 +76,12 @@ class VideogalleryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $title="Edit videogallery ";
         $id=clean_single_input($id);
-        $data = videogallery::find($id);
-        return view('admin/videogallerys/edit',compact(['title','data']));
+        $data = videogallerys::find($id);
+        return view('admin/videogallery/edit',compact(['title','data']));
     }
 
     /**

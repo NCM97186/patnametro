@@ -26,7 +26,8 @@ class FaqController extends Controller
      */
     public function create()
     {
-         return view('admin/faq/add');
+        $title="Faq List";
+         return view('admin/faq/add',compact(['title']));
     }
 
     /**
@@ -74,7 +75,7 @@ class FaqController extends Controller
     {
          $title=" Edit Faq";
       $list=faq::find($id);
-        return view('admin.faq.edit',compact(['list']));
+        return view('admin.faq.edit',compact(['list','title']));
     }
 
     /**
@@ -91,7 +92,14 @@ class FaqController extends Controller
                 'txtstatus'=>'required',
             
              ]);
-             $faq->fill($request->post())->save(); 
+              $faq = faq::find($id);
+            $faq['title'] = clean_single_input($request['title']);
+           $faq['url'] = clean_single_input($request['url']);
+           $faq['page_url'] = clean_single_input($request['page_url']);
+           $faq['language'] = clean_single_input($request['language']);
+           $faq['description'] = clean_single_input($request['description']);
+           $faq['txtstatus'] = clean_single_input($request['txtstatus']);
+           $faq->save();
               return redirect('admin/faq')->with('success','faq updated successfully');
     }
 

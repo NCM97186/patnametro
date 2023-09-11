@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 
 class UserController extends Controller
@@ -16,7 +18,7 @@ class UserController extends Controller
      $user=user::where('user_type','!=',1)->get();
          //$user = DB::select("select * from users where user_type!=1  ");
 
-        return view('admin.user.users',compact(['user']));
+        return view('admin.user.users',compact(['user','title']));
      //}
     
     }
@@ -62,28 +64,50 @@ class UserController extends Controller
     public function edit(User $user)
     {
          $title=" Edit USer";
-        return view('admin.user.useredit',compact('user'));
+        return view('admin.user.useredit',compact('user','title'));
 
     }
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $rules = array(
             'name' => 'required |max:255',
             'user_name' => 'required|max:255',
             'email'=>'required|email',
             'login_name'=>'required',
-            'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required',
             'designation'=>'required',
             'user_status'=>'required',
             'user_type'=>'required',
-]);
-        $user->fill($request->post())->save();
-       
-       
-      
-        return redirect('admin/user')->with('success','User updated successfully');
-    }
+
+);           $validator = Validator::make($request->all(), $rules);
+           if(!empty($request['password'])){
+
+                  $rules = array(
+                 'password' => 'required|confirmed|min:6',
+                  'password_confirmation' => 'required',
+                  );
+             $validator = Validator::make($request->all(), $rules);
+            }
+             
+           if ($validator->fails()) {
+        
+          return  back()->withErrors($validator)->withInput();
+            
+           }else{
+               $user = User::find($id);
+                $user['name'] = clean_single_input($request['name']);
+               $user['user_name'] = clean_single_input($request['user_name']);
+                $user['email'] = clean_single_input($request['email']);
+                $user['login_name'] = clean_single_input($request['login_name']);
+                $user['password'] = \Hash::make(clean_single_input($request['password']));
+                $user['designation'] = clean_single_input($request['designation']);
+               $user['user_status'] = clean_single_input($request['user_status']);
+                $user['user_type'] = clean_single_input($request['user_type']);
+                 $user->save();
+
+                   
+             }
+         return redirect('admin/user')->with('success','User updated successfully');
+      }
 
      public function destroy(User $user)
     {
