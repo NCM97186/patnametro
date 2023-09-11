@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\admin\Videogallerys;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use video;
@@ -40,30 +41,28 @@ class VideogalleryController extends Controller
             'title' => 'required |max:255',
             'language' => 'required|max:255',
             'txtstatus'=>'required',
-            'txtuplode'=>'mimes:wmv|mp4|avi|mov|max:300024',
+            //'txtuplode'=>'mimes:wmv|pdf|mp4|avi|mov|max:300024',
+            'txtuplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg,pdf|max:1024'
             
 
         ]);
-        videogallery::create([
-           'title' => clean_single_input($request['title']),
-           'language' => clean_single_input($request['language']),
-           'txtstatus' => clean_single_input($request['txtstatus']),
-           'admin_id' => auth()->id(),
-           
-           
-        ]);
 
-        $file = new videogallerys();
-        
-           if ($request->file('video')){
-            $file_name = time().'_'.$request->file->getClientOriginalName();
-            $file_path = $request->file('video')->storeAs('upload\admin\cmsfiles\video', $file_name, 'public');
+        if($request->hasFile('txtuplode')){
+            $filenameWithExt= $request->file('txtuplode')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('txtuplode')->getClientOriginalExtension();
+            $fileNameToStore = $filename. '_'.time().'.'.$extension;
+            $path = $request->file('txtuplode')->storeAs('upload\admin\cmsfiles\video/',$fileNameToStore);
+        }
+         $txtuplode = new Videogallerys;
+         $txtuplode->title = $request->input('title');
+         $txtuplode->language = $request->input('language');
+         $txtuplode->txtstatus = $request->input('txtstatus');
+         $txtuplodefile = $fileNameToStore;
+         $txtuplode->save();
 
-            $file->name = time().'_'.$request->file->getClientOriginalName();
-            $file->file = '/storage/' . $file_path;
-            $videogallery->update(['video' => $file_name]);
-            $videogallery->update(['videoPath' => $file_path]);
-    }
+        return back()->with('success', ' Upload Successfull');
+
 }
            
       

@@ -21,7 +21,7 @@
                         </ul>
                     </div>
                 @endif
-                <form  action="{{URL::to('admin/Videogallery/')}}" name="form1" id="form1" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+                <form  action="{{URL::to('admin/videogallery')}}" name="form1" id="form1" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                     @csrf
                    
                     <div class="panel-body">
