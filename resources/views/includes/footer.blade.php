@@ -32,5 +32,6 @@
   <!-- Template JS File -->
   <script src="{{ URL::asset('/public/assets/js/scripts.js')}}"></script>
   <script src="{{ URL::asset('/public/assets/js/custom.js')}}"></script>
+ 
 </body>
 </html>

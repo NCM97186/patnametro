@@ -396,7 +396,7 @@ if ( ! function_exists('build_child_one'))
 				if($row->id == $menu_positions)
 					$selected="selected";
 			}
-			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>&nbsp;--&nbsp;'.$row->name.'</strong></option>';
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>&nbsp;--&nbsp;'.$row->m_name.'</strong></option>';
 			$tempReturnValue .= build_child_two($row->id, $tempReturnValueAnother='', $menu_positions);
 		}
 
@@ -422,7 +422,7 @@ if ( ! function_exists('build_child_two'))
 				if($row->id == $menu_positions)
 					$selected="selected";
 			}
-			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</strong></option>';
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->m_name.'</strong></option>';
 			$tempReturnValue .= build_child_three($row->id, $tempReturnValueAnother='', $menu_positions);
 		}
 
@@ -448,7 +448,7 @@ if ( ! function_exists('build_child_three'))
 				if($row->id == $menu_positions)
 					$selected="selected";
 			}
-			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->m_name.'</option>';
 			$tempReturnValue .= build_child_four($row->id, $tempReturnValueAnother='', $menu_positions);
 		}
 
@@ -476,7 +476,7 @@ if ( ! function_exists('build_child_four'))
 				if($row->id == $menu_positions)
 					$selected="selected";
 			}
-			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->m_name.'</option>';
 			$tempReturnValue .= build_child_five($row->id, $tempReturnValueAnother='', $menu_positions);
 		}
 
@@ -504,7 +504,7 @@ if ( ! function_exists('build_child_five'))
 				if($row->id == $menu_positions)
 					$selected="selected";
 			}
-			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->m_name.'</option>';
 			$tempReturnValue .= build_child_six($row->id, $tempReturnValueAnother='', $menu_positions);
 		}
 
@@ -534,7 +534,7 @@ if ( ! function_exists('build_child_six'))
 				if($row->id == $menu_positions)
 					$selected="selected";
 			}
-			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->m_name.'</option>';
 			$tempReturnValue .= build_child_seven($row->id, $tempReturnValueAnother='', $menu_positions);
 		}
 
@@ -564,7 +564,7 @@ if ( ! function_exists('build_child_seven'))
 				if($row->id == $menu_positions)
 					$selected="selected";
 			}
-			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->name.'</option>';
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;'.$row->m_name.'</option>';
 		}
 
 		return $tempReturnValue;
@@ -640,10 +640,10 @@ if ( ! function_exists('get_language'))
 }
 if ( ! function_exists('has_child'))
 {
-	function has_child( $pid,$langid=1 ){
+	function has_child( $pid,$langid=1){
 		
-		$fetchResult = DB::table('menus')->select('*')->where(`m_flag_id = '".$pid."' AND language_id = '".$langid."' AND approve_status = '3' `)->get();
-		
+		//$fetchResult = DB::table('menus')->select('*')->where(`m_flag_id1 = '".$pid."' AND language_id11 = '".$langid."' AND approve_status = '3' `)->first();
+		$fetchResult =DB::table('menus')->where('m_flag_id', $pid)->where('language_id', $langid)->where('approve_status', 3)->exists();
 		return $fetchResult;
 		
 	}

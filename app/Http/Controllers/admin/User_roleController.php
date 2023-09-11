@@ -12,11 +12,11 @@ class User_roleController extends Controller
      */
      public function index()
      {
-        $title="User role";
+        $title="User Role List";
         $user_role=admin_role::all();
         
         
-        return view('admin.user_role',compact(['user_role']));
+        return view('admin.user_role',compact(['user_role','title']));
      }
 
     /**
@@ -24,12 +24,12 @@ class User_roleController extends Controller
      */
     public function create()
     {
-
+        $title="User Role Add";
          $user_role=admin_role::join('users', 'users.id', '=', 'admin_roles.role_id')
       ->select('users.name')
       ->get();
         
-        return view('admin.add_user_role',compact(['user_role']));
+        return view('admin.add_user_role',compact(['user_role','title']));
         
     }
 
@@ -76,7 +76,7 @@ class User_roleController extends Controller
         $user_role_edit = $user_role=admin_role::leftJoin('users', 'users.id', '=', 'admin_roles.role_id')
       ->select('admin_roles.*','users.name')
       ->get();
-        return view('admin.user_role_edit',compact('user_role_edit'));
+        return view('admin.user_role_edit',compact(['user_role_edit','title']));
     }
 
     /**
@@ -88,7 +88,7 @@ class User_roleController extends Controller
             'user' => 'required',
             'user_type'=>'required',
 
- ]);
+        ]);
     }
 
     /**

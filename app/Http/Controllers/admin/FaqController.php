@@ -14,7 +14,7 @@ class FaqController extends Controller
      */
     public function index()
     {
-      $title="Faq";
+         $title="Faq List";
         
          $list = Faq::paginate(10);
          return view('admin/faq/index',compact(['list','title']));
@@ -26,8 +26,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        $title=" add Faq";
-         return view('admin/faq/add',compact(['title']));
+         return view('admin/faq/add');
     }
 
     /**
@@ -74,9 +73,8 @@ class FaqController extends Controller
     public function edit($id)
     {
          $title=" Edit Faq";
-         $id=clean_single_input($id);
       $list=faq::find($id);
-        return view('admin.faq.edit',compact(['list','title']));
+        return view('admin.faq.edit',compact(['list']));
     }
 
     /**
@@ -84,7 +82,7 @@ class FaqController extends Controller
      */
     public function update(Request $request,$id)
     {
-       $request->validate([
+             $request->validate([
                 'title' => 'required |max:255',
                 'url' => 'required|max:255',
                 'page_url'=>'required',
@@ -93,20 +91,7 @@ class FaqController extends Controller
                 'txtstatus'=>'required',
             
              ]);
-
-            $product = Faq::find($id);
-            $product['title'] = clean_single_input($request['title']);
-            $product['url'] = clean_single_input($request['url']);
-            $product['page_url'] = clean_single_input($request['page_url']);
-            $product['language'] = clean_single_input($request['language']);
-            $product['description'] = clean_single_input($request['description']);
-            $product['txtstatus'] = clean_single_input($request['txtstatus']);
-            $product->save();
-           
-           
-    
-       //$create  = Faq::where('id', $id)->update($pArray);
-
+             $faq->fill($request->post())->save(); 
               return redirect('admin/faq')->with('success','faq updated successfully');
     }
 

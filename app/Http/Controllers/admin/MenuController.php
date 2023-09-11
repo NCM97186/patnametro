@@ -16,12 +16,8 @@ class MenuController extends Controller
     {
         
         $title="Menu List";
-        $whEre  = "";
-      
-        
-       
-		$list = Menu::paginate(10);
-         return view('admin/menus/menu',compact(['list','title']));
+        $list = Menu::where('m_flag_id',0)->paginate(10);
+        return view('admin/menus/menu',compact(['list','title']));
     }
 
     /**
@@ -41,20 +37,20 @@ class MenuController extends Controller
         
          $txtuplode1 ='';
         $rules = array(
-            'menu_title' => 'required',
-            'url' => 'required',
+            'menu_title' => 'required|max:64',
+            'url' => 'required|max:64',
             'language' => 'required',
             'menutype' => 'required',
             'txtpostion' => 'required',
             'txtstatus' => 'required',
-            'welcomedescription' => 'required'
+            'welcomedescription' => 'required|max:120'
         );
         $validator = '';
         if($request->menutype == 1){
             $rules = array(
                 'description' => 'required',
-                'metakeyword' => 'required',
-                'metadescription' => 'required'
+                'metakeyword' => 'required|max:64',
+                'metadescription' => 'required|max:250'
             );
              
             $validator = Validator::make($request->all(), $rules);
@@ -85,7 +81,7 @@ class MenuController extends Controller
 			}
 		}elseif($request->menutype == 3){
             $rules = array(
-                'txtweblink' => 'required'
+                'txtweblink' => 'required|max:64'
             );
 			   
             $validator = Validator::make($request->all(), $rules);
@@ -102,7 +98,7 @@ class MenuController extends Controller
             $pArray['m_name']    					= clean_single_input($request->menu_title); 
 			$pArray['m_url']  						= seo_url(clean_single_input($request->url));
 			$pArray['language_id']    			    = clean_single_input($request->language);
-			$pArray['m_flag_id']    				= clean_single_input($request->menucategory);
+			$pArray['m_flag_id']    				= clean_single_input(!empty($request->menucategory)?$request->menucategory:0);
 			$pArray['m_type']  						= clean_single_input($request->menutype);
 			$pArray['m_title']  					= clean_single_input($request->url);
 			$pArray['m_keyword']    				= clean_single_input($request->metakeyword);
@@ -147,9 +143,7 @@ class MenuController extends Controller
     {
         $title="Child Menu List";
         $whEre  = "";
-        
-		$list = Menu::where('id',$id)->paginate(10);
-       // User::where('votes', '>', 100)->paginate(15);
+        $list = Menu::where('m_flag_id',$id)->paginate(10);
          return view('admin/menus/menu',compact(['list','title']));
     }
 
@@ -171,20 +165,20 @@ class MenuController extends Controller
         $id= clean_single_input($id);
         $txtuplode1 ='';
         $rules = array(
-            'menu_title' => 'required',
-            'url' => 'required',
+            'menu_title' => 'required|max:64',
+            'url' => 'required|max:64',
             'language' => 'required',
             'menutype' => 'required',
             'txtpostion' => 'required',
             'txtstatus' => 'required',
-            'welcomedescription' => 'required'
+            'welcomedescription' => 'required|max:120'
         );
         $validator = '';
         if($request->menutype == 1){
             $rules = array(
                 'description' => 'required',
-                'metakeyword' => 'required',
-                'metadescription' => 'required'
+                'metakeyword' => 'required|max:155',
+                'metadescription' => 'required|max:250'
             );
              
             $validator = Validator::make($request->all(), $rules);
@@ -217,7 +211,7 @@ class MenuController extends Controller
             }
 		}elseif($request->menutype == 3){
             $rules = array(
-                'txtweblink' => 'required'
+                'txtweblink' => 'required|max:64'
             );
 			   
             $validator = Validator::make($request->all(), $rules);
