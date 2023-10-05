@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-
+use Illuminate\Support\Str;
 class TenderController extends Controller
 {
     /**
@@ -17,7 +17,7 @@ class TenderController extends Controller
     {
         $title="Tenders List";
         $langid=!empty($langid)?$langid:1;
-        $list = Tender::paginate(100);
+        $list = Tender::orderBy('created_at', 'DESC')->select('id','tender_title','language','description','url','txtuplode','txtweblink','txtstatus','start_date','end_date')->paginate(100);
         return view('admin/tenders/index',compact(['list','langid','title']));
     }
 
@@ -99,7 +99,8 @@ class TenderController extends Controller
            $user_login_id=Auth()->user()->id;
           
            $pArray['tender_title']    				= clean_single_input($request->tender_title); 
-           $pArray['url']    					    = clean_single_input(seo_url($request->tender_title)); 
+           $pArray['url']    					    = Str::slug(clean_single_input($request->url));
+           $pArray['page_url']                      = Str::slug(clean_single_input($request->url));
            $pArray['language']    			        = clean_single_input($request->language); 
            $pArray['menutype']  					= clean_single_input($request->menutype); 
            $pArray['metakeyword']    			    = clean_single_input($request->metakeyword); 
@@ -108,8 +109,8 @@ class TenderController extends Controller
            $pArray['txtuplode']  				    = clean_single_input($txtuplode1); 
            $pArray['txtweblink']    				= clean_single_input($request->txtweblink); 
            $pArray['admin_id']  					= clean_single_input($user_login_id); 
-           $pArray['start_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->startdate)));
-		   $pArray['end_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->enddate)));
+           $pArray['start_date']  			        = date("Y-m-d", strtotime(clean_single_input($request->startdate)));
+		   $pArray['end_date']  			        = date("Y-m-d", strtotime(clean_single_input($request->enddate)));
            $pArray['txtstatus']  			        = clean_single_input($request->txtstatus); 
            $pArray['tendertype']  		            = clean_single_input($request->tendertype); 
            $pArray['is_new']  				        = clean_single_input($request->is_new); 
@@ -120,7 +121,7 @@ class TenderController extends Controller
 
            if($lastInsertID > 0){
             $audit_data = array('user_login_id'     =>  $user_login_id,
-            'page_id'           	=>  $id,
+            'page_id'           	=>  $lastInsertID,
             'page_name'             =>  clean_single_input($request->tender_title),
             'page_action'           =>  'Insert',
             'page_category'         =>  clean_single_input($request->menutype),
@@ -229,7 +230,8 @@ class TenderController extends Controller
           
          
            $pArray['tender_title']    				= clean_single_input($request->tender_title); 
-           $pArray['url']    					    = clean_single_input(seo_url($request->tender_title)); 
+           $pArray['url']    					    = Str::slug(clean_single_input($request->url));
+           $pArray['page_url']                      = Str::slug(clean_single_input($request->url));
            $pArray['language']    			        = clean_single_input($request->language); 
            $pArray['menutype']  					= clean_single_input($request->menutype); 
            if($request->menutype == 1){
@@ -254,8 +256,8 @@ class TenderController extends Controller
           
            $pArray['description']    				= clean_single_input($request->description); 
            $pArray['admin_id']  					= clean_single_input($user_login_id); 
-           $pArray['start_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->startdate)));
-		   $pArray['end_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->enddate)));
+           $pArray['start_date']  			        = date("Y-m-d", strtotime(clean_single_input($request->startdate)));
+		   $pArray['end_date']  			        = date("Y-m-d", strtotime(clean_single_input($request->enddate)));
            $pArray['txtstatus']  			        = clean_single_input($request->txtstatus); 
            $pArray['tendertype']  		            = clean_single_input($request->tendertype); 
            $pArray['is_new']  				        = clean_single_input($request->is_new); 
@@ -286,8 +288,24 @@ class TenderController extends Controller
      */
     public function destroy(Tender $tender)
     {
-        $tender->delete();
+        $delete= $tender->delete();
+        if($delete > 0){
+            $user_login_id=Auth()->user()->id;
+            $audit_data = array('user_login_id'     =>  $user_login_id,
+                            'page_id'           	=>  $tender->id,
+                            'page_name'             =>  clean_single_input($tender->tender_title),
+                            'page_action'           =>  'delete',
+                            'page_category'         =>  '',
+                            'lang'                  =>  clean_single_input($tender->language),
+                            'page_title'        	=> 'tender Model',
+                            'approve_status'        => 1,
+                            'usertype'          	=> 'Admin'
+                        );
+                        
+            audit_trail($audit_data);
+            return redirect('admin/tender')->with('success','Tender deleted successfully');
+        }
        
-        return redirect('admin/tender')->with('success','Tender deleted successfully');
+       
     }
 }

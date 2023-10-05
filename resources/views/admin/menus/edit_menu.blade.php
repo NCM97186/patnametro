@@ -1,38 +1,38 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage menu')
+@section('title', 'Edit Menu')
 <script type="text/javascript">
 
 
-   	
-	function addmenutype(id) {
+    
+    function addmenutype(id) {
        
-		if(id=='1')
-		{ 	
-			document.getElementById('txtDoc').style.display = 'block';
-			document.getElementById('txtPDF').style.display = "none";
-			document.getElementById('txtweb').style.display = "none";
-		}
-		else if(id=='2')
-		{	
-			document.getElementById('txtDoc').style.display = 'none';
-			document.getElementById('txtPDF').style.display = 'block';
-			document.getElementById('txtweb').style.display = 'none';
-			// document.getElementById('media').style.display = 'none';
-		}
-		else if(id=='3')
-		{	
-			document.getElementById('txtDoc').style.display = 'none';
-			document.getElementById('txtPDF').style.display = 'none';
-			document.getElementById('txtweb').style.display = 'block';
-		}
-		else 
-		{	
-			document.getElementById('txtDoc').style.display = 'none';
-			document.getElementById('txtPDF').style.display = 'none';
-			document.getElementById('txtweb').style.display = 'none';
-		}	
-	}
+        if(id=='1')
+        {   
+            document.getElementById('txtDoc').style.display = 'block';
+            document.getElementById('txtPDF').style.display = "none";
+            document.getElementById('txtweb').style.display = "none";
+        }
+        else if(id=='2')
+        {   
+            document.getElementById('txtDoc').style.display = 'none';
+            document.getElementById('txtPDF').style.display = 'block';
+            document.getElementById('txtweb').style.display = 'none';
+            // document.getElementById('media').style.display = 'none';
+        }
+        else if(id=='3')
+        {   
+            document.getElementById('txtDoc').style.display = 'none';
+            document.getElementById('txtPDF').style.display = 'none';
+            document.getElementById('txtweb').style.display = 'block';
+        }
+        else 
+        {   
+            document.getElementById('txtDoc').style.display = 'none';
+            document.getElementById('txtPDF').style.display = 'none';
+            document.getElementById('txtweb').style.display = 'none';
+        }   
+    }
     
 </script>
 <div class="row">
@@ -68,8 +68,8 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input name="menu_title" maxlength="36"
-                                    minlength="2" autocomplete="off" type="text" 
+                                    <input name="menu_title"  maxlength="36"
+                                    minlength="2" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text"  
                                     class="input_class form-control  @error('menu_title') is-invalid @enderror" id="menu_title"   value="{{ !empty($data->m_title)?$data->m_title:old('menu_title')}}"  />
                                     @error('menu_title')
                                     <span class="invalid-feedback" role="alert">
@@ -121,12 +121,12 @@
                         </div>
                         
                                 <div id="content1" style="display:<?php echo !empty($data->language_id)? "block" : "none" ;?>">
-                               <div class="row" > <?php  $language_id=!empty($data->language_id)?$data->language_id:old('language'); if(isset($language_id)): ?>
-										<?php if(!isset($data->m_flag_id))$data->m_flag_id=''; ?>
-										<?php echo primarylink_menu($language_id, $data->m_flag_id) ?>
-									<?php endif; ?>
+                                   <div class="row" > <?php  $language_id=!empty($data->language_id)?$data->language_id:old('language'); if(isset($language_id)): ?>
+                                            <?php if(!isset($data->m_flag_id))$data->m_flag_id=''; ?>
+                                            <?php echo primarylink_menu($language_id, $data->m_flag_id) ?>
+                                        <?php endif; ?>
                                     </div>
-								</div>
+                                </div>
                        
                     
                         <div class="row">
@@ -376,27 +376,27 @@
         var id=@if(!empty(old('menutype'))){{old('menutype')}} @else {{!empty($data->m_type)?$data->m_type:0 }}  @endif;
       //alert(id);
         if(id=='1')
-            { 	
+            {   
                 jQuery('#txtDoc').css('display', 'block')
                 jQuery('#txtDoc').css('txtPDF', 'none')
                 jQuery('#txtweb').css('txtPDF', 'none')
                 
             }
             else if(id=='2')
-            {	
+            {   
                 document.getElementById('txtDoc').style.display = 'none';
                 document.getElementById('txtPDF').style.display = 'block';
                 document.getElementById('txtweb').style.display = 'none';
                 // document.getElementById('media').style.display = 'none';
             }
             else if(id=='3')
-            {	
+            {   
                 document.getElementById('txtDoc').style.display = 'none';
                 document.getElementById('txtPDF').style.display = 'none';
                 document.getElementById('txtweb').style.display = 'block';
             }
             else 
-            {	
+            {   
                 jQuery('#txtDoc').css('display', 'none')
                 jQuery('#txtDoc').css('txtPDF', 'none')
                 jQuery('#txtweb').css('txtPDF', 'none')

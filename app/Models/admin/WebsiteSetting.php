@@ -17,6 +17,7 @@ class WebsiteSetting extends Model
         'favicon',
         'department',
         'other1',
+        'language',
         'other2'
    ];
 }

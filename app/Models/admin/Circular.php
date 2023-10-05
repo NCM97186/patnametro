@@ -15,6 +15,7 @@ class Circular extends Model
         'is_new',
         'language',
         'menutype',
+        'circularstype',
         'metakeyword',
         'metadescription',
         'description',

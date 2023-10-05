@@ -13,7 +13,13 @@ class Admin_role extends Model
         'role_name',
         'module_id',
         'role_status',
+        'permissions',
         'role_type',
-        'user_id'
-];
+        'user_id'];
+        
+    public function users() {
+            return $this
+                ->belongsToMany('App\Models\User')
+                ->withTimestamps();
+    }
 }

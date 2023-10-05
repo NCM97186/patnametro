@@ -1,16 +1,9 @@
 @extends('layouts.master')
  @section('content')
- @section('title', 'Update user')
+ @section('title', 'Edit User')
  <div class="card">
  <div class="card-body">
-<div id="page-wrapper">
-    <!-- <div class="row">
-        <div class="col-lg-12 col-md-12 col-xm-12">
-            <h1 class="page-header"><a href="{{URL::to('admin/user')}}" title="Back" class="btn btn-primary pull-right">Back</a></h1>
-        </div>
-        <!-- /.col-lg-12 col-md-12 col-xm-12 -->
-    </div> 
-    <!-- /.row -->
+
 
     <div class="row">
                 <div class="col-lg-12 col-md-12 col-xm-12">
@@ -31,7 +24,7 @@
                 <p>{{ $message }}</p>
                 </div>
                 @endif
-                <form action="{{ url::to('/admin/user',$user->id) }}" method="POST">
+                    <form  action="{{URL::to('/admin/user',$user->id)}}" name="form1" id="form1" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                     @csrf @method('PUT')
                     <div class="panel-body">
                         <div class="row">
@@ -171,6 +164,9 @@
                                         <option value="1" @if($user->user_status == '1') ? selected : null @endif> Active</option>
 
                                     </select>
+                                     @if($errors->has('user_status'))
+                  <span class="text-danger">{{ $errors->first('user_status') }}</span>
+                @endif
                                 </div>
                             </div>
                         </div>
@@ -189,9 +185,11 @@
                                         <option value="2" @if($user->user_type == '2') ? selected : null @endif>Creator </option>
                                         <option value="3" @if($user->user_type == '3') ? selected : null @endif> Publisher</option>
 
-                                        <!-- <option value="0" >InActive</option>
-                                                <option value="1" >Active</option> -->
+                                       
                                     </select>
+                                     @if($errors->has('user_type'))
+                  <span class="text-danger">{{ $errors->first('user_type') }}</span>
+                @endif
                                 </div>
                             </div>
                         </div>

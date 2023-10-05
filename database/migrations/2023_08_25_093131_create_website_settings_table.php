@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('website_settings', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_login_id')->unique();
+            $table->bigInteger('user_login_id')->nullable();
+            $table->bigInteger('language')->nullable();
             $table->string('website_name')->nullable();
             $table->string('website_short_name')->nullable();
             $table->string('website_tags_name')->nullable();
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string('favicon')->nullable();
             $table->string('department')->nullable();
             $table->string('other1')->nullable();
-            $table->string('other2')->nullable();
+            $table->string('themes')->nullable();
             $table->timestamps();
         });
     }

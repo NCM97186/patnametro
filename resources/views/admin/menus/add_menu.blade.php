@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage menu')
+@section('title', 'Add Menu')
 <script type="text/javascript">
 
 
@@ -67,8 +67,8 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input name="menu_title" maxlength="36"
-                                    minlength="2" autocomplete="off" type="text" 
+                                    <input name="menu_title"  maxlength="36"
+                                    minlength="2" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text"  
                                     class="input_class form-control  @error('menu_title') is-invalid @enderror" id="txtename"   value="{{old('menu_title')}}"  />
                                     @error('menu_title')
                                     <span class="invalid-feedback" role="alert">
@@ -110,11 +110,9 @@
                                 <div class="input_class form-group">
                                     <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if(old('language')==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
                                     <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if(old('language')==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
-                                    @error('language')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @if($errors->has('language'))
+                                <span class="text-danger">{{ $errors->first('language') }}</span>
+                                @endif
                                 </div>
                             </div>
                         </div>
@@ -149,11 +147,9 @@
                                         }
                                         ?>
                                     </select>
-                                    @error('menutype')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @if($errors->has('menutype'))
+                                    <span class="text-danger">{{ $errors->first('menutype') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -166,12 +162,10 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <textarea name="welcomedescription" maxlength="120" autocomplete="off" class="input_class @error('welcomedescription') is-invalid @enderror  summernote-simple">{{old('welcomedescription')}}</textarea>
-                                    @error('welcomedescription')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <textarea name="welcomedescription" maxlength="120" autocomplete="off" class="input_class form-control @error('welcomedescription') is-invalid @enderror  summernote-simple">{{old('welcomedescription')}}</textarea>
+                                @if($errors->has('welcomedescription'))
+                                <span class="text-danger">{{ $errors->first('welcomedescription') }}</span>
+                                @endif
                                 </div>
                             </div>
                         </div>
@@ -266,11 +260,9 @@
                                                 <option value="<?php echo $key; ?>" <?php if(old('txtpostion')==$key) echo "selected"; ?>><?php echo $value; ?></option>
                                             <?php  }?>
                                     </select>
-                                    @error('txtpostion')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @if($errors->has('txtpostion'))
+                                    <span class="text-danger">{{ $errors->first('txtpostion') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -292,11 +284,10 @@
                                             <option value="<?php echo $key; ?>" <?php if(old('txtstatus')==$key) echo "selected"; ?>><?php echo $value; ?></option>
                                         <?php  }?>
                                 </select>
-                                    @error('txtstatus')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                @if($errors->has('txtstatus'))
+                                <span class="text-danger">{{ $errors->first('txtstatus') }}</span>
+                                @endif
+                                
                                 </div>
                             </div>
                         </div>
@@ -306,8 +297,8 @@
                                 <div class="pull-right">
                                
                                     <input name="cmdsubmit" type="submit" class="btn btn-success" id="cmdsubmit" value="Submit" />&nbsp;
-                                    <input name="cmdreset" type="reset" class="btn btn-danger" id="cmdreset" value="Reset" />
-                                    <input type="hidden" name="random" value="" />
+                                    <a href="{{ url('/admin/menu')}}" class="btn btn-primary" >Back</a>
+                                  
                                 </div>
                             </div>
                         </div>

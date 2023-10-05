@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage Tender')
+@section('title', 'Edit Whatsnew')
 <script type="text/javascript">
 
 
@@ -89,8 +89,8 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <input name="title" maxlength="36"
-                                    minlength="2" autocomplete="off" type="text" 
-                                    class="input_class form-control  @error('title') is-invalid @enderror" id="tender_title" value="{{ !empty($data->tender_title)?$data->tender_title:old('tender_title')}}"  />
+                                    minlength="2" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" 
+                                    class="input_class form-control  @error('title') is-invalid @enderror" id="tender_title" value="{{ !empty($data->title)?$data->title:old('title')}}"  />
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -108,10 +108,10 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input name="url" autocomplete="off" type="text" maxlength="36"
+                                    <input name="page_url" onkeypress="return onlyAlphabets(event,this);"  autocomplete="off" type="text" maxlength="36"
                                     minlength="2" 
-                                    class="input_class form-control @error('url') is-invalid @enderror " id="txtepage_title"
-                                    value="{{!empty($data->url)?$data->url:old('url')}}" />
+                                    class="input_class form-control @error('page_url') is-invalid @enderror " id="txtepage_title"
+                                    value="{{!empty($data->page_url)?$data->page_url:old('url')}}" />
                                     @error('url')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -182,7 +182,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metakeyword" autocomplete="off" type="text" class="input_class form-control" id="metakeyword" value="{{!empty($data->metakeyword)?$data->metakeyword:old('metakeyword')}}" />
+                                        <input name="metakeyword" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" class="input_class form-control" id="metakeyword" value="{{!empty($data->metakeyword)?$data->metakeyword:old('metakeyword')}}" />
                                     </div>
                                     @error('metakeyword')
                                     <span class="invalid-feedback" role="alert">
@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metadescription" autocomplete="off" type="text" class="input_class form-control" id="metadescription" value="{{!empty($data->metadescription)?$data->metadescription:old('metadescription')}}" />
+                                        <input name="metadescription" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" class="input_class form-control" id="metadescription" value="{{!empty($data->metadescription)?$data->metadescription:old('metadescription')}}" />
                                     </div>
                                     @error('metadescription')
                                     <span class="invalid-feedback" role="alert">
@@ -219,7 +219,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <textarea name="description" id="description" class="form-control summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo !empty($data->description)?$data->description:old('description'); ?></textarea>
+                                        <textarea name="description" onkeypress="return onlyAlphabets(event,this);" id="description" class="form-control summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo !empty($data->description)?$data->description:old('description'); ?></textarea>
                                     </div>
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -284,7 +284,7 @@
 									<div class="col-lg-6 col-md-6 col-xm-6">
 										<div class="form-group">
 										
-											<input type="date" name="startdate" id="startdate" class="input_class form-control" autocomplete="off" value="{{!empty($data->start_date)?$data->start_date:old('startdate')}}">
+											<input type="date" name="startdate" id="startdate" class="input_class form-control" autocomplete="off" value="{{!empty($data->startdate)?$data->startdate:old('startdate')}}">
                                         </div>
                                         @error('startdate')
                                         <span class="invalid-feedback" role="alert">
@@ -303,7 +303,7 @@
 									<div class="col-lg-6 col-md-6 col-xm-6">
 										<div class="form-group">
 											
-											<input  onchange="ValidateTodate();" type="date" name="enddate" id="enddate" class="input_class form-control" autocomplete="off" value="{{!empty($data->end_date)?$data->end_date:old('enddate')}}">
+											<input  onchange="ValidateTodate();" type="date" name="enddate" id="enddate" class="input_class form-control" autocomplete="off" value="{{!empty($data->enddate)?$data->enddate:old('enddate')}}">
                                         </div>
                                         <span class="enddate_error" style="color:red;"></span>
                                         @error('enddate')
@@ -347,7 +347,7 @@
                                 <div class="pull-right">
                                
                                     <input name="cmdsubmit" type="submit" class="btn btn-success" id="cmdsubmit" value="Submit" />&nbsp;
-                                    <a href="{{URL::to('admin/tender/')}}" class="btn btn-primary" >back</a>
+                                    <a href="{{URL::to('admin/whatsnews/')}}" class="btn btn-primary" >back</a>
                                 </div>
                             </div>
                         </div>

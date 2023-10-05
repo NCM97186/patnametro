@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    //pushpendra
+    //Laukesh
    public function up(): void
     {
         Schema::create('circulars', function (Blueprint $table) {
@@ -20,17 +20,17 @@ return new class extends Migration
             $table->integer('is_new');
             $table->integer('language');
             $table->integer('menutype');
+            $table->string('circularstype');
             $table->string('metakeyword');
             $table->string('metadescription');
             $table->longtext('description')->nullable();
             $table->string('txtuplode')->nullable();
             $table->string('txtweblink');
-             $table->integer('txtstatus');
+            $table->integer('txtstatus');
             $table->integer('admin_id');
             $table->date('startdate');
             $table->date('enddate');
-            $table->date('create_date');
-            $table->date('update_date');
+            
             $table->timestamps();
         });
     }

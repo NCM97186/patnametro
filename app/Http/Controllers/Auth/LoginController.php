@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -41,6 +41,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->generateSalt();
     }
     /**
      * Create a new controller instance.
@@ -57,19 +58,28 @@ class LoginController extends Controller
             'password' => 'required',
             'CaptchaCode'=>'required',
         ]);
-        $code = $request->input('CaptchaCode');
+        $code = clean_single_input($request->input('CaptchaCode'));
         $isHuman = captcha_validate($code);
     
         if ($isHuman) {
-       
-        
-            if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+            $email=clean_single_input($input['email']);
+            // $data = Menu::where('email', $email)->first();
+             $pass=clean_single_input($input['password']);
+            // $binaryHash =   pack("H*", $pass);//hex2bin($pass);
+           
+           //  $plainText =$binaryHash;
+
+            // Print the plain text
+          //  echo "plainText".$plainText;
+            $decr_pw = strtoupper(hash("sha512", $pass));
+          //  echo $oldpass=$data->password;
+           // dd($plainText);
+           $saltpass= strtoupper(hash("sha512", $pass . clean_single_input($input['BDC_VCID_ExampleCaptcha'])));
+            if(auth()->attempt(array('email' => $email, 'password' => $pass)))
             {   $date=Carbon::now();
-                User::where('email', $input['email'])->update(['last_login_date' => $date]);
+                User::where('email', $email)->update(['last_login_date' => $date]);
                 if (auth()->user()->userType == 'admin') {
-                    return redirect()->route('admin.home');
-                }else if (auth()->user()->userType == 'vendor') {
-                    return redirect()->route('vendor.home');
+                    return redirect()->route('dashboard');
                 }else{
                     return redirect()->route('home');
                 }
@@ -81,5 +91,12 @@ class LoginController extends Controller
             return redirect()->route('login')->with('error','Captcha Is Wrong.');
         }
           
+    }
+    public function generateSalt() {
+		    $salt =uniqid(rand(59999, 199999));
+		    App::setLocale($salt);
+            session()->put('salt', $salt);
+            return $salt;
+       
     }
 }

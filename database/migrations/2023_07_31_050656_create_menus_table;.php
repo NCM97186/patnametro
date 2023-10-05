@@ -9,12 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    //pushpendra
+    //pushpendra /laukesh
     public function up(): void
     {
         Schema::create('menus', function (Blueprint $table) {
         $table->id();     
-        $table->bigInteger('m_id');
+        $table->bigInteger('m_id')->nullable();
         $table->integer('m_type');
         $table->integer('m_flag_id')->nullable();
         $table->integer('menu_positions');
@@ -27,15 +27,13 @@ return new class extends Migration
         $table->longtext('content');
         $table->string('doc_uplode')->nullable();
         $table->string('linkstatus')->nullable();
-        $table->time('start_date');
-        $table->time('end_date');
-        // $table->time('create_date');
-        // $table->time('update_date');
+        $table->time('start_date')->nullable();
+        $table->time('end_date')->nullable();
         $table->tinyInteger('approve_status')->default(0);
         $table->integer('admin_id');
         $table->integer('page_postion')->nullable();
         $table->integer('current_version');
-        $table->string('welcomedescription');
+        $table->longtext('welcomedescription');
         $table->timestamps();
 
              });

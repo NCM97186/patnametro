@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Faq extends Model
 {
     use HasFactory;
-    protected $fillable =['title','url','page_url','category','language','description','txtstatus'];
+    protected $fillable =['title','url','admin_id', 'page_url','category','language','description','txtstatus'];
 }

@@ -12,7 +12,5 @@ class Visitor extends Model
         'visitors_ip',
         'visitors_count',
         'page_name'
-
-
     ];
 }

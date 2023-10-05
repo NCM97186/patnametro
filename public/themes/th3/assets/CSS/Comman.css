@@ -1,0 +1,10 @@
+.container-fluid{
+    max-width: 1750px;
+ }
+ .px-5{
+    padding-left: 5rem;
+    padding-right: 5rem;
+ }
+ /* .gap-2{
+    gap:2rem;
+ } */

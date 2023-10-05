@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Illuminate\Support\Str;
 use App\Models\admin\Whatsnew;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -41,13 +41,13 @@ class WhatsnewsController extends Controller
            'title' => 'required',
            'url' => 'required',
            'menutype' => 'required',
-           'tendertype' => 'required',
            'txtstatus' => 'required',
            'is_new' => 'required',
            'startdate' => 'required',
            'enddate' => 'required'
        );
-       $validator = '';
+      // $validator = '';
+      $validator = Validator::make($request->all(), $rules);
        if($request->menutype == 1){
            $rules = array(
                'description' => 'required',
@@ -88,7 +88,7 @@ class WhatsnewsController extends Controller
               
            $validator = Validator::make($request->all(), $rules);
        }
-        $validator = Validator::make($request->all(), $rules);
+       
        
        if ($validator->fails()) {
         return  back()->withErrors($validator)->withInput();
@@ -97,7 +97,7 @@ class WhatsnewsController extends Controller
            $user_login_id=Auth()->user()->id;
           
            $pArray['title']    				        = clean_single_input($request->title); 
-           $pArray['url']    					    = clean_single_input(seo_url($request->title)); 
+           $pArray['page_url']    				    = Str::slug(clean_single_input($request->url)); 
            $pArray['language']    			        = clean_single_input($request->language); 
            $pArray['menutype']  					= clean_single_input($request->menutype); 
            $pArray['metakeyword']    			    = clean_single_input($request->metakeyword); 
@@ -106,8 +106,8 @@ class WhatsnewsController extends Controller
            $pArray['txtuplode']  				    = clean_single_input($txtuplode1); 
            $pArray['txtweblink']    				= clean_single_input($request->txtweblink); 
            $pArray['admin_id']  					= clean_single_input($user_login_id); 
-           $pArray['start_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->startdate)));
-		   $pArray['end_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->enddate)));
+           $pArray['startdate']  			        = date("Y-m-d ", strtotime(clean_single_input($request->startdate)));
+		   $pArray['enddate']  			            = date("Y-m-d ", strtotime(clean_single_input($request->enddate)));
            $pArray['txtstatus']  			        = clean_single_input($request->txtstatus); 
            $pArray['is_new']  				        = clean_single_input($request->is_new); 
            
@@ -116,19 +116,20 @@ class WhatsnewsController extends Controller
            $user_login_id=Auth()->user()->id;
 
            if($lastInsertID > 0){
-            $audit_data = array('user_login_id'     =>  $user_login_id,
-            'page_id'           	=>  $id,
-            'page_name'             =>  clean_single_input($request->title),
-            'page_action'           =>  'Insert',
-            'page_category'         =>  clean_single_input($request->menutype),
-            'lang'                  =>  clean_single_input($request->language),
-            'page_title'        	=> 'Whatsnew Model',
-            'approve_status'        => clean_single_input($request->txtstatus),
-            'usertype'          	=> 'Admin'
-        );
-                           
-               audit_trail($audit_data);
-               return redirect('admin/tender')->with('success','Whatsnews has successfully added');
+
+                        $audit_data = array('user_login_id'     =>  $user_login_id,
+                        'page_id'             	=>  $lastInsertID,
+                        'page_name'              =>  clean_single_input($request->title),
+                        'page_action'            =>  'Insert',
+                        'page_category'          =>  clean_single_input($request->menutype),
+                        'lang'                   =>  clean_single_input($request->language),
+                        'page_title'             => 'Whatsnew Model',
+                        'approve_status'         => clean_single_input($request->txtstatus),
+                        'usertype'          	    => 'Admin'
+                    );            
+                audit_trail($audit_data);
+
+                return redirect('admin/whatsnews')->with('success','Whatsnews has successfully added');
            }
           
        }
@@ -159,14 +160,12 @@ class WhatsnewsController extends Controller
     public function update(Request $request, string $id)
     {
         $id=  clean_single_input($id);
-       $txtuplode1 ='';
-       $rules = array(
-           
+        $txtuplode1 ='';
+        $rules = array(
            'language' => 'required',
            'title' => 'required',
            'url' => 'required',
            'menutype' => 'required',
-           'tendertype' => 'required',
            'txtstatus' => 'required',
            'is_new' => 'required',
            'startdate' => 'required',
@@ -178,8 +177,7 @@ class WhatsnewsController extends Controller
                'description' => 'required',
                'metakeyword' => 'required',
                'metadescription' => 'required'
-           );
-            
+           ); 
            $validator = Validator::make($request->all(), $rules);
        }elseif($request->menutype == 2){
 
@@ -217,7 +215,7 @@ class WhatsnewsController extends Controller
               
            $validator = Validator::make($request->all(), $rules);
        }
-        $validator = Validator::make($request->all(), $rules);
+           $validator = Validator::make($request->all(), $rules);
        
        if ($validator->fails()) {
             return  back()->withErrors($validator)->withInput();
@@ -225,20 +223,20 @@ class WhatsnewsController extends Controller
            $user_login_id=Auth()->user()->id;
           
          
-           $pArray['title']    				= clean_single_input($request->title); 
-           $pArray['url']    					    = clean_single_input(seo_url($request->title)); 
+           $pArray['title']    				        = clean_single_input($request->title); 
+           $pArray['url']    					    = Str::slug(clean_single_input($request->url)); 
            $pArray['language']    			        = clean_single_input($request->language); 
            $pArray['menutype']  					= clean_single_input($request->menutype); 
            if($request->menutype == 1){
-               $pArray['txtuplode']  				    = ''; 
-               $pArray['txtweblink']    				= '';
-               $pArray['metakeyword']    			    = clean_single_input($request->metakeyword); 
-               $pArray['metadescription']				= clean_single_input($request->metadescription); 
+               $pArray['txtuplode']  			    = ''; 
+               $pArray['txtweblink']    			= '';
+               $pArray['metakeyword']    			= clean_single_input($request->metakeyword); 
+               $pArray['metadescription']			= clean_single_input($request->metadescription); 
             }elseif($request->menutype == 2){
-                $pArray['metakeyword']    			    = ''; 
-                $pArray['metadescription']				= ''; 
-                $pArray['txtweblink']    				= ''; 
-                $pArray['txtuplode']  				    = clean_single_input($txtuplode1); 
+                $pArray['metakeyword']    			= ''; 
+                $pArray['metadescription']			= ''; 
+                $pArray['txtweblink']    			= ''; 
+                $pArray['txtuplode']  				= clean_single_input($txtuplode1); 
                 
            }elseif($request->menutype == 3){
             $pArray['metakeyword']    			    = ''; 
@@ -251,8 +249,8 @@ class WhatsnewsController extends Controller
           
            $pArray['description']    				= clean_single_input($request->description); 
            $pArray['admin_id']  					= clean_single_input($user_login_id); 
-           $pArray['start_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->startdate)));
-		   $pArray['end_date']  			        = date("Y-m-d ", strtotime(clean_single_input($request->enddate)));
+           $pArray['startdate']  			        = date("Y-m-d ", strtotime(clean_single_input($request->startdate)));
+		   $pArray['enddate']  			            = date("Y-m-d ", strtotime(clean_single_input($request->enddate)));
            $pArray['txtstatus']  			        = clean_single_input($request->txtstatus); 
            $pArray['is_new']  				        = clean_single_input($request->is_new); 
            $user_login_id=Auth()->user()->id;
@@ -280,10 +278,27 @@ class WhatsnewsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Whatsnews $whatsnew)
+    public function destroy(Whatsnew $whatsnew,$id)
     {
-        $whatsnew->delete();
-       
-        return redirect('admin/whatsnews')->with('success','Whatsnews deleted successfully');
+	
+		$whatsnews = Whatsnew::find($id);
+		
+        $delete= $whatsnews->delete();
+         if($delete > 0){
+            $user_login_id=Auth()->user()->id;
+            $audit_data = array('user_login_id'     =>  $user_login_id,
+                            'page_id'           	=>  $whatsnews->id,
+                            'page_name'             =>  clean_single_input($whatsnews->title),
+                            'page_action'           =>  'delete',
+                            'page_category'         =>  '',
+                            'lang'                  =>  1,
+                            'page_title'        	=> 'whatsnews  Model',
+                            'approve_status'        => 1,
+                            'usertype'          	=> 'Admin'
+                        );
+                        
+            audit_trail($audit_data);
+            return redirect('admin/whatsnews')->with('success','Whatsnews deleted successfully');
+        }
     }
 }

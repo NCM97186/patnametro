@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage menu')
+@section('title', 'Edit Banner')
 
 <div class="row">
     <div class="col-12 col-md-12 col-lg-12">
@@ -56,7 +56,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                <div class="form-group">
                                     <input name="menu_title" maxlength="36"
-                                    minlength="2" autocomplete="off" type="text" 
+                                    minlength="2" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" 
                                     class="input_class form-control  @error('menu_title') is-invalid @enderror" id="menu_title"   value="{{ !empty($data->title)?$data->title:old('menu_title')}}"  />
                                     @error('menu_title')
                                     <span class="invalid-feedback" role="alert">

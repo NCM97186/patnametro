@@ -13,6 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('states', function (Blueprint $table) {
+            $table->id();
             $table->integer('state_id');
             $table->string('state_name')->nullable();
             $table->text('state_hi_name');

@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->text('comments');
             $table->text('review_comment');
-            $table->date('review_date');
-            $table->date('create_date');
             $table->timestamps();
         });
     }

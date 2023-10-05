@@ -13,6 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('districts', function (Blueprint $table) {
+            $table->id();
             $table->integer('dist_id');
             $table->string('dist_name');
             $table->text('dist_hi_name');

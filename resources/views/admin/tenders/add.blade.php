@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage Tender')
+@section('title', 'Add Tender')
 <script type="text/javascript">
 
 
@@ -70,13 +70,11 @@
                                     <div class="input_class form-group">
                                         <input type="radio" name="language" autocomplete="off" id="txtlanguage" value="1"  @if(old('language')==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
                                         <input type="radio" name="language" autocomplete="off" id="txtlanguage" value="2"  @if(old('language')==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
-                                        
+                                         @if($errors->has('language'))
+                                        <span class="text-danger">{{ $errors->first('language') }}</span>
+                                        @endif
                                     </div>
-                                    @error('language')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                                  
                                 </div>
                             </div>
                         <div class="row">
@@ -132,11 +130,9 @@
                                   
                                     <input type="radio" name="is_new" autocomplete="off" id="is_new" value="1"  @if(old('is_new')==1) checked @endif/>Yes &nbsp;
                                     <input type="radio" name="is_new" autocomplete="off" id="is_new" value="2"  @if(old('is_new')==2) checked @endif/ />No
-                                        @error('language')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                                      @if($errors->has('is_new'))
+                                        <span class="text-danger">{{ $errors->first('is_new') }}</span>
+                                        @endif
                                 </div>
                             </div>
                         </div>
@@ -162,7 +158,7 @@
                                         }
                                         ?>
                                     </select>
-                                    @error('menutype')
+                                     @error('menutype')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -184,7 +180,7 @@
                                     <div class="form-group">
                                         <input name="metakeyword" autocomplete="off" type="text" class="input_class form-control" id="metakeyword" value="{{old('metakeyword')}}" />
                                     </div>
-                                    @error('metakeyword')
+                                     @error('metakeyword')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -221,7 +217,7 @@
                                     <div class="form-group">
                                         <textarea name="description" id="description" class="form-control summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo old('description'); ?></textarea>
                                     </div>
-                                    @error('description')
+                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -242,11 +238,9 @@
                                     <input type="file" onchange="onlytxtuplodepdf(this);" name="txtuplode" class="input_class inline-block" id="txtuplode" />
                                 </div>
                                 <span class="txtuplode_error" style="color:red;"></span>
-                                @error('txtuplode')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                @if($errors->has('txtuplode'))
+                                <span class="text-danger">{{ $errors->first('txtuplode') }}</span>
+                                @endif
                             </div>
                             </div>
                         </div>
@@ -283,11 +277,9 @@
 										
 											<input type="date" name="startdate" id="startdate" class="input_class form-control" autocomplete="off" value="{{old('startdate')}}">
                                         </div>
-                                        @error('startdate')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                                       @if($errors->has('startdate'))
+                                        <span class="text-danger">{{ $errors->first('startdate') }}</span>
+                                        @endif
 									</div>
 								</div>
 								<div class="row">
@@ -303,11 +295,9 @@
 											<input type="date" onchange="ValidateTodate();" name="enddate" id="enddate" class="input_class form-control" autocomplete="off"value="{{old('enddate')}}">
                                             <span class="enddate_error" style="color:red;"></span>
                                         </div>
-                                        @error('enddate')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                                        @if($errors->has('enddate'))
+                                        <span class="text-danger">{{ $errors->first('enddate') }}</span>
+                                        @endif
 									</div>
 								</div>
 
@@ -333,11 +323,9 @@
                                                 <option value="<?php echo $key; ?>" <?php if(old('tendertype')==$key) echo "selected"; ?>><?php echo $value; ?></option>
                                             <?php  }?>
                                     </select>
-                                    @error('tendertype')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @if($errors->has('tendertype'))
+                                    <span class="text-danger">{{ $errors->first('tendertype') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -359,11 +347,9 @@
                                             <option value="<?php echo $key; ?>" <?php if(old('txtstatus')==$key) echo "selected"; ?>><?php echo $value; ?></option>
                                         <?php  }?>
                                 </select>
-                                    @error('txtstatus')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                @if($errors->has('txtstatus'))
+                                <span class="text-danger">{{ $errors->first('txtstatus') }}</span>
+                                @endif
                                 </div>
                             </div>
                         </div>

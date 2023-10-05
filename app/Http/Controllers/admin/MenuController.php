@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 class MenuController extends Controller
 {
     /**
@@ -15,8 +17,25 @@ class MenuController extends Controller
     public function index(Request $request): View
     {
         
-        $title="Menu List";
-        $list = Menu::where('m_flag_id',0)->paginate(10);
+            $title="Menu List";
+            $approve_status=session()->get('approve_status');
+            $sertitle=Session::get('title');
+            $approve_status=Session::get('approve_status');
+            $language_id=Session::get('language_id');
+            $lists = Menu::where('m_flag_id',0);
+            if (!empty($title)) {
+              
+                $lists->where('m_title', 'LIKE', "%{$sertitle}%");
+            }
+            if (!empty($approve_status)) {
+               
+                $lists->where('approve_status',$approve_status);
+            }
+            if (!empty($language_id)) {
+               
+                $lists->where('language_id',$language_id);
+            }
+            $list=$lists->orderBy('page_postion', 'ASC')->select('id','m_id','m_type','m_flag_id','menu_positions','language_id','m_name','m_url','m_title','m_keyword','m_description','content','doc_uplode','linkstatus','approve_status','page_postion','welcomedescription')->paginate(10);
         return view('admin/menus/menu',compact(['list','title']));
     }
 
@@ -34,7 +53,16 @@ class MenuController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request): mixed {
-        
+        if(isset($request->search)){
+            $title=clean_single_input(trim($request->title));
+             $approve_status=clean_single_input($request->approve_status);
+             $language_id=clean_single_input($request->language_id);
+             Session::put('title', $title);
+             Session::put('approve_status', $approve_status);
+             Session::put('language_id', $language_id);
+             return redirect('admin/menu');
+           }
+        if(isset($request->cmdsubmit)){  
          $txtuplode1 ='';
         $rules = array(
             'menu_title' => 'required|max:64',
@@ -96,7 +124,7 @@ class MenuController extends Controller
             $user_login_id=Auth()->user()->id;
             $dataArr = array(); 
             $pArray['m_name']    					= clean_single_input($request->menu_title); 
-			$pArray['m_url']  						= seo_url(clean_single_input($request->url));
+			$pArray['m_url']  						= Str::slug(clean_single_input($request->url));
 			$pArray['language_id']    			    = clean_single_input($request->language);
 			$pArray['m_flag_id']    				= clean_single_input(!empty($request->menucategory)?$request->menucategory:0);
 			$pArray['m_type']  						= clean_single_input($request->menutype);
@@ -133,6 +161,7 @@ class MenuController extends Controller
 			}
            
         }
+    }
       
     }
 
@@ -143,8 +172,9 @@ class MenuController extends Controller
     {
         $title="Child Menu List";
         $whEre  = "";
+        $id=clean_single_input($id);
         $list = Menu::where('m_flag_id',$id)->paginate(10);
-         return view('admin/menus/menu',compact(['list','title']));
+         return view('admin/menus/menu',compact(['list','title','id']));
     }
 
     /**
@@ -152,6 +182,7 @@ class MenuController extends Controller
      */
     public function edit(string $id)
     {
+        $id=clean_single_input($id);
         $title="Edit Menu";
         $data = Menu::find($id);
         return view('admin/menus/edit_menu',compact(['title','data']));
@@ -227,7 +258,7 @@ class MenuController extends Controller
             $dataArr = array(); 
           
 			$pArray['m_name']    					= clean_single_input($request->menu_title); 
-			$pArray['m_url']  						= seo_url(clean_single_input($request->url));
+			$pArray['m_url']  						= Str::slug(clean_single_input($request->url));
 			$pArray['language_id']    			    = clean_single_input($request->language);
 			$pArray['m_flag_id']    				= clean_single_input($request->menucategory);
 			$pArray['m_type']  						= clean_single_input($request->menutype);
@@ -290,9 +321,26 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
-        $menu->delete();
        
-        return redirect('admin/menu')->with('success','Menu deleted successfully');
+        $delete= $menu->delete();
+       
+        if($delete > 0){
+            $user_login_id=Auth()->user()->id;
+            $audit_data = array('user_login_id'     =>  $user_login_id,
+                            'page_id'           	=>  $menu->id,
+                            'page_name'             =>  clean_single_input($menu->m_name),
+                            'page_action'           =>  'delete',
+                            'page_category'         =>  '',
+                            'lang'                  =>  clean_single_input($menu->language_id),
+                            'page_title'        	=> 'menu Model',
+                            'approve_status'        => 1,
+                            'usertype'          	=> 'Admin'
+                        );
+                        
+            audit_trail($audit_data);
+            return redirect('admin/menu')->with('success','Menu deleted successfully');
+        }
+        
     }
    
 }

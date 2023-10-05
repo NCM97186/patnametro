@@ -1,10 +1,10 @@
-@extends('layouts.master'); @section('content') @section('title', 'videogallery ')
+@extends('layouts.master'); @section('content') @section('title', 'Manage Videogallery ')
 <div class="card">
     <div class="card-body">
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
-                    <a style="float: right;" href="{{URL::to('admin/videogallery/create')}}" class="btn btn-primary pull-right"> Add Menu</a>
+                    <a style="float: right;" href="{{URL::to('admin/videogallery/create')}}" class="btn btn-primary pull-right"> Add Videogallery</a>
                 </div>
                 <!-- /.col-12 col-md-12 col-lg-12 -->
             </div>
@@ -39,21 +39,23 @@
                                         <tr>
                                             <td><?php echo $count++; ?></td>
                                             <td><?php echo $row->title; ?></td>
+                                            <form action="{{ route('videogallery.destroy',$row->id) }}"  method="POST"> 
                                             <td>
-                                                <a href="{{route('videogallery.edit', $row->id)}}" class="btn btn-success btn-xs">Edit</a>
-                                                <form action="{{ route('videogallery.destroy',$row->id) }}"  method="POST"> 
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')">Delete</button>  
-                                                </form>
-                                            </td>
+                                                 <a class="btn btn-primary" href="{{ route('videogallery.edit',$row->id) }}">Edit</a>
+                                            @csrf
+                                            @method('DELETE')
+
+                                   <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                   </td>
+                                        </form>
+                                              
                                         </tr>
                                         <?php
                                         endforeach;
                                     ?>
                                     </tbody>
                                 </table>
-                                {!! $list->withQueryString()->links('pagination::bootstrap-5') !!} 
+                                {!! $list->withQueryString()->links('pagination::bootstrap-5') !!}
                             </div>
                             <!-- /.table-responsive -->
                         </div>

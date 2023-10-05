@@ -13,15 +13,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('modules', function (Blueprint $table) {
-            $table->id('module_id');
+            $table->id();
+            $table->integer('module_id')->nullable();
             $table->integer('submenu_id');
             $table->string('module_name');
+            $table->string('icons');
+            $table->string('slug');
             $table->integer('mod_order_id');
             $table->string('module_status');
             $table->integer('publish_id_module');
             $table->integer('module_language_id');
             $table->string('page_type')->nullable();
-             $table->string('page_url');
+            $table->string('page_url');
             $table->timestamps();
         });
     }

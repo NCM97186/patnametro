@@ -3,8 +3,12 @@
 use Carbon\Carbon;
 use App\Models\admin\Audit_trail;
 use App\Models\admin\Menu;
+use App\Models\User;
+use App\Models\admin\Visitor;
 use Illuminate\Support\Facades\DB;
 use App\Models\admin\WebsiteSetting;
+use App\Models\admin\Module;
+use App\Models\Admin_role;
 use Illuminate\Support\Str;
 
 
@@ -40,11 +44,13 @@ if (! function_exists('convertMdyToYmd')) {
     }
 }
 if (! function_exists('get_setting')) {
-    function get_setting()
+    function get_setting($langid="")
     { 
-		$user_login_id=Auth()->user()->id;
-        $websiteSetting=WebsiteSetting::firstWhere('user_login_id', $user_login_id);
-        return $websiteSetting;
+		    $langid=$langid??1;
+			$websiteSetting=WebsiteSetting::firstWhere('language', $langid);
+			return $websiteSetting;
+		
+		
     }
 }
 if(! function_exists('clean_single_input'))
@@ -52,7 +58,7 @@ if(! function_exists('clean_single_input'))
 	function clean_single_input($content_desc)
 	{
 			//$content_desc = trim($content_desc);
-			$$content_desc = Str::of($content_desc)->trim();
+			$content_desc = Str::of($content_desc)->trim();
 			$content_desc = str_replace('\'','',$content_desc);
 			$content_desc = str_replace('&lt;script',' ',$content_desc);
 			$content_desc = str_replace('&lt;iframe',' ',$content_desc);
@@ -147,7 +153,7 @@ if(! function_exists('clean_single_input'))
 			$content_desc = str_replace('\"','',$content_desc);
 			$content_desc = str_replace("\'", "", $content_desc);
 			$content_desc = str_replace('+','',$content_desc);
-			//$content_desc = str_replace('CR','',$content_desc);
+			//$content_desc = preg_replace('#[^\w()/.%\-&]#','',$content_desc);
 			//$content_desc = str_replace('LF','',$content_desc);
 			$content_desc = str_replace('*','',$content_desc);
 			$content_desc = str_replace("'<","",$content_desc);
@@ -156,6 +162,7 @@ if(! function_exists('clean_single_input'))
 			$content_desc = str_replace("'>'","",$content_desc);
 			$content_desc = str_replace("#40","",$content_desc);
 			$content_desc = str_replace("#41","",$content_desc);
+			//$content_desc = preg_replace("/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s","",$content_desc);
 			
 			return $content_desc;
 		
@@ -183,6 +190,7 @@ if(! function_exists('clean_data_array'))
 			//$content_desc = trim($content_desc);
 			//$content_desc = Str::of($content_desc)->trim();
 			$content_desc = str_replace('\'','',$content_desc);
+			
 			$content_desc = str_replace('&lt;script',' ',$content_desc);
 			$content_desc = str_replace('&lt;iframe',' ',$content_desc);
 			$content_desc = str_replace('&lt;script&gt;','',$content_desc);
@@ -329,7 +337,82 @@ if(!function_exists('audit_trail'))
 		return $numRows;
 	}
 }
-############################menu 
+/// Module for Admin
+
+if ( ! function_exists('primarylink_module'))
+{
+	function primarylink_module($language_id, $menu_positions='')
+	{
+		$selected = "";
+		if($menu_positions != '')
+		{
+			if( $menu_positions == 0 )
+				$selected="selected";
+		}
+
+		$returnValue = '<div class="col-lg-3 col-md-3 col-xm-3">
+							<div class="form-group">
+								<label>Primary Link:</label>
+								<span class="star">*</span>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-xm-6">
+							<div class="form-group">
+								<select name="submenu_id" class="input_class form-control" id="submenu_id" autocomplete="off">
+									<option value=""> Select </option>
+									<option value ="0" '.$selected.'>It is Root Category</option>';
+			
+			$whEre = array('module_status'	=> 1,
+							'submenu_id'			=> 0,
+							'module_language_id'		=> $language_id
+						);
+			$nav_query = DB::table('modules')->select('id','submenu_id','module_name','icons','slug','mod_order_id','module_status','publish_id_module','module_language_id')->where($whEre)->get();
+			foreach($nav_query as $row)
+			{
+				$selected = "";
+				if($menu_positions != '')
+				{
+					if($row->id == $menu_positions)
+						$selected="selected";
+				}
+				$returnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>'.$row->module_name.'</strong></option>';
+
+                                $returnValue .= build_child_m_one($row->id, '', $menu_positions);
+			}
+		$returnValue .=    		'</select>
+							</div>
+						</div>';
+
+		return $returnValue;
+	}
+}
+if ( ! function_exists('build_child_m_one'))
+{
+	function build_child_m_one($parent_id, $tempReturnValue, $menu_positions)
+	{
+            
+		$tempReturnValue .= $tempReturnValue;
+		$whEre = array("module_status"	=> 1,
+						"submenu_id"			=> $parent_id
+						);
+		$nav_query = DB::table('modules')->select('id','submenu_id','module_name','icons','slug','mod_order_id','module_status','publish_id_module','module_language_id')->where($whEre)->get();
+		foreach($nav_query as $row)
+		{
+			$selected = "";
+			if($menu_positions != '')
+			{
+				if($row->id == $menu_positions)
+					$selected="selected";
+			}
+			$tempReturnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>&nbsp;--&nbsp;'.$row->module_name.'</strong></option>';
+			//$tempReturnValue .= build_child_two($row->id, $tempReturnValueAnother='', $menu_positions);
+		}
+
+		return $tempReturnValue;
+	}
+}
+############################ Menu For  admin
+
 if ( ! function_exists('primarylink_menu'))
 {
 	function primarylink_menu($language_id, $menu_positions='')
@@ -377,7 +460,6 @@ if ( ! function_exists('primarylink_menu'))
 		return $returnValue;
 	}
 }
-
 if ( ! function_exists('build_child_one'))
 {
 	function build_child_one($parent_id, $tempReturnValue, $menu_positions)
@@ -573,6 +655,23 @@ if ( ! function_exists('build_child_seven'))
 
 
 ############################menu end
+
+/// Memu for Themes 
+
+if ( ! function_exists('get_menu'))
+{
+	function get_menu($language_id, $menu_positions, $m_flag_id='')
+	{      // dd($menu_positions);
+		   $whEre = array('approve_status'	=> 3,
+							'm_flag_id'			=>$m_flag_id,
+							'language_id'		=> $language_id 
+						);
+			$nav_query = DB::table('menus')->select('*')->where($whEre)->whereIn('menu_positions', $menu_positions)->orderBy('page_postion', 'ASC')->get();
+			
+
+		  return $nav_query;
+	}
+}
 if ( ! function_exists('seo_url'))
 {
 	function seo_url($seo_url){
@@ -621,8 +720,9 @@ if ( ! function_exists('get_content_postion'))
 		$postion = array(
 			        '1'	=> "Header Menu",
 					'2'	=> "Left Menu",
-					'3'	=> "Footer Menu"
-						);
+					'3'	=> "Footer Menu",
+					'4'	=> "Header & Footer Menu"
+					);
 		return $postion;
 	}
 }
@@ -632,18 +732,39 @@ if ( ! function_exists('get_language'))
 	{
 
 		$language = array(
-			        '1'	=> "Header Menu",
-					'2'	=> "Left Menu"
+			        '1'	=> "English",
+					'2'	=> "Hindi"
 					 );
 		return $language;
 	}
 }
+if ( ! function_exists('get_active'))
+{
+	function get_active()
+	{
+
+		$language = array(
+			        '1'	=> "Active",
+					'2'	=> "In Active"
+					 );
+		return $language;
+	}
+}
+
+
 if ( ! function_exists('has_child'))
 {
 	function has_child( $pid,$langid=1){
 		
-		//$fetchResult = DB::table('menus')->select('*')->where(`m_flag_id1 = '".$pid."' AND language_id11 = '".$langid."' AND approve_status = '3' `)->first();
 		$fetchResult =DB::table('menus')->where('m_flag_id', $pid)->where('language_id', $langid)->where('approve_status', 3)->exists();
+		return $fetchResult;
+		
+	}
+}
+if ( ! function_exists('has_m_child'))
+{
+	function has_m_child($pid,$langid=1){
+		$fetchResult =DB::table('modules')->where('submenu_id', $pid)->where('module_language_id', $langid)->where('module_status', 1)->exists();
 		return $fetchResult;
 		
 	}
@@ -662,10 +783,12 @@ function language($val)
 		echo "Tamil";
 	else if($val=='7')
 		echo "Kannada";
+	else if($val=='1')
+		echo "English";
 	else
 	echo "English";
 }
-function status($val){
+   function status($val){
 		if($val=='1')
 		{
 		echo "Draft";
@@ -676,8 +799,257 @@ function status($val){
 		}
 		else if($val=='3')
 		{
-		echo "Publish";
-		}else
+			echo "Publish";
+		}else{
 		  echo "Review";
      	}
+	}
+	function status_m($val){
+		if($val=='1')
+		{
+		echo "Active";
+		}
+		else if($val=='2')
+		{
+		echo "Inactive";
+		}
+	}
 	
+	
+	if ( ! function_exists('admin_sidebar'))
+	{
+		function admin_sidebar($langid=1){
+			
+			$fetchResult =DB::table('modules')->where('submenu_id', 0)->where('module_language_id', $langid)->where('module_status', 1)->get();
+			return $fetchResult;
+			
+		}
+	}
+	if ( ! function_exists('admin_sidebar_chid'))
+	{
+		function admin_sidebar_chid($langid=1,$mid){
+			
+			$fetchResult =DB::table('modules')->where('submenu_id', $mid)->where('module_language_id', $langid)->where('module_status', 1)->get();
+			return $fetchResult;
+			
+		}
+	}
+	if ( ! function_exists('get_usertype'))
+	{
+		function get_usertype()
+		{
+
+			$language = array(
+						'1'	=> "Creator",
+						'2'	=> "Publisher",
+						'3'	=> "Both"
+						);
+			return $language;
+		}
+	}
+	if ( ! function_exists('get_themestype'))
+	{
+		function get_themestype()
+		{
+
+			$Theme = array(
+						'th1'	=> "Theme 1",
+						'th2'	=> "Theme 2",
+						'th3'	=> "Theme 3"
+						);
+			return $Theme;
+		}
+	}
+	if ( ! function_exists('get_noticetype'))
+	{
+		function get_noticetype()
+		{
+
+			$Theme = array(
+						'1'	=> "Brochure",
+						'2'	=> "Press Release",
+						'3'	=> "Events",
+						'4'	=> "Notifications",
+						'6'=>  "Exhibition"
+						);
+			return $Theme;
+		}
+	}
+	if ( ! function_exists('circularstype'))
+	{
+		function circularstype($type)
+		{
+
+			if($type==1){
+				$type='Brochure';
+			}elseif($type==2){
+				$type='Press Release';
+			}elseif($type==3){
+				$type='Events';
+			
+			}elseif($type==4){
+				$type='Notifications';
+			
+			}else{
+				$type='Exhibition';
+			}
+			return $type;
+		}
+	}
+	if ( ! function_exists('show_permissions'))
+	{
+		function show_permissions()
+		{
+
+			$Theme = array(
+						'1'	=> "View",
+						'2'	=> "Add",
+						'3'	=> "Edit",
+						'4'	=> "Delete"
+						);
+			return $Theme;
+		}
+	}
+
+	if ( ! function_exists('explode_filed'))
+	{
+		function explode_filed($feild)
+		{
+			$feild=session()->get($feild);
+			$feild = explode('_',$feild);
+			$feild=$feild[1];
+			return $$feild;
+		}
+	}
+	if(!function_exists('get_visitor_count'))
+	{
+			function get_visitor_count()
+			{
+				$counter=	DB::table('visitors')->count();
+			    return $counter;
+			}
+	}
+	if(!function_exists('update_visitor_count'))
+	{
+			function update_visitor_count($visitors_ip, $page)
+			{
+				
+				$result = array();
+		
+				 $result = Visitor::where('visitors_ip', $visitors_ip)->first();
+				
+				//dd($result);
+				$dataVis = array();
+				
+				if($result){ 
+					$vc = ($result['visitors_count'])+1;
+					
+					$dataVis['visitors_count'] 			= $vc;
+					Visitor::where('visitors_ip', $result['visitors_ip'])->update($dataVis);
+					
+				}else{
+					$dataVis['visitors_count'] 		= 1;
+					$dataVis['page_name'] 			= $page;
+					$dataVis['visitors_ip'] 		= $visitors_ip;
+					$dataVis['visitors_date_time'] 	= date('Y-m-d H:i:s');
+					
+					$create 	= Visitor::create($dataVis);
+                  
+					$id =  $create->id;;
+				}
+			}
+	}
+	if(!function_exists('get_username'))
+	{
+			function get_username($id)
+			{
+				$data = User::where('id', $id)->first();
+				return $data->name;
+			}
+	}
+	if(!function_exists('get_last_updated_date'))
+	{
+			function get_last_updated_date( $pageTitle = "")
+			{
+				if($pageTitle != ""){	
+
+					$result = Audit_trail::where('approve_status', '=', 3)->where('page_name', 'LIKE','%'.$pageTitle.'%')->orderby('page_action_date','DESC')->first();
+					
+					if($result){
+						return date("d-m-Y", strtotime($result['page_action_date']));
+					}else{
+						$result = Audit_trail::where('approve_status', '=', 3)->orderby('page_action_date','DESC')->first();
+						return date("d-m-Y", strtotime($result['page_action_date']));
+					}
+					
+				}else{
+					$result = Audit_trail::where('approve_status', '=', 3)->orderby('page_action_date','DESC')->first();
+					return date("d-m-Y", strtotime($result['page_action_date']));
+				}
+				
+			}
+	}
+	/// clinet Logo 
+
+if ( ! function_exists('get_logolist'))
+{
+	function get_logolist()
+	{      
+		   $whEre = array('txtstatus'	=> 3
+						);
+			$nav_query = DB::table('logos')->select('*')->where($whEre)->orderBy('updated_at', 'DESC')->get();
+			
+
+		  return $nav_query;
+	}
+}
+if ( ! function_exists('get_parent_menu_name'))
+{
+	function get_parent_menu_name($url,$langid1)
+	{      
+		$result= '';
+	     $date = Menu::where('m_url', 'LIKE', "%{$url}%")->where('language_id', '=', $langid1)->where('approve_status', '=', 3)->select('m_flag_id')->first();
+		 if($date){
+		 $result= Menu::where('id', $date->m_flag_id)->select('m_url','m_name')->first();
+		  }
+		  return $result;
+	}
+}
+// check  permission mpdule
+if ( ! function_exists('module_permission'))
+{
+	function module_permission($user_id = ''){
+		$date = Admin_role::where('user_id', '=', $user_id)->select('role_id','permissions','module_id')->first();
+		
+		if($date){
+			
+		return 	$date;
+			
+		}
+		
+
+	}
+}
+// check if user has permission
+if ( ! function_exists('has_module_permission'))
+{
+	function has_module_permission($permission_name='', $user_id = '',$mid=''){
+		$date = Admin_role::where('user_id', '=', $user_id)->select('role_id','permissions','module_id')->first();
+		if($date){
+			
+			 $permissions=explode(',',$date->permissions);
+			$pre=explode(',',$date->module_id);
+			$preModule=$mid.'_'.$permission_name;
+			   
+				if(in_array($preModule, $permissions)){
+					return true;
+				}else{
+				   abort(401, 'This action is unauthorized.');
+				}
+			
+			
+		}
+		
+
+	}
+}

@@ -15,12 +15,12 @@ return new class extends Migration
         Schema::create('admin_roles', function (Blueprint $table) {
             $table->id();
             $table->Integer('role_id');
-
             $table->string('role_name')->nullable();
             $table->string('module_id')->nullable();
             $table->tinyInteger('role_status');
             $table->integer('role_type')->nullable();
             $table->string('user_id');
+            $table->string('permissions')->nullable();
             $table->timestamps();
         });
     }

@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('audit_trails', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('user_login_id');
             $table->bigInteger('page_id')->nullable();
             $table->string('page_name')->nullable();

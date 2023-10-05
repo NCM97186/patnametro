@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('menutype');
             $table->string('metakeyword');
             $table->string('metadescription');
-            $table->string('description');
+            $table->longText('description');
             $table->string('txtuplode')->nullable();;
             $table->string('txtweblink');
             $table->integer('txtstatus');

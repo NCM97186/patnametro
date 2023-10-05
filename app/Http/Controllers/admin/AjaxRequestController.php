@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\admin\Menu;
+use App;
 class AjaxRequestController extends Controller
 {
    
@@ -20,19 +21,87 @@ class AjaxRequestController extends Controller
             die();
         }
 	}
-    public function get_filter_menu(Request $request)
+    function get_primarylink_module(Request $request)
+	{
+        if($request->get_primarylink_module=='get_primarylink_module'){
+            $language =clean_single_input($request->id);
+            
+            $data = array();
+            $data['html'] = primarylink_module($language);
+           // dd( $data);
+            echo json_encode($data);
+            die();
+        }
+	}
+    public function get_filter(Request $request)
     {
         if($request->ajax())
         {
-            $data = User::select('*');
-
-            if($request->filled('from_date') && $request->filled('to_date'))
-            {
-                $data = $data->whereBetween('created_at', [$request->from_date, $request->to_date]);
-            }
-
-            return DataTables::of($data)->addIndexColumn()->make(true);
+            $module=clean_single_input($request->menusearch);
+            $title=clean_single_input($request->title);
+            $approve_status=clean_single_input($request->approve_status);
+            $language_id=clean_single_input($request->language_id);
+            App::setLocale($module);
+            session()->put('approve_status_'.$module, $approve_status);
+            session()->put('language_id_'.$module, $language_id);
+            session()->put('title_'.$module,$title);
+            session()->put($module,$module);
+            $approve_status2=session()->get('approve_status_'.$module);
+            $titlesearch=session()->get('title_'.$module);
+            $language_idww=session()->get('language_id_'.$module);
+            $msg=[
+               'module'=> $module,
+               'approve_status'=> $approve_status2,
+               'language_id'=> $language_idww,
+               'title'=> $titlesearch,
+            ];
+            echo json_encode($msg);
+            die();
         }
-        return view('users');
+       
+    }
+    public function update_menu_orders(Request $request)
+    {
+        $msg=array();
+        if($request->ajax())
+        {
+            $id= clean_single_input( $request->id);
+            $pArray['page_postion'] =clean_single_input( $request->page_postion);
+            
+            $data = Menu::where('id', $id)->first();
+           
+            if($data->page_postion!==$request->page_postion){
+
+               $create 	= Menu::where('id', $id)->update($pArray);
+                $msg['success']='This Postion is Updated';
+            }else{
+                $msg['error']='This Postion Alredy Taken';
+            }
+            $lastInsertID = $id;
+            $user_login_id=Auth()->user()->id;
+
+            if($create > 0){
+				$audit_data = array('user_login_id'     =>  $user_login_id,
+								'page_id'           	=>  $lastInsertID,
+								'page_name'             =>  clean_single_input($data->menu_title),
+								'page_action'           =>  'Update',
+								'page_category'         =>  clean_single_input($data->m_type),
+								'lang'                  =>  clean_single_input($data->language_id),
+								'page_title'        	=> 'Menu Model',
+								'approve_status'        => clean_single_input($data->approve_status),
+								'usertype'          	=> 'Admin'
+							);
+							
+				audit_trail($audit_data);
+                echo json_encode($msg);
+                die();
+            			
+            }
+        }
+        
+    }
+    public function refreshCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
     }
 }

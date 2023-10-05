@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\admin\Menu;
 class HomeController extends Controller
 {
     /**
@@ -21,9 +21,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        $title="Dashboard";
-        return view('admin/dashboard',compact(['title']));
+    public function index($slug="")
+    {   $title="Veiw Menu ";
+        $views = Menu::all();
+        $view =  Menu::where('m_url', 'LIKE', "%{$slug}%")->first();
+        if(!empty($view)){
+            return response()->view('/admin/dashboard', compact('views', 'view','title'));
+        }else{
+            return redirect('/');  
+        }
+      
     }
 }

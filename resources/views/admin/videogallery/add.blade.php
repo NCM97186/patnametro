@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'videogallery ')
+@section('title', 'Add Videogallery ')
 
 <div class="row">
     <div class="col-12 col-md-12 col-lg-12">
@@ -25,26 +25,26 @@
                     @csrf
                    
                     <div class="panel-body">
-						
-					<div class="row">
-						<div class="col-12 col-md-3 col-lg-3">
-							<div class="form-group">
-								<label>Page Language:</label>
-								<span class="star">*</span>
-							</div>
-						</div>
-						<div class="col-12 col-md-6 col-lg-6">
-							<div class="input_class form-group">
-								<input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if(old('language')==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
-								<input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if(old('language')==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
-								@error('language')
-								<span class="invalid-feedback" role="alert">
-									<strong>{{ $message }}</strong>
-								</span>
-								@enderror
-							</div>
-						</div>
-					</div>
+                        
+                    <div class="row">
+                        <div class="col-12 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label>Page Language:</label>
+                                <span class="star">*</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6">
+                            <div class="input_class form-group">
+                                <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if(old('language')==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
+                                <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if(old('language')==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
+                                @error('language')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
                         <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
@@ -55,7 +55,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <input name="title" maxlength="36"
-                                    minlength="2" autocomplete="off" type="text" 
+                                    minlength="2" onkeypress="return onlyAlphabets(event,this);"  autocomplete="off" type="text" 
                                     class="input_class form-control  @error('title') is-invalid @enderror" id="txtename"   value="{{old('title')}}"  />
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -71,22 +71,22 @@
                         <div class="row" id="txtPDF" >
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
-                                    <label>Video Upload:</label>
+                                    <label>Video Link:</label>
                                     <span class="star">*</span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="file" name="txtuplode" class="input_class  @error('txtuplode') is-invalid @enderror  inline-block" id="txtuplode" />
-									@error('txtuplode')
+                                    <input type="text" name="txtuplode" placeholder="https://www.xyz.com" class="input_class form-control  @error('title') is-invalid @enderror" id="txtuplode" />
+                                    @error('txtuplode')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-								</div>
+                                </div>
                             </div>
                         </div>
-						<div class="row">
+                        <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
                                     <label> Status:</label>

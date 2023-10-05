@@ -1,10 +1,8 @@
 @extends('layouts.master')
 @section('content')
-@section('title', 'Manage Tender')
+@section('title', 'Add Whatsnew')
 <script type="text/javascript">
-
-
-   	
+  	
 	function addmenutype(id) {
        
 		if(id=='1')
@@ -89,7 +87,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <input name="title" maxlength="36"
-                                    minlength="2" autocomplete="off" type="text" 
+                                    minlength="2" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" 
                                     class="input_class form-control  @error('title') is-invalid @enderror" id="tender_title" value="{{old('tender_title')}}"  />
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
@@ -109,7 +107,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <input name="url" autocomplete="off" type="text" maxlength="36"
-                                    minlength="2" 
+                                    minlength="2" onkeypress="return onlyAlphabets(event,this);" 
                                     class="input_class form-control @error('url') is-invalid @enderror " id="txtepage_title"
                                     value="{{old('url')}}" />
                                     @error('url')
@@ -182,7 +180,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metakeyword" autocomplete="off" type="text" class="input_class form-control @error('metakeyword') is-invalid @enderror " id="metakeyword" value="{{old('metakeyword')}}" />
+                                        <input name="metakeyword" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" class="input_class form-control @error('metakeyword') is-invalid @enderror " id="metakeyword" value="{{old('metakeyword')}}" />
                                     
                                     @error('metakeyword')
                                     <span class="invalid-feedback" role="alert">
@@ -202,7 +200,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <input name="metadescription" autocomplete="off" type="text" class="input_class form-control  @error('metadescription') is-invalid @enderror" id="metadescription" value="{{old('metadescription')}}" />
+                                        <input name="metadescription" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" class="input_class form-control  @error('metadescription') is-invalid @enderror" id="metadescription" value="{{old('metadescription')}}" />
                                    
                                     @error('metadescription')
                                     <span class="invalid-feedback" role="alert">
@@ -221,7 +219,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                        <textarea name="description" id="description" class="form-control  @error('description') is-invalid @enderror summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo old('description'); ?></textarea>
+                                        <textarea name="description" onkeypress="return onlyAlphabets(event,this);" id="description" class="form-control  @error('description') is-invalid @enderror summernote-simple " rows="3" aria-hidden="true" style="display: none;"><?php echo old('description'); ?></textarea>
                                     
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -351,7 +349,7 @@
                                 <div class="pull-right">
                                
                                     <input name="cmdsubmit" type="submit" class="btn btn-success" id="cmdsubmit" value="Submit" />&nbsp;
-                                    <a href="{{URL::to('admin/tender/')}}" class="btn btn-primary" >back</a>
+                                    <a href="{{URL::to('admin/whatsnews/')}}" class="btn btn-primary" >back</a>
                                 </div>
                             </div>
                         </div>

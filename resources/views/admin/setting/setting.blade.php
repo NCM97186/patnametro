@@ -13,15 +13,29 @@
             <div class="card-body">
                 <form enctype="multipart/form-data" action="{{URL::to('admin/setting')}}" method="POST">
                     @csrf
+                 
+                            
+                    <!--div class="form-group">
+                    <label>Language:</label>
+                        <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if((!empty($websiteSetting->language_id)?$websiteSetting->language_id:old('language'))==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
+                        <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if((!empty($websiteSetting->language_id)?$websiteSetting->language_id:old('language'))==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
+                        @error('language')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div-->
+                           
                     <div class="form-group">
                         <label> Name </label>
                         <input
                             type="text"
                             autocomplete="off"
+							onkeypress="return onlyAlphabets(event,this);" 
                             value="{{ !empty($websiteSetting->website_name)?$websiteSetting->website_name:old('website_name') }}"
                             name="website_name"
                             id="website_name"
-                            maxlength="32"
+                            maxlength="120"
                             minlength="10"
                             placeholder="Patna Metro"
                             class="form-control @error('website_name') is-invalid @enderror"
@@ -37,6 +51,7 @@
                         <input
                             type="text"
                             autocomplete="off"
+							onkeypress="return onlyAlphabets(event,this);" 
                             value="{{ !empty($websiteSetting->website_short_name)?$websiteSetting->website_short_name:old('website_short_name') }}"
                             name="website_short_name"
                             placeholder="PM"
@@ -59,8 +74,9 @@
                             value="{{ !empty($websiteSetting->website_tags_name)?$websiteSetting->website_tags_name:old('website_tags_name') }}"
                             name="website_tags_name"
                             id="website_tags_name"
-                            maxlength="64"
+                            maxlength="120"
                             minlength="2"
+							onkeypress="return onlyAlphabets(event,this);" 
                             placeholder="Patna Metro is Govt. project"
                             class="form-control @error('website_tags_name') is-invalid @enderror"
                         />

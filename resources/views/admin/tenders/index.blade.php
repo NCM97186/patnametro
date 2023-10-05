@@ -6,7 +6,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
-            <a  style="float: right;" href="{{URL::to('admin/tender/create')}}" class="btn btn-primary pull-right"> Add Menu</a>
+            <a  style="float: right;" href="{{URL::to('admin/tender/create')}}" class="btn btn-primary pull-right"> Add Tender</a>
         </div>
         <!-- /.col-12 col-md-12 col-lg-12 -->
        
@@ -33,8 +33,8 @@
                 @endif
                 <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped table-bordered table-hover" >
-						<thead>
+                    <table class="table table-striped table-bordered table-hover" >
+                        <thead>
                         <tr>
                             <th>#</th>
                             <th>Title</th>
@@ -42,10 +42,10 @@
                             <th>Language</th>
                             <th>Actions</th>
                         </tr>
-						</thead>
-						
-						<tbody id="list">
-						         <?php
+                        </thead>
+                        
+                        <tbody id="list">
+                                 <?php
                                         $count = 1;
                                         $menutypeArray = array(
                                             '1' => "Page",
@@ -61,21 +61,23 @@
                                             <td><?php echo status($row->txtstatus); ?></td>
                                             <td><?php echo language($row->language); ?></td>
                                             <td>
-                                                <a href="{{route('tender.edit', $row->id)}}" class="btn btn-success btn-xs">Edit</a>
-                                                <form action="{{ route('tender.destroy',$row->id) }}"  method="POST"> 
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')">Delete</button>  
-                                                </form>
-                                            </td>
+                                               <form action="{{ route('tender.destroy',$row->id) }}"  method="POST"> 
+                                            
+                                                 <a class="btn btn-primary" href="{{ route('tender.edit',$row->id) }}">Edit</a>
+                                            @csrf
+                                            @method('DELETE')
+
+                                   <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                   </td>
+                                        </form>
                                         </tr>
-									<?php
-										endforeach;
-									?>
-						</tbody>
-					</table>
+                                    <?php
+                                        endforeach;
+                                    ?>
+                        </tbody>
+                    </table>
                     {!! $list->withQueryString()->links('pagination::bootstrap-5') !!}
-				</div>
+                </div>
                     <!-- /.table-responsive -->
                 </div>
                 <!-- /.panel-body -->

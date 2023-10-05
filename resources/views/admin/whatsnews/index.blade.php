@@ -1,12 +1,12 @@
 @extends('layouts.master');
 @section('content')
-@section('title', 'Manage Tender')
+@section('title', 'Manage Whatsnew')
 <div class="card">
     <div class="card-body"> 
 <div id="page-wrapper">
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
-            <a  style="float: right;" href="{{URL::to('admin/whatsnews/create')}}" class="btn btn-primary pull-right"> Add Menu</a>
+            <a  style="float: right;" href="{{URL::to('admin/whatsnews/create')}}" class="btn btn-primary pull-right"> Add whatsnew</a>
         </div>
         <!-- /.col-12 col-md-12 col-lg-12 -->
        
@@ -60,14 +60,15 @@
                                             
                                             <td><?php echo status($row->txtstatus); ?></td>
                                             <td><?php echo language($row->language); ?></td>
-                                            <td>
-                                                <a href="{{route('whatsnews.edit', $row->id)}}" class="btn btn-success btn-xs">Edit</a>
-                                                <form action="{{ route('whatsnews.destroy',$row->id) }}"  method="POST"> 
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')">Delete</button>  
-                                                </form>
-                                            </td>
+                                             <td>
+                                               <form action="{{ route('whatsnews.destroy',$row->id) }}"  method="POST"> 
+                                            
+                                                 <a class="btn btn-primary" href="{{ route('whatsnews.edit',$row->id) }}">Edit</a>
+                                            @csrf
+                                            @method('DELETE')
+
+                                   <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                   </td>
                                         </tr>
 									<?php
 										endforeach;

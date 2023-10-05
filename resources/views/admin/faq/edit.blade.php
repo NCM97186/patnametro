@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('content')
+@section('title', 'Edit Faq')
 
 
 <div class="row">
@@ -53,7 +54,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-xm-6">
                                         <div class="form-group">
-                                            <input name="title" autocomplete="off"  type="text" class="input_class form-control" id="user_name" value="{{old('title') ?? $list->title}}"/>
+                                            <input name="title" autocomplete="off" onkeypress="return onlyAlphabets(event,this);" type="text" class="input_class form-control" id="user_name" value="{{old('title') ?? $list->title}}"/>
                                              @if($errors->has('title'))
                   <span class="text-danger">{{ $errors->first('title') }}</span>
                 @endif
@@ -69,7 +70,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-xm-6">
                                         <div class="form-group">
-                                            <input name="url" autocomplete="off"  type="text" class="input_class form-control" id="user_name" value="{{old('url')?? $list->url}}"/>
+                                            <input name="url" autocomplete="off" onkeypress="return onlyAlphabets(event,this);" type="text" class="input_class form-control" id="user_name" value="{{old('url')?? $list->url}}"/>
                                              @if($errors->has('url'))
                   <span class="text-danger">{{ $errors->first('url') }}</span>
                 @endif
@@ -85,42 +86,14 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <textarea name="description" autocomplete="off" class="input_class @error('description') is-invalid @enderror  summernote-simple"> {{old('description')?? $list->description}}</textarea>
+                                    <textarea name="description" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" class="input_class @error('description') is-invalid @enderror  summernote-simple"> {{old('description')?? $list->description}}</textarea>
                                     @if($errors->has('description'))
                   <span class="text-danger">{{ $errors->first('description') }}</span>
                 @endif
                                 </div>
                             </div>
                         </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-xm-3">
-                                        <div class="form-group">
-                                            <label>Page url:</label>
-                                            <span class="star">*</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-xm-6">
-                                        <div class="input_class form-group">
-                                            <input name="page_url" autocomplete="off"   type="text" class="input_class form-control" id="user_pass" value="{{old('page_url')?? $list->page_url}}"/>
-                                            @if($errors->has('page_url'))
-                  <span class="text-danger">{{ $errors->first('page_url') }}</span>
-                @endif
-                                             </div>
-                                    </div>
-                                </div>
-                                <!-- <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-xm-3">
-                                        <div class="form-group">
-                                            <label>Category:</label>
-                                            <span class="star">*</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-xm-6">
-                                        <div class="input_class form-group">
-                                            <input name="category" autocomplete="off"   type="text" class="input_class form-control" id="user_pass" value="{{old('category') ?? $list->category}}"/>
-                                             </div>
-                                    </div>
-                                </div> -->
+                                
                                 <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">

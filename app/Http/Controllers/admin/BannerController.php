@@ -9,17 +9,37 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Image;
+use Illuminate\Support\Facades\Session;
+
 class BannerController extends Controller
 {
+   
     /**
      * Display a listing of the resource.
      */
+  
     public function index()
     {
             
-          $title="Banner List";
-        
-		 $list = Banner::paginate(10);
+         $title="Banner List";
+         $approve_status=session()->get('approve_status');
+         $sertitle=Session::get('title');
+         $approve_status=Session::get('approve_status');
+         $language_id=Session::get('language_id');
+         $lists = Banner::whereNotNull('txtuplode');
+         if (!empty($title)) {
+             $lists->where('title', 'LIKE', "%{$sertitle}%");
+         }
+         if (!empty($approve_status)) {
+            
+             $lists->where('txtstatus',$approve_status);
+         }
+         if (!empty($language_id)) {
+            
+             $lists->where('language',$language_id);
+         }
+         $list = $lists->orderBy('created_at', 'DESC')->select('id','title','language','txtuplode','txtstatus','admin_id')->paginate(10);
+
          return view('admin/banners/index',compact(['list','title']));
         
     }
@@ -38,6 +58,16 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
+        if(isset($request->search)){
+            $title=clean_single_input(trim($request->title));
+             $approve_status=clean_single_input($request->approve_status);
+             $language_id=clean_single_input($request->language_id);
+             Session::put('title', $title);
+             Session::put('approve_status', $approve_status);
+             Session::put('language_id', $language_id);
+             return redirect('admin/banner');
+           }
+        if(isset($request->cmdsubmit)){  
         $txtuplode ='';
         $rules = array(
             'menu_title' => 'required',
@@ -95,6 +125,7 @@ class BannerController extends Controller
 			$create 	= Banner::create($pArray);
             $lastInsertID = $create->id;
             $user_login_id=Auth()->user()->id;
+            $usertype=Auth()->user()->designation;
 
             if($lastInsertID > 0){
 				$audit_data = array('user_login_id'     =>  $user_login_id,
@@ -105,7 +136,7 @@ class BannerController extends Controller
 								'lang'                  =>  clean_single_input($request->language),
 								'page_title'        	=> 'Banner Model',
 								'approve_status'        => clean_single_input($request->txtstatus),
-								'usertype'          	=> 'Admin'
+								'usertype'          	=> $usertype??'Admin'
 							);
 							
 				audit_trail($audit_data);
@@ -113,7 +144,8 @@ class BannerController extends Controller
 			}
            
         }
-    }
+      }
+   }
 
     /**
      * Display the specified resource.
@@ -199,6 +231,7 @@ class BannerController extends Controller
             }
            
             $user_login_id=Auth()->user()->id;
+            $usertype=Auth()->user()->designation;
             $dataArr = array(); 
             $pArray['title']    					= clean_single_input($request->menu_title); 
             $pArray['language']    					= clean_single_input($request->language); 
@@ -211,16 +244,16 @@ class BannerController extends Controller
 				$audit_data = array('user_login_id'     =>  $user_login_id,
 								'page_id'           	=>  $id,
 								'page_name'             =>  clean_single_input($request->menu_title),
-								'page_action'           =>  $action,
+								'page_action'           =>  'Update',
 								'page_category'         =>  '',
 								'lang'                  =>  clean_single_input($request->language),
 								'page_title'        	=> 'Banner Model',
 								'approve_status'        => clean_single_input($request->txtstatus),
-								'usertype'          	=> 'Admin'
+								'usertype'          	=> $usertype??'Admin'
 							);
 							
 				audit_trail($audit_data);
-                return redirect('admin/Banner')->with('success','Banner has successfully Updated');
+                return redirect('admin/banner')->with('success','Banner has successfully Updated');
 			}
            
         }
@@ -231,8 +264,25 @@ class BannerController extends Controller
      */
     public function destroy(Banner $banner)
     {
-        $banner->delete();
+
+        $delete = $banner->delete();
+        if($delete > 0){
+            $user_login_id=Auth()->user()->id;
+            $audit_data = array('user_login_id'     =>  $user_login_id,
+                            'page_id'           	=>  $banner->id,
+                            'page_name'             =>  clean_single_input($banner->title),
+                            'page_action'           =>  'delete',
+                            'page_category'         =>  '',
+                            'lang'                  =>  clean_single_input($banner->language),
+                            'page_title'        	=> 'Banner Model',
+                            'approve_status'        => 1,
+                            'usertype'          	=> 'Admin'
+                        );
+                        
+            audit_trail($audit_data);
+            return redirect('admin/banner')->with('success','Banner deleted successfully');
+         }
        
-        return redirect('admin/banner')->with('success','Banner deleted successfully');
+        
     }
 }

@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $title="User List";
       
-     $user=user::where('user_type','!=',1)->get();
+     $user=user::where('user_type','!=',1)->paginate(10);
          //$user = DB::select("select * from users where user_type!=1  ");
 
         return view('admin.user.users',compact(['user','title']));
@@ -31,10 +31,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
        $request->validate([
-            'name' => 'required |max:255',
-            'user_name' => 'required|max:255',
+            'name' => 'required |alpha|max:255',
+            'user_name' => 'required|alpha|max:255',
             'email'=>'required|email|unique:users',
-            'login_name'=>'required',
+            'login_name'=>'required|alpha',
             'password' => 'required|confirmed|min:6',
             'password_confirmation' => 'required',
             'designation'=>'required',
@@ -42,7 +42,8 @@ class UserController extends Controller
             'user_type'=>'required'
 
         ]);
-        User::create([
+       $user_login_id=Auth()->user()->id;
+         $user = array(
            'name' => clean_single_input($request['name']),
            'user_name' => clean_single_input($request['user_name']),
            'email' => clean_single_input($request['email']),
@@ -51,10 +52,28 @@ class UserController extends Controller
            'designation' => clean_single_input($request['designation']),
            'user_status' => clean_single_input($request['user_status']),
            'user_type' => clean_single_input($request['user_type'])
-        ]);
+        );
+           $create  = User::create($user);
+           $lastInsertID = $create->id;
+           $user_login_id=Auth()->user()->id;
+
+           if($lastInsertID > 0){
+            $audit_data = array('user_login_id'     =>  $user_login_id,
+            'page_id'               =>  $lastInsertID,
+            'page_name'             =>  clean_single_input($request->name),
+            'page_action'           =>  'Insert',
+            'page_category'         =>  clean_single_input($request->user_name),
+            'lang'                  =>  clean_single_input($request->user_status),
+            'page_title'            => 'User Model',
+            'approve_status'        => clean_single_input($request->user_type),
+            'usertype'              => 'Admin'
+        );
+                           
+               audit_trail($audit_data);
        
         return redirect('admin/user')->with('success','User created successfully.');
     }
+}
     public function show(Request $request)
     {
         //
@@ -69,11 +88,12 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $id=clean_single_input($id);
         $rules = array(
-            'name' => 'required |max:255',
-            'user_name' => 'required|max:255',
+            'name' => 'required |alpha|max:255',
+            'user_name' => 'required|alpha|max:255',
             'email'=>'required|email',
-            'login_name'=>'required',
+            'login_name'=>'required|alpha',
             'designation'=>'required',
             'user_status'=>'required',
             'user_type'=>'required',
@@ -93,26 +113,57 @@ class UserController extends Controller
           return  back()->withErrors($validator)->withInput();
             
            }else{
-               $user = User::find($id);
+                $user = User::find($id);
                 $user['name'] = clean_single_input($request['name']);
-               $user['user_name'] = clean_single_input($request['user_name']);
+                $user['user_name'] = clean_single_input($request['user_name']);
                 $user['email'] = clean_single_input($request['email']);
                 $user['login_name'] = clean_single_input($request['login_name']);
                 $user['password'] = \Hash::make(clean_single_input($request['password']));
                 $user['designation'] = clean_single_input($request['designation']);
-               $user['user_status'] = clean_single_input($request['user_status']);
+                $user['user_status'] = clean_single_input($request['user_status']);
                 $user['user_type'] = clean_single_input($request['user_type']);
-                 $user->save();
+                $user->save();
+
+                  $user_login_id=Auth()->user()->id;
+             if($id > 0){
+            $audit_data = array('user_login_id'     =>  $user_login_id,
+                    'page_id'               =>   $id,
+                    'page_name'             =>  clean_single_input($request->name),
+                    'page_action'           =>  'update',
+                    'page_category'         =>  clean_single_input($request->user_name),
+                    'lang'                  =>  clean_single_input($request->user_status),
+                    'page_title'            => 'User Model',
+                    'approve_status'        => clean_single_input($request->user_type),
+                    'usertype'              => 'Admin'
+                );
+                           
+               audit_trail($audit_data);
 
                    
              }
          return redirect('admin/user')->with('success','User updated successfully');
       }
+  }
 
      public function destroy(User $user)
     {
-        $user->delete();
+        $delete= $user->delete();
+        if($delete > 0){
+            $user_login_id=Auth()->user()->id;
+            $audit_data = array('user_login_id'     =>  $user_login_id,
+                            'page_id'           	=>  $user->id,
+                            'page_name'             =>  clean_single_input($user->name),
+                            'page_action'           =>  'delete',
+                            'page_category'         =>  '',
+                            'lang'                  =>  1,
+                            'page_title'        	=> 'User  Model',
+                            'approve_status'        => 1,
+                            'usertype'          	=> 'Admin'
+                        );
+                        
+            audit_trail($audit_data);
+            return redirect('admin/user')->with('success','User deleted successfully');
+        }
        
-        return redirect('admin/user')->with('success','User deleted successfully');
     }
 }
