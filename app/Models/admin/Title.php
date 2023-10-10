@@ -12,6 +12,7 @@ class Title extends Model
         'title',
         'language',
         'icons',
+        'page_url',
         'titleType',
         'txtstatus',
         'admin_id'

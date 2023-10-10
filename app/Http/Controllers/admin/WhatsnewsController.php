@@ -66,6 +66,7 @@ class WhatsnewsController extends Controller
                $rulesdsad = array(
                    'txtuplode' => 'required|mimes:pdf,xlx,csv|max:2048',
                );
+               $validator = Validator::make($request->all(), $rulesdsad);
                $txtuplode1 = str_replace(' ','_',clean_single_input($request->title)).'_whatsnews'.'.'.$request->txtuplode->extension();  
        
                 $res= $request->txtuplode->move(public_path('upload/admin/cmsfiles/whatsnews/'), $txtuplode1);
@@ -79,7 +80,7 @@ class WhatsnewsController extends Controller
                 if (file_exists($txtuplode2)) {
                     unlink($txtuplode2);
                 }
-                 $validator = Validator::make($request->all(), $rulesdsad);
+                
           }
        }elseif($request->menutype == 3){
            $rules = array(

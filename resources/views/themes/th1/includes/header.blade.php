@@ -20,7 +20,7 @@
 
 
         update_visitor_count($ip, $pageurl);
-        $langid1 = session()->get('locale');
+        $langid1 = session()->get('locale')??1;
         ?>
     <header>
         <div class="header_top header_top2 header_top3 header_topblack">

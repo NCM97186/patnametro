@@ -34,7 +34,7 @@
                         <label for="Title">Title: </label>
                         </div>
                         <div class="form-group col-md-2">
-                           <input onchange="search(this);" class="form-control" type="text" name="title" value="{{Session::get('title')??''}}">
+                           <input onchange="search(this);" class="form-control" type="text" name="title" value="{{Session::get('Mtitle')??''}}">
                         </div>
                            <div class="form-group col-md-1">
                             <label for="Status">Status: </label>

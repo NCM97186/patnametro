@@ -69,5 +69,35 @@
        
     </div>
 </div>
+@php
+$langid1 = session()->get('locale')??1;
+@endphp
+<!-- ----------------------announscement and media Start-------------------------- -->
+<div class="row m-0 py-4 container-fluid">
+    <div class="Announcement col-lg-6 col-12 justify-content-center d-flex">
+       <div class="w-75 left_right_border">
+        <p class="heading text-center px-2">{{get_title('notefications',$langid1)->title}}</p>
+        <marquee direction = "up"  scrollamount="4">
+            <p class="py-2 px-3">This is an example of Marquee</p>
+            <p class="py-2 px-3">This is an example of Marquee</p>
+            <p class="py-2 px-3">This is an example of Marquee</p>
+        </marquee>
+       </div>
+    </div>
+    <div class="col-lg-6 col-12 justify-content-center d-flex announcement-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/-ucUFBTUYLI?si=1fKYaNMf59bmPCmW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+</div>
+<!-- ----------------------important links Start-------------------------- -->
+<div class="important_links text-center py-4">
+    <p class="heading">Important Links</p>
+    <div class="links d-flex w-100 justify-content-center">
+        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">Metro Timings</a>
+        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">FARE TABLE</a>
+        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">TOURIST DESTINATION</a>
+        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">TENDERS</a>
+        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">HELP & SUPPORT</a>
+    </div>
+</div>
 
 @endsection

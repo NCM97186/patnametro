@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('officers_name')->nullable();
             $table->string('url')->nullable();
             $table->string('designation')->nullable();
-            $table->string('contents')->nullable();
             $table->longtext('contents')->nullable();
             $table->integer('language')->default(1);
             $table->string('txtuplode')->nullable();

@@ -1,6 +1,6 @@
 @extends('layouts.themes')
  @section('content')
- @include("../themes.th2.includes.breadcrumb")
+ @include("../themes.th1.includes.breadcrumb")
 
 <!--************************breadcrumb********************-->
 

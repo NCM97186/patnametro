@@ -37,11 +37,9 @@
 							<div class="input_class form-group">
 								<input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if(old('language')==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
 								<input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if(old('language')==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
-								@error('language')
-								<span class="invalid-feedback" role="alert">
-									<strong>{{ $message }}</strong>
-								</span>
-								@enderror
+                                @if($errors->has('language'))
+                                <p class="text-danger">{{ $errors->first('language') }}</p>
+                                @endif
 							</div>
 						</div>
 					</div>
@@ -54,7 +52,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input name="menu_title" maxlength="36"
+                                    <input name="menu_title" maxlength="220"
                                     minlength="" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" 
                                     class="input_class form-control  @error('menu_title') is-invalid @enderror" id="txtename"   value="{{old('menu_title')}}"  />
                                     @error('menu_title')
@@ -62,6 +60,24 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <label>For:</label>
+                                    <span class="star">*</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input name="for" maxlength="36"
+                                    minlength="" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" 
+                                    class="input_class form-control  @error('for') is-invalid @enderror" id="txtename"   value="{{old('for')}}"  />
+                                    @if($errors->has('for'))
+                                    <p class="text-danger">{{ $errors->first('for') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>

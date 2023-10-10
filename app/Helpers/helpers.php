@@ -8,6 +8,7 @@ use App\Models\admin\Visitor;
 use Illuminate\Support\Facades\DB;
 use App\Models\admin\WebsiteSetting;
 use App\Models\admin\Module;
+use App\Models\admin\Title;
 use App\Models\Admin_role;
 use Illuminate\Support\Str;
 
@@ -972,19 +973,18 @@ function language($val)
 			function get_last_updated_date( $pageTitle = "")
 			{
 				if($pageTitle != ""){	
-
-					$result = Audit_trail::where('approve_status', '=', 3)->where('page_name', 'LIKE','%'.$pageTitle.'%')->orderby('page_action_date','DESC')->first();
+					 $result = Audit_trail::where('approve_status', '=', 3)->where('page_name', 'LIKE','%'.$pageTitle.'%')->orderby('updated_at','DESC')->select('updated_at')->first();
 					
 					if($result){
-						return date("d-m-Y", strtotime($result['page_action_date']));
+						return date("d-m-Y", strtotime($result['updated_at']));
 					}else{
-						$result = Audit_trail::where('approve_status', '=', 3)->orderby('page_action_date','DESC')->first();
-						return date("d-m-Y", strtotime($result['page_action_date']));
+						$result = Audit_trail::where('approve_status', '=', 3)->orderby('updated_at','DESC')->select('updated_at')->first();
+						return date("d-m-Y", strtotime($result['updated_at']));
 					}
 					
 				}else{
-					$result = Audit_trail::where('approve_status', '=', 3)->orderby('page_action_date','DESC')->first();
-					return date("d-m-Y", strtotime($result['page_action_date']));
+					$result = Audit_trail::where('approve_status', '=', 3)->orderby('updated_at','DESC')->select('updated_at')->first();
+					return date("d-m-Y", strtotime($result['updated_at']));
 				}
 				
 			}
@@ -1047,6 +1047,21 @@ if ( ! function_exists('has_module_permission'))
 				   abort(401, 'This action is unauthorized.');
 				}
 			
+			
+		}
+		
+
+	}
+}
+// Title by view title
+if ( ! function_exists('get_title'))
+{
+	function get_title($title,$langid){
+		$date = Title::where('titleType', 'title')->where('page_url', '=', "{$title}" )->where('language', '=', $langid)->where('txtstatus', '=', '3')->select('title','icons','txtstatus')->first();
+		
+		if($date){
+			
+		return 	$date;
 			
 		}
 		
