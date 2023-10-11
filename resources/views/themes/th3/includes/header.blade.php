@@ -16,39 +16,52 @@
         $langid1 = session()->get('locale');
         ?>
 
-  <!-- <header class="header_top">
-        <div class="w-100 d-flex justify-content-between container-fluid px-5">
-            <div class="mobile-dropdown mobile-dropdown1">
-                
-                <a href="#" class="dropdown-toggle dropdown-toggle1"><img style="width: 15%;" src="https://f.hubspotusercontent30.net/hubfs/2235233/blog-import/2020/20-08-Aug/sm-icons-facebook-logo.png" alt="" srcset=""></a>
-                <div class="dropdown-content dropdown-content1">
-                    <a href="#"><img src="https://www.iconpacks.net/icons/2/free-facebook-logo-icon-2428-thumb.png" alt="Facebook"></a>
-                    <a href="#"><img src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c53e.png" alt="Twitter"></a>
-                    <a href="#"><img src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-instagram-icon-png-image_6315974.png" alt="Instagram"></a>
-                </div>
-            </div>
+<header class="header_top">
+        <div class="top_head_res w-100 d-flex justify-content-between container-fluid ">
+            <ul class="social-icons">
+                <li><a href="#"><img src="https://www.iconpacks.net/icons/2/free-facebook-logo-icon-2428-thumb.png" alt="Facebook"></a></li>
+                <li><a href="#"><img src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c53e.png" alt="Twitter"></a></li>
+                <li><a href="#"><img src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-instagram-icon-png-image_6315974.png" alt="Instagram"></a></li>
+                <input type="text" class="search-input" placeholder="Search...">
+            </ul>
             <div class="gap-3 d-flex">
-                <div class="mobile-dropdown mobile-dropdown2">
-                
-                    <a href="#" class="dropdown-toggle dropdown-toggle2"><img src="./Assets/img/theme.png" alt="" srcset=""></a>
-                    <div class="dropdown-content dropdown-content2">
-                        <a href="javascript:void(0)" onclick="setActiveStyleSheet('blue'); return false;"><img src="assets/images/blue.png" alt="Blue Theme" title="Blue Theme"></a>
-                        <a href="javascript:void(0)" onclick="setActiveStyleSheet('outrageous_orange'); return false;"><img src="assets/images/outrageous_orange.png" class="img_width" alt="Outrageous Red" title="Outrageous Red"></a>
-                    </div>
+                <div class=" gap-2 d-flex">
+                        <a href="javascript:void(0)" onclick="setActiveStyleSheet('blue'); return false;"><img src="{{ URL::asset('/public/themes/th3/assets/images/blue.png')}}" alt="Blue Theme" title="Blue Theme"></a>
+                        <a href="javascript:void(0)" onclick="setActiveStyleSheet('outrageous_orange'); return false;"><img src="{{ URL::asset('/public/themes/th3/assets/images/outrageous_orange.png')}}" class="img_width" alt="Outrageous Red" title="Outrageous Red"></a>
                 </div>
                 <a href="#">Screen Reader Access</a>
-                <div class="mobile-dropdown mobile-dropdown3">
-                
-                    <a href="#" class="dropdown-toggle dropdown-toggle3"><img  src="./Assets/img/text-inde.png" alt="" srcset=""></a>
-                    <div class="dropdown-content3 ">
-                      <a id="fontincrease" href="javascript:void(0)">A+</a>
-                      <a id="fontreset" href="javascript:void(0)">A</a>
-                      <a id="fontdecrease" href="javascript:void(0)">A-</a>
-                    </div>
+                <div class="theme-popup">
+                    <input type="radio" name="theme" id="default" >
+                    <input type="radio" name="theme" id="light">
+                    <input type="radio" name="theme" id="dark">
+                    <input type="checkbox" id="checkbox">
+                  <label for="checkbox" class="theme-popup__button">
+                    A
+                  </label>
+                  <div class="theme-popup__list-container">
+                    <ul class="theme-popup__list">
+                      <li id="fontincrease" href="javascript:void(0)">
+                        <label for="default">  
+                          <p>A+</p>
+                        </label>
+                      </li>
+                      <li id="fontreset" href="javascript:void(0)">
+                        <label for="light">
+                          <p >A</p>
+                        </label>
+                      </li>
+                      <li id="fontdecrease" href="javascript:void(0)">
+                        <label for="dark">
+                          <p>A-</p>
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
+                
             </div>
         </div>
-      </header> -->
+</header>
       
 
 

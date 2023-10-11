@@ -58,17 +58,21 @@
         <p class="MD_name">{{ $officer->officers_name }}</p>
         <img class="w-100" src="{{ URL::asset('public/upload/admin/cmsfiles/officers/thumbnail/')}}/{{$officer->txtuplode}}" alt="{{ $officer->officers_name }}" srcset="" />
     </div>
-    <div class="col-lg-5">
-        <p class="the_message w-100">
+    <div class="col-lg-5 justify-content-center d-flex flex-column">
+        <p class="the_message w-100 px-3">
            <?php echo substr($officer->contents,0, 900); ?>
         </p>
-        <a class="read_more" type="button"> {{ __('messages.read') }}</a>
+        <button class="read_more my-2 mx-3"><a href="#" type="button"> {{ __('messages.read') }}</a></button>
        
        
         <!-- dribbble -->
        
     </div>
 </div>
+
+
+
+
 @php
 $langid1 = session()->get('locale')??1;
 @endphp
@@ -90,13 +94,37 @@ $langid1 = session()->get('locale')??1;
 </div>
 <!-- ----------------------important links Start-------------------------- -->
 <div class="important_links text-center py-4">
-    <p class="heading">Important Links</p>
+    <p class="heading py-3">Important Links</p>
     <div class="links d-flex w-100 justify-content-center">
-        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">Metro Timings</a>
-        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">FARE TABLE</a>
-        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">TOURIST DESTINATION</a>
-        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">TENDERS</a>
-        <a class="px-3" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">HELP & SUPPORT</a>
+        <!-- <button class="btn">Hover Me!</button> -->
+        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">Metro Timings</a>
+        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">FARE TABLE</a>
+        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">TOURIST DESTINATION</a>
+        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">TENDERS</a>
+        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">HELP & SUPPORT</a>
+    </div>
+</div>
+<!-- ----------------------Map section Start-------------------------- -->
+<p class="map_heading text-center py-3">Map Route</p>
+<div class="map_section justify-content-center d-flex">
+    <div class="row m-0 container-fluid py-4">
+        <div class=" map col-lg-6 col-md-6 col-12 justify-content-center d-flex">
+            <img class="mw-100" src="{{ URL::asset('/public/themes/th3/assets//img/Map.png')}}" alt="">
+        </div>
+        <div class="col-lg-6 col-md-6 col-12 justify-content-center d-flex align-items-center">
+            <div>
+                <div class="py-3">
+                    <p class="line_number">Line-1 (East – West Line): Danapur Cantonment – Khemni Chak</p>
+                    <p class="station_number">Number of Stations: 14</p>
+                    <p class="stations">Danapur Cantonment <span class="arrow_right">></span> Saguna More <span class="arrow_right">></span> RPS More <span class="arrow_right">></span> Patliputra (formerly IAS Colony) <span class="arrow_right">></span> Rukanpura <span class="arrow_right">></span> Raja Bazar <span class="arrow_right">></span> Patna Zoo (formerly JD Women’s College) <span class="arrow_right">></span> Vikas Bhawan (formerly Raj Bhavan) <span class="arrow_right">></span> Vidyut Bhawan <span class="arrow_right">></span> Patna Junction (interchange) <span class="arrow_right">></span> Mithapur <span class="arrow_right">></span> Ramkrishna Nagar & Jaganpur and Khemni Chak (interchange)</p>
+                </div>
+                <div class="py-3">
+                    <p class="line_number">Line-2 (North – South Line): Patna Junction Railway Station – New ISBT</p>
+                    <p class="station_number">Number of Stations: 12</p>
+                    <p class="stations">Danapur Cantonment <span class="arrow_right">></span> Saguna More <span class="arrow_right">></span> RPS More <span class="arrow_right">></span> Patliputra (formerly IAS Colony) <span class="arrow_right">></span> Rukanpura <span class="arrow_right">></span> Raja Bazar <span class="arrow_right">></span> Patna Zoo (formerly JD Women’s College) <span class="arrow_right">></span> Vikas Bhawan (formerly Raj Bhavan) <span class="arrow_right">></span> Vidyut Bhawan <span class="arrow_right">></span> Patna Junction (interchange) <span class="arrow_right">></span> Mithapur <span class="arrow_right">></span> Ramkrishna Nagar & Jaganpur and Khemni Chak (interchange)</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
