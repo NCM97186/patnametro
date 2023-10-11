@@ -1,6 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <div class="container" style="border: 2px solid rgb(16, 137, 211);">
+        <div class="heading">{{ __('Login') }}</div>
+            @if(Session::has('error'))
+                <div class="alert alert-danger">
+                {{ Session::get('error')}}
+                </div>
+            @endif
+        <form method="POST" class="form" action="{{ route('login') }}">
+           @csrf
+          <input class="input @error('email') is-invalid @enderror" type="email" name="email" id="email" placeholder="{{ __('Email Address') }}">
+                @error('email')
+                    <span class=" text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+          <input class="input @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="{{ __('Password') }}">
+          
+            @error('password')
+                    <span class=" text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+          <span class="forgot-password"> 
+               @if (Route::has('password.request'))
+                    <a class="" href="{{ route('password.request') }}">
+                        {{ __('Forgot Your Password?') }}
+                    </a>
+                @endif
+            </span>
+          <input class="login-button" type="submit" value="Sign In">
+          
+        </form>
+   </div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

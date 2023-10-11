@@ -13,7 +13,7 @@
 
 
         update_visitor_count($ip, $pageurl);
-        $langid1 = session()->get('locale');
+        $langid1 = session()->get('locale')??1;
         ?>
 
 <header class="header_top">
@@ -25,11 +25,21 @@
                 <input type="text" class="search-input" placeholder="Search...">
             </ul>
             <div class="gap-3 d-flex">
+                <select onchange="return change_language(this);" class="changeLang">
+                        <?php
+                    
+                    $statusArray = get_language();
+                    
+                    foreach($statusArray as $key=>$value) {
+                        ?>
+                        <option value="<?php echo $key; ?>"  {{ session()->get('locale') == $key ? 'selected' : '' }}><?php echo $value; ?></option>
+                    <?php  }?>
+                </select> 
                 <div class=" gap-2 d-flex">
                         <a href="javascript:void(0)" onclick="setActiveStyleSheet('blue'); return false;"><img src="{{ URL::asset('/public/themes/th3/assets/images/blue.png')}}" alt="Blue Theme" title="Blue Theme"></a>
                         <a href="javascript:void(0)" onclick="setActiveStyleSheet('outrageous_orange'); return false;"><img src="{{ URL::asset('/public/themes/th3/assets/images/outrageous_orange.png')}}" class="img_width" alt="Outrageous Red" title="Outrageous Red"></a>
                 </div>
-                <a href="#">Screen Reader Access</a>
+                <a href="#">{{get_title('screen-reader-access',$langid1)->title}} </a>
                 <div class="theme-popup">
                     <input type="radio" name="theme" id="default" >
                     <input type="radio" name="theme" id="light">
@@ -86,10 +96,10 @@
         <nav>
             <div class="navbar">
                 <i class='bx bx-menu'></i>
-                <div class="logo"><a href="#">Patna Metro</a></div>
+                <div class="logo"><a  title="{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}" href="{{ url('/') }}">{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}</a></div>
                 <div class="nav-links">
                     <div class="sidebar-logo">
-                        <span class="logo-name">Patna Metro</span>
+                        <span class="logo-name"><a title="{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}" href="{{ url('/') }}">{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}</a></span>
                         <i class='bx bx-x'></i>
                     </div>
                     <ul class="links">

@@ -29,6 +29,7 @@ class TitleController extends Controller
         if (!empty($sertitle)) {
             $lists = Title::where('titleType','title');
             $lists->where('title', 'LIKE', "%{$sertitle}%");
+           
         }else{
             $lists = Title::where('titleType','title');
         }

@@ -1,4 +1,7 @@
 @extends('layouts.themes') @section('content')
+@php
+$langid1 = session()->get('locale')??1;
+@endphp
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <!-- <div class="mt-3 position-absolute" style="z-index: 111; bottom: 15px; left: 15px;">
         <button id="pauseButton" class="btn-xs btn-default mx-2">
@@ -36,15 +39,15 @@
 <!-- ----------------------Latest news Start-------------------------- -->
 
 <div class="latest-news">
-    <p class="px-3 m-0 d-flex align-items-center">{{ __('messages.whatnew') }}</p>
+    <p class="px-3 m-0 d-flex align-items-center">{{get_title('whatnew',$langid1)->title}}</p>
     <marquee bgcolor="grey" scrollamount="10">
         @foreach($whatsnew as $mods) @if($mods->menutype==2)
-        <a href="{{ url('/public/upload/admin/cmsfiles/whatsnews/') }}/{{$mods->txtuplode}}" title="{{$mods->title}}"> {{$mods->title}}</a>
+        <a  target="_blank"  href="{{ url('/public/upload/admin/cmsfiles/whatsnews/') }}/{{$mods->txtuplode}}" title="{{$mods->title}}"> {{$mods->title}}</a>
         @elseif($mods->menutype==3)
         <a target="_blank" href="{{$mods->txtweblink}}" title="{{$mods->title}}">{{$mods->title}}</a>
 
         @else
-        <a href="@if($mods->page_url=='#') '' @else {{ url('/news') }}/{{$mods->page_url}} @endif" title="{{$mods->title}}"> {{$mods->title}}</a>
+        <a  target="_blank"  href="@if($mods->page_url=='#') '' @else {{ url('/news') }}/{{$mods->page_url}} @endif" title="{{$mods->title}}"> {{$mods->title}}</a>
 
         @endif @endforeach
     </marquee>
@@ -54,7 +57,7 @@
 
 <div class="row MD justify-content-center m-0">
     <div class="col-lg-5 position-relative mt-4">
-        <p class="message_MD mb-0">{{ __('messages.md_title') }}</p>
+        <p class="message_MD mb-0">{{get_title('md-title',$langid1)->title}}</p>
         <p class="MD_name">{{ $officer->officers_name }}</p>
         <img class="w-100" src="{{ URL::asset('public/upload/admin/cmsfiles/officers/thumbnail/')}}/{{$officer->txtuplode}}" alt="{{ $officer->officers_name }}" srcset="" />
     </div>
@@ -62,7 +65,7 @@
         <p class="the_message w-100 px-3">
            <?php echo substr($officer->contents,0, 900); ?>
         </p>
-        <button class="read_more my-2 mx-3"><a href="#" type="button"> {{ __('messages.read') }}</a></button>
+        <button class="read_more my-2 mx-3"><a href="#" type="button"> {{get_title('read',$langid1)->title}} </a></button>
        
        
         <!-- dribbble -->
@@ -73,18 +76,23 @@
 
 
 
-@php
-$langid1 = session()->get('locale')??1;
-@endphp
+
 <!-- ----------------------announscement and media Start-------------------------- -->
 <div class="row m-0 py-4 container-fluid">
     <div class="Announcement col-lg-6 col-12 justify-content-center d-flex">
        <div class="w-75 left_right_border">
         <p class="heading text-center px-2">{{get_title('notefications',$langid1)->title}}</p>
         <marquee direction = "up"  scrollamount="4">
-            <p class="py-2 px-3">This is an example of Marquee</p>
-            <p class="py-2 px-3">This is an example of Marquee</p>
-            <p class="py-2 px-3">This is an example of Marquee</p>
+            
+            @foreach($announcement as $modss) @if($modss->menutype==2)
+            <p class="py-2 px-3">  <a  target="_blank"  href="{{ url('/public/upload/admin/cmsfiles/circulars/') }}/{{$modss->txtuplode}}" title="{{$modss->title}}"> {{$modss->title}}</a></p>
+                @elseif($modss->menutype==3)
+                <p class="py-2 px-3">   <a target="_blank" href="{{$modss->txtweblink}}" title="{{$modss->title}}">{{$modss->title}}</a></p>
+
+                @else
+                <p class="py-2 px-3">  <a  target="_blank"  href="@if($modss->page_url=='#') '' @else {{ url('/circulars') }}/{{$modss->page_url}} @endif" title="{{$modss->title}}"> {{$modss->title}}</a></p>
+
+            @endif @endforeach
         </marquee>
        </div>
     </div>
@@ -94,7 +102,7 @@ $langid1 = session()->get('locale')??1;
 </div>
 <!-- ----------------------important links Start-------------------------- -->
 <div class="important_links text-center py-4">
-    <p class="heading py-3">Important Links</p>
+    <p class="heading py-3">{{get_title('important-links',$langid1)->title}} </p>
     <div class="links d-flex w-100 justify-content-center">
         <!-- <button class="btn">Hover Me!</button> -->
         <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">Metro Timings</a>
@@ -105,7 +113,7 @@ $langid1 = session()->get('locale')??1;
     </div>
 </div>
 <!-- ----------------------Map section Start-------------------------- -->
-<p class="map_heading text-center py-3">Map Route</p>
+<p class="map_heading text-center py-3">{{get_title('map-route',$langid1)->title}} </p>
 <div class="map_section justify-content-center d-flex">
     <div class="row m-0 container-fluid py-4">
         <div class=" map col-lg-6 col-md-6 col-12 justify-content-center d-flex">
