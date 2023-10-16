@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\OfficerMessageController as officers;
 use App\Http\Controllers\Admin\NotificationsController as notifications; 
 use App\Http\Controllers\Admin\TitleController as title;
 use App\Http\Controllers\Admin\SocialMediaController as socialMedia;
+use App\Http\Controllers\Auth\ResetPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,6 +72,8 @@ Route::group(['middleware' => ['auth','admin','XSS']], function () {
         Route::resource('/admin/notifications', notifications::class);
         Route::resource('/admin/title', title::class);
         Route::resource('/admin/socialMedia', socialMedia::class);
+        Route::match(['get', 'post'],'/Auth/resetpassword', [App\Http\Controllers\Auth\ResetPasswordController::class,'resetpassword'])->name('password');
+        Route::match(['get', 'post'],'/Auth/updatePassword', [App\Http\Controllers\Auth\ResetPasswordController::class,'updatePassword'])->name('updatePassword');
 });
 Route::group(['middleware' => ['auth','XSS','modulesAccess']], function () {
         Route::resource('/admin/user', UserController::class);
@@ -98,5 +101,7 @@ Route::group(['middleware' => ['auth','XSS','modulesAccess']], function () {
         Route::resource('/admin/notifications', notifications::class);
         Route::resource('/admin/title', title::class);
         Route::resource('/admin/socialMedia', socialMedia::class);
+        Route::match(['get', 'post'],'/Auth/resetpassword', [App\Http\Controllers\Auth\ResetPasswordController::class,'resetpassword'])->name('password');
+        Route::match(['get', 'post'],'/Auth/updatePassword', [App\Http\Controllers\Auth\ResetPasswordController::class,'updatePassword'])->name('updatePassword');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

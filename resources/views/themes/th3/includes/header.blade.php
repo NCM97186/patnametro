@@ -1,4 +1,9 @@
-<body id="fontSize">
+<script type="text/javascript">
+window.history.forward();
+function noBack()
+{ window.history.forward(); } //The forward method loads the next URL in the History list.
+</script>
+<body id="fontSize" onload="noBack();" onpageshow="if (event.persisted) noBack();">
 <?php
         $ip = $_SERVER['REMOTE_ADDR'];
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {

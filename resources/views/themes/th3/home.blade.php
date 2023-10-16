@@ -104,12 +104,16 @@ $langid1 = session()->get('locale')??1;
 <div class="important_links text-center py-4">
     <p class="heading py-3">{{get_title('important-links',$langid1)->title}} </p>
     <div class="links d-flex w-100 justify-content-center">
-        <!-- <button class="btn">Hover Me!</button> -->
-        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">Metro Timings</a>
-        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">FARE TABLE</a>
-        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">TOURIST DESTINATION</a>
-        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">TENDERS</a>
-        <a class="px-3 btn22" href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">HELP & SUPPORT</a>
+       
+    @foreach($important as $links) @if($links->menutype==2)
+            <a  class="px-3 btn22"  target="_blank"  href="{{ url('/public/upload/admin/cmsfiles/menus/') }}/{{$links->doc_uplode}}" title="{{$links->m_name}}"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset=""> {{$links->m_name}}</a>
+                @elseif($links->menutype==3)
+               <a class="px-3 btn22"  target="_blank" href="{{$links->linkstatus}}" title="{{$links->m_name}}"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset="">{{$links->m_name}}</a>
+              @else
+               <a class="px-3 btn22"  target="_blank"  href="@if($links->m_url=='#') '' @else {{ url('/pages') }}/{{$links->m_url}} @endif" title="{{$links->m_name}}"><img src="{{ URL::asset('/public/themes/th3/assets/img/clock.png')}}" alt="" srcset=""> {{$links->m_name}}</a>
+               @endif 
+        @endforeach
+      
     </div>
 </div>
 <!-- ----------------------Map section Start-------------------------- -->

@@ -88,7 +88,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <input name="url" autocomplete="off" type="text" maxlength="36"
-                                    minlength="2" 
+                                    minlength="" 
                                     class="input_class form-control @error('url') is-invalid @enderror " id="txtepage_title"
                                     value="{{old('url')}}" />
                                     @error('url')

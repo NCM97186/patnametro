@@ -130,7 +130,7 @@ class MenuController extends Controller
 			$pArray['language_id']    			    = clean_single_input($request->language);
 			$pArray['m_flag_id']    				= clean_single_input(!empty($request->menucategory)?$request->menucategory:0);
 			$pArray['m_type']  						= clean_single_input($request->menutype);
-			$pArray['m_title']  					= clean_single_input($request->url);
+			$pArray['m_title']  					= clean_single_input($request->menu_title);
 			$pArray['m_keyword']    				= clean_single_input($request->metakeyword);
 			$pArray['welcomedescription']  	        = clean_single_input($request->welcomedescription);
 			$pArray['m_description']				= clean_single_input($request->metadescription);
@@ -264,7 +264,7 @@ class MenuController extends Controller
 			$pArray['language_id']    			    = clean_single_input($request->language);
 			$pArray['m_flag_id']    				= clean_single_input($request->menucategory);
 			$pArray['m_type']  						= clean_single_input($request->menutype);
-			$pArray['m_title']  					= clean_single_input($request->url);
+			$pArray['m_title']  					= clean_single_input($request->menu_title);
 			$pArray['welcomedescription']  	        = clean_single_input($request->welcomedescription);
 
 

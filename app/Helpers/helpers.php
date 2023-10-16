@@ -720,7 +720,7 @@ if ( ! function_exists('get_content_postion'))
 
 		$postion = array(
 			        '1'	=> "Header Menu",
-					'2'	=> "Left Menu",
+					'2'	=> "Common Menu",
 					'3'	=> "Footer Menu",
 					'4'	=> "Header & Footer Menu"
 					);
