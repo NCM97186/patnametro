@@ -6,25 +6,17 @@
   
 <body>
   <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-      <div class="navbar-bg"></div>
-           
-            
-            @include('../includes.header')
-             <!-- Sidebar  -->
-            @include('../includes.sidebar')
-              
-               <!-- end topbar -->
+   <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>      
+         @include('../includes.header')
+            <!-- Sidebar  -->
+         @include('../includes.sidebar')
+            <!-- end topbar -->
                
-      <!-- Main Content -->
-    
-               @yield('content')
-               
-               
-
-            
-            @include('../includes.footer')
-            </div>
-         </div>
+            <!-- Main Content -->
+               @yield('content')    
+                  @include('../includes.footer')
+      </div>
+   </div>
       </body>
 </html>

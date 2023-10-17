@@ -12,13 +12,13 @@ return new class extends Migration
     //pushpendra
     public function up(): void
     {
-        Schema::create('feedbacks', function (Blueprint $table) {
+        Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->text('comments');
-            $table->text('review_comment');
+            $table->text('review_comment')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('feedbacks');
+        Schema::dropIfExists('feedback');
     }
 };

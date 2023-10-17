@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Image;
 
 class TitleController extends Controller
@@ -44,9 +45,16 @@ class TitleController extends Controller
         $rules = array(
             'menu_title' => 'required',
             'language' => 'required',
+            'for' => 'required',
             'txtstatus' => 'required'
         );
-         $validator = Validator::make($request->all(), $rules);
+        $rule = array(
+            'menu_title.required' => 'Please Enter Title',
+            'language.required' => 'Please Select Language',
+            'for.required' => 'Please Enter For',
+            'txtstatus.required' => 'Please Select Status'
+        );
+         $validator = Validator::make($request->all(), $rules,$rule);
         if ($validator->fails()) {
       
             return redirect('admin/title/create')->withErrors($validator)->withInput();
@@ -59,6 +67,7 @@ class TitleController extends Controller
             $pArray['title']    					= clean_single_input($request->menu_title); 
             $pArray['language']    					= clean_single_input($request->language); 
 			$pArray['icons']  				        = clean_single_input($request->icons);
+            $pArray['page_url']  				    = Str::slug(clean_single_input($request->for));
 			$pArray['admin_id']  					= $user_login_id;
             $pArray['titleType']  					= 'title';
 			$pArray['txtstatus']  			        = clean_single_input($request->txtstatus);
@@ -117,10 +126,17 @@ class TitleController extends Controller
         $rules = array(
             'menu_title' => 'required',
             'language' => 'required',
+            'for' => 'required',
             'txtstatus' => 'required'
         );
+        $rule = array(
+            'menu_title.required' => 'Please Enter Title',
+            'language.required' => 'Please Select Language',
+            'for.required' => 'Please Enter For',
+            'txtstatus.required' => 'Please Select Status'
+        );
        
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules,$rule);
         
         if ($validator->fails()) {
             
@@ -134,6 +150,7 @@ class TitleController extends Controller
             $pArray['title']    					= clean_single_input($request->menu_title); 
             $pArray['language']    					= clean_single_input($request->language); 
             $pArray['icons']  				        = clean_single_input($request->icons);
+            $pArray['page_url']  				    = Str::slug(clean_single_input($request->for));
 			$pArray['admin_id']  					= $user_login_id;
             $pArray['titleType']  					= 'title';
 			$pArray['txtstatus']  			        = clean_single_input($request->txtstatus);

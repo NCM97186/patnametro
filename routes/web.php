@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\OfficerMessageController as officers;
 use App\Http\Controllers\Admin\NotificationsController as notifications; 
 use App\Http\Controllers\Admin\TitleController as title;
 use App\Http\Controllers\Admin\SocialMediaController as socialMedia;
+use App\Http\Controllers\Admin\ConfigurationController as Configuration;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,7 +72,9 @@ Route::group(['middleware' => ['auth','admin','XSS']], function () {
         Route::resource('/admin/notifications', notifications::class);
         Route::resource('/admin/title', title::class);
         Route::resource('/admin/socialMedia', socialMedia::class);
+        Route::resource('/admin/configuration', Configuration::class);
 });
+
 Route::group(['middleware' => ['auth','XSS','modulesAccess']], function () {
         Route::resource('/admin/user', UserController::class);
         Route::resource('/admin/setting', WebsiteSettingController::class);
@@ -98,5 +101,8 @@ Route::group(['middleware' => ['auth','XSS','modulesAccess']], function () {
         Route::resource('/admin/notifications', notifications::class);
         Route::resource('/admin/title', title::class);
         Route::resource('/admin/socialMedia', socialMedia::class);
+        Route::resource('/admin/configuration', Configuration::class);
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/feedback', [App\Http\Controllers\themes\HomeController::class, 'feedback'])->name('feedback');
+Route::any('/feedback/process/', [App\Http\Controllers\themes\HomeController::class, 'feed_process'])->name('feed_process');

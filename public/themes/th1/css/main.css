@@ -472,3 +472,12 @@ font-weight: 500;
 .p-t-16{
 	padding-top:16px;
 }
+@media print {
+    .header-right, #header, .breadcrumb, .sidebar, #footer {
+		display: none !important;
+	}
+    .sidebar-right .main-container{
+        grid-template-columns:unset !important;
+    }
+	
+}

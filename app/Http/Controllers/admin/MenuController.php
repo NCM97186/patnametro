@@ -19,13 +19,15 @@ class MenuController extends Controller
         
             $title="Menu List";
             $approve_status=session()->get('approve_status');
-            $sertitle=Session::get('title');
+            $sertitle=Session::get('Mtitle');
             $approve_status=Session::get('approve_status');
             $language_id=Session::get('language_id');
-            $lists = Menu::where('m_flag_id',0);
-            if (!empty($title)) {
-              
+           
+            if (!empty($sertitle)) {
+                $lists = Menu::whereNotNull('m_title');
                 $lists->where('m_title', 'LIKE', "%{$sertitle}%");
+            }else{
+                $lists = Menu::where('m_flag_id',0);
             }
             if (!empty($approve_status)) {
                
@@ -54,10 +56,10 @@ class MenuController extends Controller
      */
     public function store(Request $request): mixed {
         if(isset($request->search)){
-            $title=clean_single_input(trim($request->title));
+            $Mtitle=clean_single_input(trim($request->title));
              $approve_status=clean_single_input($request->approve_status);
              $language_id=clean_single_input($request->language_id);
-             Session::put('title', $title);
+             Session::put('Mtitle', $Mtitle);
              Session::put('approve_status', $approve_status);
              Session::put('language_id', $language_id);
              return redirect('admin/menu');
