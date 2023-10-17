@@ -1,5 +1,7 @@
 @extends('layouts.master') @section('content') @section('title', 'Manage User')
 
+
+
 <div class="card">
     <div class="card-body">
         <div id="page-wrapper">
@@ -7,6 +9,42 @@
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
                     <a style="float: right;" href="{{URL::to('admin/user/create')}}" class="btn btn-primary pull-right"> Add User</a>
+                </div>
+                <div class="search-from">
+                <form action="{{ url('/admin/user')}}" class="search_inbox" name="form1" id="form1" method="post" accept-charset="utf-8">
+                    @csrf
+                      <div class="form-row">
+                       <div class="form-group col-md-1">
+                        <label for="Title">Title: </label>
+                        </div>
+                        <div class="form-group col-md-2">
+                           <input onchange="search(this);" class="form-control" type="text" name="user_name" value="{{Session::get('user_name')??''}}">
+                        </div>
+                           <div class="form-group col-md-1">
+                            <label for="Status">Status: </label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                {{old('user_status')}}
+                            <select name="user_status" id="user_status" class="form-control">
+                              <option value=""> Select </option>
+                                <?php
+                                $statusArray = get_active();
+                                foreach($statusArray as $key=>$value) {
+                                    ?>
+                                    <option value="<?php echo $key; ?>" <?php if(old('user_status')==$key) echo "selected"; ?>><?php echo $value; ?></option>
+                                <?php  }?>    
+                           </select>
+                            </div>
+                        <div class="form-group col-md-2">
+                           
+                        <input onchange="search(this);" class="form-control btn btn-success" type="submit" name="search" value="Search">
+                    
+                        </div>
+                       
+                       
+                     </div> 
+                    </form>
+                   
                 </div>
                 <div class="col-lg-12">
                     <div class="panel panel-default">

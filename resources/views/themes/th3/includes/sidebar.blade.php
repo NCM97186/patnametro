@@ -1,51 +1,50 @@
+@php
+    $pageurl = clean_single_input(request()->segment(2));
+    $langid1 = session()->get('locale')??1;
+    $pos=[1,4];
+    $langid=session()->get('locale')??1;
+    $id1=!empty($m_flag_id)?$m_flag_id:$id;
+    $res= get_menu($langid,$pos,$id1) ; $i=1;  
+@endphp   
+<ul class="list-unstyled ps-0">
+    
+    @foreach($res as $mod)
+      <li class="mb-1">
+            @if($mod->m_type==2)
+            <a target="_blank" class="link-dark btn-toggle rounded collapsed" href="{{ url('/public/upload/admin/cmsfiles/menus/') }}/{{$mod->doc_uplode}}" title="{{$mod->m_name}}"
+            > {{$mod->m_name}} </a>
+            @elseif($mod->m_type==3)
+            <a class="link-dark btn-toggle rounded collapsed" target="_blank" href="{{$mod->linkstatus}}" title="{{$mod->m_name}}" 
+            >  {{$mod->m_name}} </a>
 
+            @else
+            <a  class="link-dark btn-toggle rounded collapsed" href="@if($mod->m_url=='#') '' @else {{ url('/pages') }}/{{$mod->m_url}} @endif" title="{{$mod->m_name}}" 
 
-<div class="main-sidebar sidebar-style-2">
-    <aside id="sidebar-wrapper">
-        <div class="sidebar-brand">
-            
-            <a href="{{ url('/')}}">{{ !empty(get_setting()->website_name)?get_setting()->website_name:'Website Name' }} </a>
-        </div>
-        <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ url('/')}}">{{ !empty(get_setting()->website_short_name)?get_setting()->website_short_name:'W N' }} </a>
-        </div>
-        <ul class="sidebar-menu">
-            <li class="active">
-                <a href="{{ url('/home')}}" class="nav-link"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Dashboard</span></a>
-            </li>
-            <?php
-             $langid=1;
-             $res= admin_sidebar($langid) ; ?>
-             @foreach($res as $mod)
-                <li class="@if($mod->slug=='#') dropdown @endif">
-                    <a href="@if($mod->slug=='#') '' @else {{ url('/') }}/{{$mod->slug}} @endif" class="nav-link @if($mod->slug=='#')  has-dropdown @endif"><i class="{{$mod->icons}}"></i><span>{{$mod->module_name}}</span></a>
-                    @if($mod->slug=='#')
-                    <ul class="dropdown-menu">
-                    <?php
-                        $langid=1;
-                        $resch= admin_sidebar_chid($langid,$mod->id) ; ?>
-                         @foreach($resch as $modch)
-                            <li class="@if($modch->slug=='#') dropdown @endif">
-                                <a href="{{ url('/') }}/{{$modch->slug}}" class="nav-link"><i class="{{$modch->icons}}"></i><span>{{$modch->module_name}}</span></a>
-                            </li>
-                        @endforeach
-                    </ul>
-                    @endif
-                </li>
+            >  {{$mod->m_name}} </a>
+
+            @endif
+        <?php  $ress= get_menu($mod->language_id,$pos,$mod->id) ;  ?>
+        <?php  if(has_child($mod->id, $mod->language_id) > 0){ ?>
+        <div class="collapse show" id="dashboard-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            @foreach($ress as $mods)
+                <li class="<?php if($mods->m_url== $pageurl) echo "active" ?> has-sub b">
+                    @if($mods->m_type==2)
+                        <a href="{{ url('/public/upload/admin/cmsfiles/menus/') }}/{{$mods->doc_uplode}}" title="{{$mods->m_name}}" > <span>{{$mods->m_name}} </span></a>
+                    @elseif($mods->m_type==3)
+                        <a target="_blank" href="{{$mods->linkstatus}}" title="{{$mods->m_name}}" > <span>{{$mods->m_name}} </span></a>
+                    
+                    @else
+                    <a href="@if($mods->m_url=='#') '' @else {{ url('/pages') }}/{{$mods->m_url}} @endif" title="{{$mods->m_name}}" > <span>{{$mods->m_name}} </span></a>
                 
-            @endforeach
-                 
-           
-        </ul>
-    </aside>
-</div>
-<div class="main-content">
-        <section class="section">
-          <div class="section-header">
-            <h1>{{$title}}</h1>
-            <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item"><a href="{{ url('/admin/dashboard')}}">Dashboard</a></div>
-              <div class="breadcrumb-item active">{{$title}}</div>
-            </div>
-          </div>
-          <div class="section-body">
+                    @endif  
+                </li>
+           @endforeach
+          </ul>
+        </div>
+        <?php } ?>
+      </li>
+      <?php $i++ ; ?>
+    @endforeach
+      
+    </ul>

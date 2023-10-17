@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 use Image;
 
 class TitleController extends Controller
@@ -20,9 +21,29 @@ class TitleController extends Controller
   
     public function index()
     {
-            
-         $title="Title List";
-         $list = Title::where('titleType','title')->paginate(10);
+       
+        $sertitle=Session::get('ttitle');
+        $txtstatus=Session::get('txtstatus');
+        $language_id=Session::get('language_id');
+       
+        if (!empty($sertitle)) {
+            $lists = Title::where('titleType','title');
+            $lists->where('title', 'LIKE', "%{$sertitle}%");
+           
+        }else{
+            $lists = Title::where('titleType','title');
+        }
+        if (!empty($txtstatus)) {
+           
+            $lists->where('txtstatus',$txtstatus);
+        }
+        if (!empty($language_id)) {
+           
+            $lists->where('language',$language_id);
+        }
+        $list=$lists->orderBy('created_at', 'DESC')->select('id','title','page_url','language','icons','titleType','txtstatus','admin_id')->paginate(10);
+        $title="Title List";
+         
          return view('admin/titles/index',compact(['list','title']));
         
     }
@@ -41,6 +62,16 @@ class TitleController extends Controller
      */
     public function store(Request $request)
     {
+        if(isset($request->search)){
+             $ttitle=clean_single_input(trim($request->ttitle));
+             $txtstatus=clean_single_input($request->txtstatus);
+             $language_id=clean_single_input($request->language_id);
+             Session::put('ttitle', $ttitle);
+             Session::put('txtstatus', $txtstatus);
+             Session::put('language_id', $language_id);
+             return redirect('admin/title');
+           }
+        if(isset($request->cmdsubmit)){  
         $txtuplode ='';
         $rules = array(
             'menu_title' => 'required',
@@ -72,7 +103,7 @@ class TitleController extends Controller
             $pArray['titleType']  					= 'title';
 			$pArray['txtstatus']  			        = clean_single_input($request->txtstatus);
 			
-			
+			//dd($pArray);
 			$create 	= Title::create($pArray);
             $lastInsertID = $create->id;
             $user_login_id=Auth()->user()->id;
@@ -94,6 +125,7 @@ class TitleController extends Controller
 			}
            
         }
+      }
     }
 
     /**

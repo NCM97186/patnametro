@@ -70,7 +70,7 @@
                                 <div class="form-group">
                                     <input name="menu_title"  maxlength="36"
                                     minlength="2" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text"  
-                                    class="input_class form-control  @error('menu_title') is-invalid @enderror" id="menu_title"   value="{{ !empty($data->m_title)?$data->m_title:old('menu_title')}}"  />
+                                    class="input_class form-control  @error('menu_title') is-invalid @enderror" id="menu_title"   value="{{ !empty($data->m_name)?$data->m_name:old('m_name')}}"  />
                                     @error('menu_title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -89,7 +89,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <input name="url" autocomplete="off" type="text" maxlength="36"
-                                    minlength="2" 
+                                    minlength="" 
                                     class="input_class form-control @error('url') is-invalid @enderror " id="txtepage_title"
                                     value="{{!empty($data->m_url)?$data->m_url:old('url')}}" />
                                     @error('url')

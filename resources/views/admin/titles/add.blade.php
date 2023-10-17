@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input name="menu_title" maxlength="36"
+                                    <input name="menu_title" maxlength="220"
                                     minlength="" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" 
                                     class="input_class form-control  @error('menu_title') is-invalid @enderror" id="txtename"   value="{{old('menu_title')}}"  />
                                     @error('menu_title')
@@ -76,7 +76,7 @@
                                     minlength="" onkeypress="return onlyAlphabets(event,this);" autocomplete="off" type="text" 
                                     class="input_class form-control  @error('for') is-invalid @enderror" id="txtename"   value="{{old('for')}}"  />
                                     @if($errors->has('for'))
-                                    <p class="text-danger">{{ $errors->first('language') }}</p>
+                                    <p class="text-danger">{{ $errors->first('for') }}</p>
                                     @endif
                                 </div>
                             </div>

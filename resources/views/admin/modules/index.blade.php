@@ -21,7 +21,7 @@
                 <div class="panel-heading">
                 <div class="search-from">
                 <form action="{{URL::to('admin/module/')}}" class="search_inbox" name="form1" id="form1" method="post" accept-charset="utf-8">
-                @if ($message = Session::get('success'))
+                  @if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <p>{{ $message }}</p>
                     </div>
@@ -86,11 +86,7 @@
                 </div>
                 
 
-                @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
-                @endif
+               
                 <div class="panel-body">
                 <div class="table-responsive">
 					<table class="table table-striped table-bordered table-hover" >

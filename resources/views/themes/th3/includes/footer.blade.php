@@ -23,9 +23,9 @@
         
     </div>
     <div class="footer_bottom d-flex justify-content-between px-5">
-        <p> 2023 . All rights are reserved</p>
-     <p>PMRC Helpline no. 123456</p>
-    <p>{{ __('messages.Visitors') }}:--{{get_visitor_count()}}	</p>
+        <p> {{ date('Y') }} . {{get_title('footercontained',$langid)->title}}</p>
+        <p>{{get_title('helpline',$langid)->title}}</p>
+    <p>{{get_title('Visitors',$langid)->title}}:- {{get_visitor_count()}}	</p>
     </div>
 </footer>
 

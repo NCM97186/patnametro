@@ -33,5 +33,10 @@
   <script src="{{ URL::asset('/public/assets/js/scripts.js')}}"></script>
   <script src="{{ URL::asset('/public/assets/js/custom.js')}}"></script>
  
-</body>
+<script type="text/javascript">
+window.history.forward();
+function noBack()
+{ window.history.forward(); } //The forward method loads the next URL in the History list.
+</script>
+<body id="fontSize" onload="noBack();" onpageshow="if (event.persisted) noBack();">
 </html>

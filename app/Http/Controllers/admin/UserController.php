@@ -7,20 +7,27 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Session;
 
 
 class UserController extends Controller
 {
     public function index()
     {
-        $title="User List";
-      
-     $user=user::where('user_type','!=',1)->paginate(10);
-         //$user = DB::select("select * from users where user_type!=1  ");
-
-        return view('admin.user.users',compact(['user','title']));
-     //}
-    
+        $lists = User::where('user_type','!=',1);
+        $user_name = Session::get('user_name');
+        $user_status = Session::get('user_status');
+           if (!empty($user_name)) {
+              
+                $lists->where('user_name',$user_name);
+            }
+            if (!empty($user_status)) {
+               
+                $lists->where('user_status',$user_status);
+            }
+     $title="User List";
+     $user= $lists->paginate(10);
+     return view('admin.user.users',compact(['user','title']));
     }
 
      public function create()
@@ -30,6 +37,13 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
+        if(isset($request->search)){
+            $user_name=clean_single_input(trim($request->user_name));
+            $user_status=clean_single_input($request->user_status);
+            Session::put('user_name', $user_name);
+            Session::put('user_status', $user_status);
+            return redirect('admin/user');
+        }
        $request->validate([
             'name' => 'required |alpha|max:255',
             'user_name' => 'required|alpha|max:255',

@@ -8,6 +8,55 @@
                 </div>
                 <!-- /.col-12 col-md-12 col-lg-12 -->
             </div>
+            <div class="search-from">
+                <form action="{{ url('/admin/title')}}" class="search_inbox" name="form1" id="form1" method="post" accept-charset="utf-8">
+             
+                    @csrf
+                      <div class="form-row">
+                       <div class="form-group col-md-1">
+                        <label for="Title">Title: </label>
+                        </div>
+                        <div class="form-group col-md-2">
+                           <input onchange="search(this);" class="form-control" type="text" name="ttitle" value="{{Session::get('ttitle')??''}}">
+                        </div>
+                           <div class="form-group col-md-1">
+                            <label for="Status">Status: </label>
+                            </div>
+                            <div class="form-group col-md-2">
+                            <select   onchange="search(this);" name="txtstatus" id="txtstatus" class="form-control">
+                              <option value=""> Select </option>
+                                <?php
+                                $statusArray = get_status();
+                                foreach($statusArray as $key=>$value) {
+                                    ?>
+                                    <option value="<?php echo $key; ?>" <?php if(Session::get('txtstatus')==$key) echo "selected"; ?>><?php echo $value; ?></option>
+                                <?php  }?>    
+                           </select>
+                            </div>
+                       
+                        <div class="form-group col-md-1">
+                        <label for="language">Language: </label>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <select  onchange="search(this);" name="language_id" id="language_id" class="form-control">
+                                <option value="1" @if(Session::get('language_id')==1) selected @endif  >English</option>
+                                <option value="2" @if(Session::get('language_id')==2) selected @endif  >Hindi</option>
+                            </select>
+
+                        </div>
+                        
+                       
+                        <div class="form-group col-md-2">
+                           
+                        <input onchange="search(this);" class="form-control btn btn-success" type="submit" name="search" value="Search">
+                    
+                        </div>
+                       
+                       
+                     </div> 
+                    </form>
+                   
+                </div>
             <!-- /.row -->
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
