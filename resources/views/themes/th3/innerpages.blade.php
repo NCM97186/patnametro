@@ -22,6 +22,23 @@
         <h3 class="">{{$data->m_name}}</h3>
         <p><?php echo !empty($data->content)?$data->content:$data->description; ?></p>
     </div>
+<div class="d-flex">
+<div class="card">
+    <div class="card-image"></div>
+    <div class="category"> Illustration </div>
+    <h5> A heading that must span over two lines</h5>
+</div>
+<div class="card">
+    <div class="card-image"></div>
+    <div class="category"> Illustration </div>
+    <h5> A heading that must span over two lines</h5>
+</div>
+<div class="card">
+    <div class="card-image"></div>
+    <div class="category"> Illustration </div>
+    <h5> A heading that must span over two lines</h5>
+</div>
+</div>
 
     <span class="page-updated-date px-3 text-align-right">{{get_title('lastupdate',$langid1)->title}}: {{ get_last_updated_date($title) }} </span>
   </div>
