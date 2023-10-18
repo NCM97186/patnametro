@@ -19,10 +19,26 @@
 
   <div class="col-lg-9 col-md-9">
     <div class="content-div px-3">
-        <h3 class="">{{$data->m_name}}</h3>
-        <p><?php echo !empty($data->content)?$data->content:$data->description; ?></p>
+      
+       
     </div>
-
+<div class="d-flex gap-2">
+<div class="card">
+<img class="card-image w-100" src="https://www.sulasula.com/wp-content/uploads/cr_em13_14.jpg" alt="" srcset="">
+    <div class="category"> Illustration </div>
+    <h5> A heading that must span over two lines</h5>
+</div>
+<div class="card">
+<img class="card-image w-100" src="https://www.sulasula.com/wp-content/uploads/cr_em13_14.jpg" alt="" srcset="">
+    <div class="category"> Illustration </div>
+    <h5> A heading that must span over two lines</h5>
+</div>
+<div class="card">
+<img class="card-image w-100" src="https://www.sulasula.com/wp-content/uploads/cr_em13_14.jpg" alt="" srcset="">
+    <div class="category"> Illustration </div>
+    <h5> A heading that must span over two lines</h5>
+</div>
+</div>
 
     <span class="page-updated-date px-3 text-align-right">{{get_title('lastupdate',$langid1)->title}}: {{ get_last_updated_date($title) }} </span>
   </div>

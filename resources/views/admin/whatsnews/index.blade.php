@@ -60,15 +60,17 @@
                                             
                                             <td><?php echo status($row->txtstatus); ?></td>
                                             <td><?php echo language($row->language); ?></td>
-                                             <td>
-                                               <form action="{{ route('whatsnews.destroy',$row->id) }}"  method="POST"> 
+                                            <form action="{{ route('whatsnews.destroy',$row->id) }}"  method="POST"> 
                                             
-                                                 <a class="btn btn-primary" href="{{ route('whatsnews.edit',$row->id) }}">Edit</a>
-                                            @csrf
-                                            @method('DELETE')
+                                                
+                                                        <td>
+                                                        <a class="btn btn-primary" href="{{ route('whatsnews.edit',$row->id) }}">Edit</a>
+                                                        @csrf
+                                                        @method('DELETE')
 
-                                   <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                   </td>
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </td>
+                                   </form>
                                         </tr>
 									<?php
 										endforeach;
