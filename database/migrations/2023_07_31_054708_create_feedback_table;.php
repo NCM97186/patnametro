@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->text('comments');
-            $table->text('review_comment');
+            $table->text('review_comment')->nullable();
             $table->timestamps();
         });
     }

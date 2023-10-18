@@ -1,4 +1,4 @@
- body{
+body{
     min-height: 100vh;
     overflow-x: hidden;
  }
@@ -10,17 +10,8 @@ p{
     padding: 0;
     margin: 0 !important;
 }
-.double_column{
-    columns: 2;
-}
 .links li{
     overflow: unset !important;
-}
-.links .more{
-    margin-top:0 !important ;
-}
-.links{
-    padding-left: 0 !important;
 }
 
  a{
@@ -1257,7 +1248,7 @@ footer{
     display: inline-flex;
     align-items: center;
     padding: .25rem .5rem;
-    font-weight: 400;
+    font-weight: 600;
     color: rgba(0, 0, 0, .65);
     background-color: transparent;
     border: 0;
@@ -1308,30 +1299,3 @@ footer{
     float: right;
     font-weight: bold;
   }
-  .left_right_border{ 
-    overflow:hidden;  
-    height:100%;
-  }
-  .left_right_border marquee{
-    height:100%;
-  }
-
-  footer .footer_upper a{
-    padding-left: 10px;
-    padding-right: 5px;
-  }
-  footer .footer_upper a{
-    padding:5px;
-    margin:0 5px;
-    transition:0.2s;
-  }
-
-footer .footer_upper a:hover{
-  background: #b5c7ff;
-  border-radius:5px;
-
-}
-
-.inner_page p{
-    text-align: justify;
-}
