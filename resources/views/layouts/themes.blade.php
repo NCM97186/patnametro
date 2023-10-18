@@ -6,24 +6,23 @@
    @php
    $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'';
    @endphp
-   <head>
+ 
    @include("../themes.{$themes}.includes.head")
-   
-     
-
-  </head>
   
-<body>
-  <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-      <div class="navbar-bg"></div>
-      @include("../themes.{$themes}.includes.header")
-       @yield('content')
-               
-               
-       
+  <script>
+  function noBack(){ window.history.forward(); } //The forward method loads the next URL in the History list.
+</script>
+<body id="fontSize" onload="noBack();" onpageshow="if (event.persisted) noBack();">
+    <div id="app">
+      <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        @include("../themes.{$themes}.includes.header")
+        @yield('content')
+                
+                
+        
+        </div>
       </div>
-    </div>
     @include("../themes.{$themes}.includes.footer")
-      </body>
+  </body>
 </html>

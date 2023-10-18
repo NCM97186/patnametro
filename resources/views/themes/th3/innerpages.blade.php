@@ -19,7 +19,7 @@
 
   <div class="col-lg-9 col-md-9">
     <div class="content-div px-3">
-        <h1 class="">{{$data->m_name}}</h1>
+        <h3 class="">{{$data->m_name}}</h3>
         <p><?php echo !empty($data->content)?$data->content:$data->description; ?></p>
     </div>
 

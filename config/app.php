@@ -170,8 +170,8 @@ return [
         App\Providers\RouteServiceProvider::class,
        // Mews\Captcha\CaptchaServiceProvider::class,
         LaravelCaptcha\Providers\LaravelCaptchaServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
-    ])->toArray(),
+       // Spatie\Permission\PermissionServiceProvider::class,
+])->toArray(),
 
     /*
     |--------------------------------------------------------------------------

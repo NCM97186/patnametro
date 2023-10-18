@@ -2,7 +2,7 @@
   
 <!-- ----------------------Footer Start-------------------------- -->
 <footer>
-    <div class="d-flex justify-content-center footer_upper">
+    <div class="d-flex justify-content-center py-2 footer_upper">
           <?php   $pos=[3,4];
             $langid=session()->get('locale')??1;
             $res= get_menu($langid,$pos,0) ; $i=1; 
@@ -22,7 +22,7 @@
                @endforeach
         
     </div>
-    <div class="footer_bottom d-flex justify-content-between px-5">
+    <div class="footer_bottom d-flex justify-content-between py-3 px-5">
         <p> {{ date('Y') }} . {{get_title('footercontained',$langid)->title}}</p>
         <p>{{get_title('helpline',$langid)->title}}</p>
     <p>{{get_title('Visitors',$langid)->title}}:- {{get_visitor_count()}}	</p>
