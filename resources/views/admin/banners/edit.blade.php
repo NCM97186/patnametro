@@ -66,6 +66,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <label>Banner Link:</label>
+                                    <span class="star">*</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6">
+                               <div class="form-group">
+                                    <input name="banner_link" maxlength="36"
+                                    minlength="2"  autocomplete="off" type="text" 
+                                    class="input_class form-control  @error('banner_link') is-invalid @enderror" id="banner_link"   value="{{ !empty($data->banner_link)?$data->banner_link:old('banner_link')}}"  />
+                                    @error('banner_link')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                        
                        
                             

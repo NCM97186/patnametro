@@ -1,4 +1,4 @@
-@extends('layouts.master') @section('content') @section('title', 'Manage Form Builder')
+@extends('layouts.master') @section('content') @section('title', 'Manage Configuration')
 
 <div class="card">
     <div class="card-body">
@@ -30,6 +30,7 @@
                                             <th>#</th>
                                             <th>Language</th>
                                             <th>Configuration Type</th>
+                                            <th>SMS Url</th>
                                             <th>Sender Name</th>
                                             <th>Sender Email</th>
                                             <th>Contact Us Message</th>
@@ -50,6 +51,7 @@
                                             <td><?php echo $count++; ?></td>
                                             <td><?php echo language($row->language); ?></td>
                                             <td><?php echo $row->cof_type; ?></td>
+                                            <td><?php echo $row->sms_url; ?></td>
                                             <td><?php echo $row->sender_name; ?></td>
                                             <td><?php echo $row->sender_mail; ?></td>
                                             <td><?php echo $row->contact_msg; ?></td>

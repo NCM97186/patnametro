@@ -23,7 +23,7 @@ class HomeController extends Controller
        
         $langid=session()->get('locale')??1;
         $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'th1';
-        $banner =  Banner::where('txtstatus',3)->where('language',$langid)->select('id','title','language','txtuplode','txtstatus','admin_id')->paginate(10);
+        $banner =  Banner::where('txtstatus',3)->where('language',$langid)->select('id','title','language','txtuplode','txtstatus','admin_id','banner_link')->paginate(10);
         $officer = Officer::where('txtstatus',3)->where('designation','MD')->where('language',$langid)->select('id','officers_name','url','designation','contents','language','txtuplode','txtstatus')->first();
         $todate=date('Y-m-d');
         $today= date("Y-m-d", strtotime($todate));

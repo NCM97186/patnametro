@@ -25,17 +25,17 @@ class ConfigurationController extends Controller
     public function store(Request $request){
         
        $rules = array(
-            'language' => 'required',
-           'cof_type' =>  'required',
-           'sender_name' => 'required',
-           'sender_mail' => 'required',
-           'password' => 'required',
-           'port' => 'required',
-           'contact_msg' => 'required',
+           'language'       => 'required',
+           'cof_type'       => 'required',
+           'sender_name'    => 'required',
+           'sender_mail'    => 'required',
+           'password'       => 'required',
+           'port'           => 'required',
+           'contact_msg'    => 'required',
            'reset_pass_msg' => 'required',
-           'reg_msg' => 'required',
-           'feedback_msg' => 'required',
-           'status' => 'required'
+           'reg_msg'        => 'required',
+           'feedback_msg'   => 'required',
+           'status'         => 'required'
        );
        
           
@@ -47,17 +47,18 @@ class ConfigurationController extends Controller
        }else{
            $user_login_id=Auth()->user()->id;
           
-           $pArray['language']    				= clean_single_input($request->language); 
-           $pArray['cof_type']    				= clean_single_input($request->cof_type);
-           $pArray['sender_name']    				= clean_single_input($request->sender_name);
-           $pArray['sender_mail']    				= clean_single_input($request->sender_mail);
-           $pArray['password']                      = clean_single_input($request->password);
-           $pArray['port']    			            = clean_single_input($request->port); 
-           $pArray['contact_msg']  					= clean_single_input($request->contact_msg);  
-           $pArray['reset_pass_msg']    			= clean_single_input($request->reset_pass_msg); 
-           $pArray['reg_msg']				        = clean_single_input($request->reg_msg); 
-           $pArray['feedback_msg']    				= clean_single_input($request->feedback_msg); 
-           $pArray['status']  				        = clean_single_input($request->status); 
+        $pArray['language']    			    	= clean_single_input($request->language); 
+        $pArray['cof_type']    			    	= clean_single_input($request->cof_type);
+        $pArray['sms_url']    			     	= clean_single_input($request->sms_url);
+        $pArray['sender_name']    				= clean_single_input($request->sender_name);
+        $pArray['sender_mail']    				= clean_single_input($request->sender_mail);
+        $pArray['password']                     = clean_single_input($request->password);
+        $pArray['port']    			            = clean_single_input($request->port); 
+        $pArray['contact_msg']  				= clean_single_input($request->contact_msg);  
+        $pArray['reset_pass_msg']    			= clean_single_input($request->reset_pass_msg); 
+        $pArray['reg_msg']				        = clean_single_input($request->reg_msg); 
+        $pArray['feedback_msg']    				= clean_single_input($request->feedback_msg); 
+        $pArray['status']  				        = clean_single_input($request->status); 
            
     
            $create 	= Configuration::create($pArray);
@@ -119,6 +120,7 @@ class ConfigurationController extends Controller
            $user_login_id=Auth()->user()->id;
            $pArray['language']    				= clean_single_input($request->language); 
            $pArray['cof_type']    				= clean_single_input($request->cof_type);
+           $pArray['sms_url']    				= clean_single_input($request->sms_url);
            $pArray['sender_name']    				= clean_single_input($request->sender_name);
            $pArray['sender_mail']    				= clean_single_input($request->sender_mail);
            $pArray['password']                      = clean_single_input($request->password);
