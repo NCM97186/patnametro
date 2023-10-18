@@ -10,6 +10,7 @@ class Configuration extends Model
     use HasFactory;
     protected $fillable =[
                     'language',
+                    'sms_url',
                     'sender_name',
                     'sender_mail',
                     'cof_type',

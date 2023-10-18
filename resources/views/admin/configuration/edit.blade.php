@@ -70,6 +70,26 @@
                         <div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
+                                    <label>SMS Url:</label>
+                                    <span class="star">*</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input name="sms_url" maxlength="36"
+                                    minlength="2" autocomplete="off" type="text" 
+                                    class="input_class form-control  @error('sms_url') is-invalid @enderror" id="sms_url" value="{{ !empty($data->sms_url)?$data->sms_url:old('sms_url')}}"  />
+                                    @error('sms_url')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-3 col-lg-3">
+                                <div class="form-group">
                                     <label>Sender Name:</label>
                                     <span class="star">*</span>
                                 </div>

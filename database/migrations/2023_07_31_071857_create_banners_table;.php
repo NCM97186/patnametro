@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
+            $table->string('banner_link')->nullable();
             $table->integer('language');
             $table->string('txtuplode')->nullable();
             $table->integer('txtstatus');

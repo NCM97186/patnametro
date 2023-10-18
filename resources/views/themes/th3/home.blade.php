@@ -21,7 +21,7 @@
     <div class="carousel-inner" style="max-height: 500px;">
         @if(!empty($banner)) @php $i = 0; @endphp @foreach($banner as $val)
         <div class="carousel-item @if($i==0) active @endif">
-            <img src="{{ URL::asset('public/upload/admin/cmsfiles/banner/thumbnail/')}}/{{$val->txtuplode}}" class="d-block w-100" alt="{{$val->title}}" title="{{$val->title}}" />
+            <a href="{{$val->banner_link??''}}"><img src="{{ URL::asset('public/upload/admin/cmsfiles/banner/thumbnail/')}}/{{$val->txtuplode}}" class="d-block w-100" alt="{{$val->title}}" title="{{$val->title}}" /></a>
         </div>
         @php $i++; @endphp @endforeach @endif
     </div>

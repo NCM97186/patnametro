@@ -17,6 +17,7 @@ return new class extends Migration
             $table->Integer('language');
             $table->string('sender_mail');
             $table->string('cof_type')->nullable();
+            $table->string('sms_url')->nullable();
             $table->string('password');
             $table->Integer('port');
             $table->longtext('contact_msg')->nullable();
