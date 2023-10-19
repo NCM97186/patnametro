@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input name="sender_name" maxlength="36"
+                                    <input name="sender_name" onkeypress="return onlyAlphabets(event,this);" maxlength="36"
                                     minlength="2" autocomplete="off" type="text" 
                                     class="input_class form-control  @error('sender_name') is-invalid @enderror" id="sender_name" value="{{old('sender_name')}}"  />
                                     @error('sender_name')
@@ -156,7 +156,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input name="port" maxlength="36"
+                                    <input name="port" onkeypress="return onlyNumeric(event,this);" maxlength="36"
                                     minlength="2" autocomplete="off" type="number" 
                                     class="input_class form-control  @error('port') is-invalid @enderror" id="port" value="{{old('port')}}"  />
                                     @error('port')
@@ -177,7 +177,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <textarea name="contact_msg" 
-                                    minlength="2" autocomplete="off" type="number" 
+                                    maxlength="240" autocomplete="off" type="number" 
                                     class="input_class form-control  @error('contact_msg') is-invalid @enderror" id="contact_msg" value="{{old('contact_msg')}}"  /></textarea>
                                     @error('contact_msg')
                                     <span class="invalid-feedback" role="alert">
@@ -197,7 +197,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <textarea name="reset_pass_msg" 
-                                    minlength="2" autocomplete="off" type="number" 
+                                    maxlength="240" autocomplete="off" type="number" 
                                     class="input_class form-control  @error('reset_pass_msg') is-invalid @enderror" id="reset_pass_msg" value="{{old('reset_pass_msg')}}"  /></textarea>
                                     @error('reset_pass_msg')
                                     <span class="invalid-feedback" role="alert">
@@ -217,7 +217,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <textarea name="reg_msg" 
-                                    minlength="2" autocomplete="off" type="number" 
+                                    maxlength="240" autocomplete="off" type="number" 
                                     class="input_class form-control  @error('reg_msg') is-invalid @enderror" id="reg_msg" value="{{old('reg_msg')}}"  /></textarea>
                                     @error('reg_msg')
                                     <span class="invalid-feedback" role="alert">
@@ -237,7 +237,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <textarea name="feedback_msg" 
-                                    minlength="2" autocomplete="off" type="number" 
+                                    maxlength="240" autocomplete="off" type="number" 
                                     class="input_class form-control  @error('feedback_msg') is-invalid @enderror" id="feedback_msg" value="{{old('feedback_msg')}}"  /></textarea>
                                     @error('feedback_msg')
                                     <span class="invalid-feedback" role="alert">
