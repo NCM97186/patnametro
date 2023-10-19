@@ -2,6 +2,11 @@
 
 @section('content')
 @include("../themes.th3.includes.breadcrumb")
+
+@php
+        $pageurl = clean_single_input(request()->segment(2));
+        $langid1 = session()->get('locale')??1;
+@endphp 
 <!--************************breadcrumb********************-->
 
 <!--**********************************mid part******************-->
@@ -26,39 +31,39 @@
                         </ul>
                     </div>
                 @endif
-    <span class="heading">Feedback Form</span>
+    <span class="heading">{{get_title('fname',$langid1)->title}}</span>
     <form class="form" action="{{URL ::to('/feedback/process/')}}" method="post">
     @csrf
       <div class="group">
-      <input placeholder="‎" type="text" name="name">
-      <label for="name">Name</label>
+      <input placeholder="‎" type="text" name="name" maxlength="32">
+      <label for="name">{{get_title('name',$langid1)->title}}</label>
       @if($errors->has('name'))
 				<span class="text-danger">{{ $errors->first('name') }}</span>
       @endif
       </div>
   <div class="group">
-      <input placeholder="‎" type="email" id="email" name="email" >
-      <label for="email">Email</label>
+      <input placeholder="‎" type="email" id="email" name="email" maxlength="64">
+      <label for="email">{{get_title('email',$langid1)->title}}</label>
       @if($errors->has('email'))
 				<span class="text-danger">{{ $errors->first('email') }}</span>
       @endif
       </div>
       <div class="group">
-        <input placeholder="‎" type="text" id="phone" name="phone" >
-        <label for="Phone">Phone</label>
+        <input placeholder="‎" type="text"  id="phone" name="phone" maxlength="12">
+        <label for="Phone">{{get_title('phone',$langid1)->title}}</label>
         @if($errors->has('phone'))
 				<span class="text-danger">{{ $errors->first('phone') }}</span>
       @endif
         </div>
   <div class="group">
-      <textarea placeholder="‎" id="comment" name="comments" rows="5"></textarea>
-      <label for="comment">Comment</label>
+      <textarea placeholder="‎" id="comment" name="comments" rows="5" maxlength="240"></textarea>
+      <label for="comment">{{get_title('comment',$langid1)->title}}</label>
       @if($errors->has('comments'))
 				<span class="text-danger">{{ $errors->first('comments') }}</span>
       @endif
   </div>
   <div class="row mb-3">
-    <label for="CaptchaCode" class="col-md-4 col-form-label text-md-end">{{ __('Captcha') }}</label>
+    <label for="CaptchaCode" class="col-md-4 col-form-label text-md-end">{{get_title('captcha',$langid1)->title}}</label>
 
 
         <div class="col-md-6">
@@ -74,7 +79,7 @@
         </div>
     </div>
       <!-- <button type="submit">Submit</button> -->
-      <input class="login-button" type="submit" value="Submit" />
+      <input class="login-button" type="submit" value="{{get_title('submit',$langid1)->title}}" />
     </form>
   </div>
   @endsection
