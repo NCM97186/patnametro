@@ -44,10 +44,10 @@
         <table class="table mt-3"  title="Orders / Circulars">
             <thead>
                 <tr>
-                    <th> {{get_title('sl',$langid1)->title }}</th>
-                    <th> {{get_title('tttitle',$langid1)->title }}</th>
-                    <th> {{get_title('published-on',$langid1)->title }}</th>
-                    <th> {{get_title('archive-date',$langid1)->title }}</th>
+                    <th> {{get_title('sl',$langid1)->title??क्रमांक }}</th>
+                    <th> {{get_title('tttitle',$langid1)->title??शीर्षक }}</th>
+                    <th> {{get_title('published-on',$langid1)->title??'ऑनलाइन प्रकाशित किया गया' }}</th>
+                    <th> {{get_title('archive-date',$langid1)->title??'पुरालेख दिनांक' }}</th>
                        
                 </tr>
             </thead>

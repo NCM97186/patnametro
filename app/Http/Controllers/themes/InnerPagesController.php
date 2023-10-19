@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\admin\Menu;
 use App\Models\admin\Tender;
 use App\Models\admin\Officer;
+use App\Models\admin\Photogallery;
 
 class InnerPagesController extends Controller
 {
@@ -31,6 +32,15 @@ class InnerPagesController extends Controller
             $m_flag_id='';
             $id='';
             return response()->view("themes/{$themes}/siteMaps", compact( 'data','title','id','m_flag_id','m_url'));
+        }
+        if($slug=='photo-gallery'){
+            $title="Photo Gallery";
+            $data=Photogallery::paginate(10);;
+            $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'th1';
+            $m_url='';
+            $m_flag_id='';
+            $id='';
+            return response()->view("themes/{$themes}/innerpagesPhoto", compact( 'data','title','id','m_flag_id','m_url'));
         }
         $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'th1';
         if($slug=='tender' || $slug=='published-tenders' || $slug=='property-development-business'|| $slug=='gcc-other-guidelines'){
@@ -117,9 +127,6 @@ class InnerPagesController extends Controller
                 $m_flag_id=$data1->m_flag_id;
                 $chtitle=$data1->title;
             }
-           
-          //dd($data1);
-           
             return response()->view("themes/{$themes}/innerpages", compact( 'data','title','id','m_flag_id','m_url','chtitle'));
         }else{
            

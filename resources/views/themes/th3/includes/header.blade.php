@@ -1,9 +1,4 @@
-<script type="text/javascript">
-window.history.forward();
-function noBack()
-{ window.history.forward(); } //The forward method loads the next URL in the History list.
-</script>
-<body id="fontSize" onload="noBack();" onpageshow="if (event.persisted) noBack();">
+
 <?php
         $ip = $_SERVER['REMOTE_ADDR'];
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -28,6 +23,7 @@ function noBack()
                 <li><a href="#"><img src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c53e.png" alt="Twitter"></a></li>
                 <li><a href="#"><img src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-instagram-icon-png-image_6315974.png" alt="Instagram"></a></li>
                 <input type="text" class="search-input" placeholder="Search...">
+                <a href="#skipcont" title="{{get_title('skip',$langid1)->title}}">{{get_title('skip',$langid1)->title}}</a>
             </ul>
             <div class="gap-3 d-flex">
                 <select onchange="return change_language(this);" class="changeLang">
@@ -85,12 +81,12 @@ function noBack()
 
 <div class="container-fluid px-5 d-flex justify-content-between header_logo">
         <div >
-        <a href="{{ url('/')}}"><img src="{{ URL::asset('public/upload/admin/setting/')}}/{{!empty(get_setting($langid1)->logo)?get_setting($langid1)->logo:''}}" alt="{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}" class="w-100" title="{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}" /></a>
+        <a href="{{ url('/')}}"><img src="{{ URL::asset('public/upload/admin/setting/')}}/{{!empty(get_setting($langid1)->logo)?get_setting($langid1)->logo:''}}" alt="{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}" class="w-75" title="{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}" /></a>
             
         </div>
         <div class="gov_logo gap-4 d-flex justify-content-end">
-            <img class="w-35" src="{{ URL::asset('/public/themes/th3/assets/img/Digital_India_logo.svg.png')}}" alt="" srcset="">
-            <img class="w-35" src="{{ URL::asset('/public/themes/th3/assets/img/g20-logo.png')}}" alt="" srcset="">
+        <a  target="_blank" href="https://digitalindia.gov.in/"><img class="" src="{{ URL::asset('/public/themes/th3/assets/img/Digital_India_logo.svg.png')}}"  alt="Digital India" title="Digital India" srcset="" srcset=""></a>
+        <a  target="_blank" href="https://www.g20.org/en/"><img class="" src="{{ URL::asset('/public/themes/th3/assets/img/g20-logo.png')}}" alt="G-20" title="G-20" srcset=""></a>
         </div>
     </div>
 
@@ -98,7 +94,7 @@ function noBack()
 <!-- ----------------------Navbar Start-------------------------- -->
 
     <div>
-        <nav>
+        <nav id="skipcont">
             <div class="navbar">
                 <i class='bx bx-menu'></i>
                 <div class="logo"><a  title="{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}" href="{{ url('/') }}">{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}</a></div>
@@ -112,11 +108,14 @@ function noBack()
                         $pos=[1,4];
                         $langid=session()->get('locale')??1;
                         $res= get_menu($langid,$pos,0) ; $i=1; 
-                        $pageurl = clean_single_input(request()->segment(2));
+                     
+                         $pageurl = clean_single_input(request()->segment(2));
+                          $nameurl=get_parent_menu_name($pageurl,$langid);
+                          $nameurl1=!empty($nameurl->m_url)?$nameurl->m_url:''
                         ?>
                          
                           @foreach($res as $mod)
-                        <li class="<?php if($mod->m_url== $pageurl || $mod->m_url== 'home') echo "current" ?>" >
+                        <li class="<?php if($mod->m_url== $pageurl || $mod->m_url==$nameurl1 ) echo "current" ?>" >
                             @if($mod->m_type==2)
                                 <a target="_blank" href="{{ url('/public/upload/admin/cmsfiles/menus/') }}/{{$mod->doc_uplode}}" title="{{$mod->m_name}}" > {{$mod->m_name}}</a>
                             @elseif($mod->m_type==3)
@@ -129,12 +128,13 @@ function noBack()
                             <?php  
                              if(has_child($mod->id, $mod->language_id) > 0){ ?>
                             <i class='bx bxs-chevron-down htmlcss-arrow arrow  '></i>
-                            <ul class="htmlCss-sub-menu sub-menu">
-                            <?php  $ress= get_menu($mod->language_id,$pos,$mod->id) ;  ?>
+                            <?php  $ress= get_menu($mod->language_id,$pos,$mod->id) ; $k=1;  $count=count($ress);  ?>
+                            <ul class="htmlCss-sub-menu sub-menu <?php if($count==19 || $count==18 || $count==17 || $count==16|| $count==15|| $count==14|| $count==12 || $count==11 || $count==10){ echo 'double_column ';} else{ } ?>">
+                           
                             
                                 @foreach($ress as $mods)
                                 <?php  if(has_child($mods->id, $mods->language_id) > 0){ ?>
-                                    <li class="more">
+                                    <li class="more <?php if($mods->m_url== $pageurl ) echo "current" ?>">
                                     <span>
                                         @if($mods->m_type==2)
                                             <a href="{{ url('/public/upload/admin/cmsfiles/menus/') }}/{{$mods->doc_uplode}}" title="{{$mods->m_name}}" > {{$mods->m_name}}</a>
@@ -150,7 +150,7 @@ function noBack()
                                         <ul class="more-sub-menu sub-menu">
                                         <?php  $resss= get_menu($mods->language_id,$pos,$mods->id) ;  ?>
                                             @foreach($resss as $modss)
-                                                <li> 
+                                                <li <?php if($modss->m_url== $pageurl ) echo "current" ?> > 
                                                     @if($mods->m_type==2)
                                                         <a href="{{ url('/public/upload/admin/cmsfiles/menus/') }}/{{$modss->doc_uplode}}" title="{{$modss->m_name}}" > {{$modss->m_name}}</a>
                                                     @elseif($mods->m_type==3)
@@ -177,6 +177,7 @@ function noBack()
                                         @endif  
                                         <?php } ?>
                                     </li>
+                                    <?php $k++ ; ?>
                                 @endforeach
                             </ul>
                                    <?php } ?>

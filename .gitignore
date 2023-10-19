@@ -7,6 +7,7 @@
 /route/web.php
 /storage/*.key
 /vendor
+ /public/themes/th3/assets/CSS/blue.css
 .env
 .env.backup
 .env.production

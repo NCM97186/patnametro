@@ -1,6 +1,6 @@
 @extends('layouts.themes') @section('content')
 @php
-$langid1 = session()->get('locale')??1;
+  $langid1 = session()->get('locale')??1;
 @endphp
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <!-- <div class="mt-3 position-absolute" style="z-index: 111; bottom: 15px; left: 15px;">
@@ -40,14 +40,14 @@ $langid1 = session()->get('locale')??1;
 
 <div class="latest-news">
     <p class="px-3 m-0 d-flex align-items-center">{{get_title('whatnew',$langid1)->title}}</p>
-    <marquee bgcolor="grey" scrollamount="10">
+    <marquee bgcolor="lightgrey" scrollamount="6">
         @foreach($whatsnew as $mods) @if($mods->menutype==2)
-        <a  target="_blank"  href="{{ url('/public/upload/admin/cmsfiles/whatsnews/') }}/{{$mods->txtuplode}}" title="{{$mods->title}}"> {{$mods->title}}</a>
+        <a class="news_text"  target="_blank"  href="{{ url('/public/upload/admin/cmsfiles/whatsnews/') }}/{{$mods->txtuplode}}" title="{{$mods->title}}"> {{$mods->title}}</a>
         @elseif($mods->menutype==3)
-        <a target="_blank" href="{{$mods->txtweblink}}" title="{{$mods->title}}">{{$mods->title}}</a>
+        <a class="news_text" target="_blank" href="{{$mods->txtweblink}}" title="{{$mods->title}}">{{$mods->title}}</a>
 
         @else
-        <a  target="_blank"  href="@if($mods->page_url=='#') '' @else {{ url('/news') }}/{{$mods->page_url}} @endif" title="{{$mods->title}}"> {{$mods->title}}</a>
+        <a class="news_text" target="_blank"  href="@if($mods->page_url=='#') '' @else {{ url('/news') }}/{{$mods->page_url}} @endif" title="{{$mods->title}}"> {{$mods->title}}</a>
 
         @endif @endforeach
     </marquee>
@@ -97,7 +97,7 @@ $langid1 = session()->get('locale')??1;
        </div>
     </div>
     <div class="col-lg-6 col-12 justify-content-center d-flex announcement-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/-ucUFBTUYLI?si=1fKYaNMf59bmPCmW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/UjY-UCjYKGU?si=3liLv84n0uCcj8r_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
 </div>
 <!-- ----------------------important links Start-------------------------- -->

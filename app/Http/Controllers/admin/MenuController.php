@@ -134,7 +134,7 @@ class MenuController extends Controller
 			$pArray['m_keyword']    				= clean_single_input($request->metakeyword);
 			$pArray['welcomedescription']  	        = clean_single_input($request->welcomedescription);
 			$pArray['m_description']				= clean_single_input($request->metadescription);
-			$pArray['content']    					= clean_single_input($request->description);
+			$pArray['content']    					= $request->description; //clean_single_input($request->description);
 			$pArray['doc_uplode']  				    = clean_single_input($txtuplode1);
 			$pArray['linkstatus']    				= clean_single_input($request->txtweblink);
 			$pArray['admin_id']  					= clean_single_input($user_login_id);
