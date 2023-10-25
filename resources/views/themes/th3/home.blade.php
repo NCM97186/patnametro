@@ -62,10 +62,10 @@
         <img class="w-100" src="{{ URL::asset('public/upload/admin/cmsfiles/officers/thumbnail/')}}/{{$officer->txtuplode}}" alt="{{ $officer->officers_name }}" srcset="" />
     </div>
     <div class="col-lg-5 justify-content-center d-flex flex-column">
-        <p class="the_message w-100 px-3">
-           <?php echo substr($officer->contents,0, 900); ?>
-        </p>
-        <button class="read_more my-2 mx-3"><a href="#" type="button"> {{get_title('read',$langid1)->title}} </a></button>
+        <div class="the_message w-100 px-3">
+           <?php echo mb_strimwidth($officer->contents,0, 700, '...'); ?>
+        </div>
+        <button class="read_more my-2 mx-3"><a href="officers/{{ $officer->url }}" type="button"> {{get_title('read',$langid1)->title}} </a></button>
        
        
         <!-- dribbble -->

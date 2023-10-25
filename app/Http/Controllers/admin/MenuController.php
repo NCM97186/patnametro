@@ -271,7 +271,7 @@ class MenuController extends Controller
             if($request->menutype == 1){
                 $pArray['doc_uplode']  				    = ''; 
                 $pArray['linkstatus']    				= '';
-                $pArray['content']    			        = clean_single_input($request->description); 
+                $pArray['content']    			        = $request->description; 
                 $pArray['m_keyword']    			    = clean_single_input($request->metakeyword); 
                 $pArray['m_description']				= clean_single_input($request->metadescription); 
              }elseif($request->menutype == 2){
@@ -294,7 +294,7 @@ class MenuController extends Controller
 			$pArray['approve_status']  			    = clean_single_input($request->txtstatus);
 			$pArray['menu_positions']  		        = clean_single_input($request->txtpostion);
 			$pArray['current_version']  			= 0;
-			
+			//dd($pArray);
 			$create 	= Menu::where('id', $id)->update($pArray);
             $lastInsertID = $id;
             $user_login_id=Auth()->user()->id;

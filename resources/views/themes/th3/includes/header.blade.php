@@ -19,9 +19,9 @@
 <header class="header_top">
         <div class="top_head_res w-100 d-flex justify-content-between container-fluid ">
             <ul class="social-icons">
-                <li><a href="#"><img src="https://www.iconpacks.net/icons/2/free-facebook-logo-icon-2428-thumb.png" alt="Facebook"></a></li>
-                <li><a href="#"><img src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c53e.png" alt="Twitter"></a></li>
-                <li><a href="#"><img src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-instagram-icon-png-image_6315974.png" alt="Instagram"></a></li>
+                <li><a href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/facebook.png')}}" alt="Facebook"  title="Facebook"  ></a></li>
+                <li><a href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/twitter.png')}}" alt="Twitter"  title="Twitter"  ></a></li>
+                <li><a href="#"><img src="{{ URL::asset('/public/themes/th3/assets/img/instagram.png')}}" alt="Instagram"  title="Instagram"  ></a></li>
                 <input type="text" class="search-input" placeholder="Search...">
                 <a href="#skipcont" title="{{get_title('skip',$langid1)->title}}">{{get_title('skip',$langid1)->title}}</a>
             </ul>
@@ -196,4 +196,21 @@
         </nav>
     </div>
 
-   
+   <script>
+
+const checkbox = document.getElementById('checkbox');
+  const dropdownContainer = document.querySelector('.theme-popup__list-container');
+
+  // Add a click event listener to the checkbox
+  checkbox.addEventListener('click', function (event) {
+    event.stopPropagation(); // Prevent the click event from propagating to the document
+    dropdownContainer.style.display = dropdownContainer.style.display === 'block' ? 'none' : 'block';
+  });
+
+  // Add a click event listener to the document to close the dropdown
+  document.addEventListener('click', function (event) {
+    if (dropdownContainer.style.display === 'block' && event.target !== checkbox) {
+      dropdownContainer.style.display = 'none';
+    }
+  });
+   </script>

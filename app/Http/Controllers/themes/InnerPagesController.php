@@ -170,7 +170,7 @@ class InnerPagesController extends Controller
         $langid=session()->get('locale')??1;
        
       
-        $data =  Officer::where('url', 'LIKE', "%{$slug}%")->where('txtstatus',3)->where('language_id', $langid)->first();
+        $data =  Officer::where('url', 'LIKE', "%{$slug}%")->where('txtstatus',3)->where('language', $langid)->select('officers_name','url','designation','contents','language','txtuplode','txtstatus','admin_id')->first(); 
         $title=''; $id='';$m_flag_id=''; $m_url='';$chtitle='';
         if(!empty($data)){
             $title=$data->officers_name;
@@ -178,7 +178,7 @@ class InnerPagesController extends Controller
             $id=$data->id;
             $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'th1';
         
-            return response()->view("themes/{$themes}/innerpages", compact( 'data','title','id','url','chtitle'));
+            return response()->view("themes/{$themes}/officers", compact( 'data','title','id','chtitle'));
         
         }else{
            

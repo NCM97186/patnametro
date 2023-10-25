@@ -48,7 +48,7 @@ Route::group(['middleware' => ['XSS']], function () {
 });
 
 Auth::routes();
-Route::group(['middleware' => ['auth','admin','XSS']], function () {
+Route::group(['middleware' => ['auth','admin']], function () {
         Route::resource('/admin/user', UserController::class);
         Route::resource('/admin/setting', WebsiteSettingController::class);
         Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
@@ -80,7 +80,7 @@ Route::group(['middleware' => ['auth','admin','XSS']], function () {
         Route::match(['get', 'post'],'/Auth/updatePassword', [App\Http\Controllers\Auth\ResetPasswordController::class,'updatePassword'])->name('updatePassword');
 });
 
-Route::group(['middleware' => ['auth','XSS','modulesAccess']], function () {
+Route::group(['middleware' => ['auth','modulesAccess']], function () {
         Route::resource('/admin/user', UserController::class);
         Route::resource('/admin/setting', WebsiteSettingController::class);
         Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');

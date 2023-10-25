@@ -16,7 +16,7 @@
 
   <div class="col-lg-10 col-md-10">
     <div class="content-div px-3">
-        <h1 class="">{{$data->m_name}}</h1>
+        <h3 class="">{{$data->m_name}}</h3>
        
         <form action="" method="post" name="filterForm" accept-charset="utf-8">
             @csrf
