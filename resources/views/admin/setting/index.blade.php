@@ -66,7 +66,7 @@
                                             <td><?php echo language($row->language); ?></td>
                                             <td><a href="" target="_blank"><?php echo $row->themes; ?></a></td>
                                              <td>
-                                               <form action="{{ route('setting.destroy',$row->id) }}"  method="POST"> 
+                                               <form class="d-flex" action="{{ route('setting.destroy',$row->id) }}"  method="POST"> 
                                             
                                                  <a class="btn btn-primary" href="{{ route('setting.edit',$row->id) }}">Edit</a>
                                             @csrf

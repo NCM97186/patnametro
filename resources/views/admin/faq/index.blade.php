@@ -14,7 +14,7 @@
             
                     @csrf
                       <div class="form-row">
-                       <div class="form-group col-md-1">
+                       <div class="form-group">
                         <label for="Title">Title: </label>
                         </div>
                         <div class="form-group col-md-2">
@@ -47,7 +47,7 @@
                         </div>
                         
                        
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-1">
                            
                         <input onchange="search(this);" class="form-control btn btn-success" type="submit" name="search" value="Search">
                     
