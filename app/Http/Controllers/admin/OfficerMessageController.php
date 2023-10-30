@@ -92,7 +92,7 @@ class OfficerMessageController extends Controller
             $pArray['url']  						= Str::slug(clean_single_input($request->officers_name));
 			$pArray['language']    					= clean_single_input($request->language); 
             $pArray['designation']    			    = clean_single_input($request->designation); 
-            $pArray['contents']    					= clean_single_input($request->contents); 
+            $pArray['contents']    					= $request->contents; //clean_single_input($request->contents); 
 			$pArray['txtuplode']  				    = $txtuplode;
 			$pArray['admin_id']  					= $user_login_id;
 			$pArray['txtstatus']  			        = clean_single_input($request->txtstatus);
@@ -211,7 +211,7 @@ class OfficerMessageController extends Controller
             $pArray['officers_name']    					 = clean_single_input($request->officers_name); 
             $pArray['url']  						         = Str::slug(clean_single_input($request->officers_name));
             $pArray['designation']    			             = clean_single_input($request->designation); 
-            $pArray['contents']    					         = clean_single_input($request->contents); 
+            $pArray['contents']    					         = $request->contents;  //clean_single_input($request->contents); 
 			$pArray['language']    					         = clean_single_input($request->language); 
 			$pArray['txtuplode']  				             = !empty($txtuplode)?$txtuplode:$oldimg;
 			$pArray['admin_id']  					         = $user_login_id;

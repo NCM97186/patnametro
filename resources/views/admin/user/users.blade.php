@@ -20,10 +20,10 @@
                         <div class="form-group col-md-2">
                            <input onchange="search(this);" class="form-control" type="text" name="user_name" value="{{Session::get('user_name')??''}}">
                         </div>
-                           <div class="form-group col-md-1">
+                           <div class="form-group ">
                             <label for="Status">Status: </label>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 {{old('user_status')}}
                             <select name="user_status" id="user_status" class="form-control">
                               <option value=""> Select </option>

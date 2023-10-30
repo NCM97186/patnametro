@@ -12,6 +12,8 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <meta name="csrf-token" content="{{ csrf_token() }}">
+      <!-- Option 1: Include in HTML -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
       <!-- General CSS Files -->
             <link rel="stylesheet" href="{{ URL::asset('/public/assets/modules/bootstrap/css/bootstrap.min.css')}}">
             <link rel="stylesheet" href="{{ URL::asset('/public/assets/modules/fontawesome/css/all.min.css')}}">

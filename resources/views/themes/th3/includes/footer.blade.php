@@ -37,6 +37,7 @@
  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="{{ URL::asset('/public/themes/th3/assets/bootstrap-5.0.2-dist/js/bootstrap.min.js')}}"></script>
  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js" integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   -->
+ <script src="{{ URL::asset('/public/themes/th3/JS/clientside.validation.js')}}"></script>
     <script> 
     function sitevisit()
     {
@@ -76,6 +77,42 @@
     });
   
   </script>
+  <script>
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("img01");
+    let images = [];
+    let currentImageIndex = 0;
+
+    function openModal(imageSrc, categoryImages) {
+        modal.style.display = "block";
+        setTimeout(() => {
+            modal.classList.add("show");
+            modalImg.src = imageSrc;
+            images = categoryImages;
+            currentImageIndex = categoryImages.indexOf(imageSrc);
+        }, 10);
+    }
+
+    function closeModal() {
+        modal.classList.remove("show");
+        setTimeout(() => {
+            modal.style.display = "none";
+        }, 500);
+    }
+
+    function nextSlide() {
+        if (images.length === 0) return;
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        modalImg.src = images[currentImageIndex];
+    }
+
+    // Close the modal if the user clicks outside of it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    };
+</script>
 </body>
 
 </html>

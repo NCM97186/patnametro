@@ -116,7 +116,6 @@ class BannerController extends Controller
             $user_login_id=Auth()->user()->id;
             $dataArr = array(); 
             $pArray['title']    					= clean_single_input($request->menu_title); 
-            $pArray['banner_link']    					= clean_single_input($request->banner_link);
             $pArray['language']    					= clean_single_input($request->language); 
 			$pArray['txtuplode']  				    = $txtuplode;
 			$pArray['admin_id']  					= $user_login_id;
@@ -234,8 +233,7 @@ class BannerController extends Controller
             $user_login_id=Auth()->user()->id;
             $usertype=Auth()->user()->designation;
             $dataArr = array(); 
-            $pArray['title']    					= clean_single_input($request->menu_title);
-            $pArray['banner_link']    					= clean_single_input($request->banner_link);  
+            $pArray['title']    					= clean_single_input($request->menu_title); 
             $pArray['language']    					= clean_single_input($request->language); 
 			$pArray['txtuplode']  				    = !empty($txtuplode)?$txtuplode:$oldimg;
 			$pArray['admin_id']  					= $user_login_id;

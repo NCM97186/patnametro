@@ -42,12 +42,12 @@
                                             <td><?php echo $count++; ?></td>
                                             <td><?php echo $row->title; ?></td>
                                             <td>@if(!empty($row->txtuplode))
-                                <img style="margin-bottom: 5%;" class="w-50 img-responsive" alt="image" id="logoimg" src="{{ URL::asset('public/upload/admin/cmsfiles/logo/thumbnail/')}}/{{$row->txtuplode}}" class="rounded-circle mr-1" />
+                                <img style="margin-bottom: 5%;" class="w-25 img-responsive" alt="image" id="logoimg" src="{{ URL::asset('public/upload/admin/cmsfiles/logo/thumbnail/')}}/{{$row->txtuplode}}" class="rounded-circle mr-1" />
                               
                                 @endif
                                 <input type="hidden" name="oldimg" value="{{ !empty($row->txtuplode)?$row->txtuplode:''}}" ></td>
                                              <form action="{{ route('logo.destroy',$row->id) }}"  method="POST"> 
-                                            <td>
+                                            <td class="d-flex h-100">
                                                  <a class="btn btn-primary" href="{{ route('logo.edit',$row->id) }}">Edit</a>
                                             @csrf
                                             @method('DELETE')

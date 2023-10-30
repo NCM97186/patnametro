@@ -13,7 +13,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="active">
-                <a href="{{ url('/home')}}" class="nav-link"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Dashboard</span></a>
+                <a href="{{ url('/home')}}" class="nav-link"><i class="bi bi-display" aria-hidden="true"></i><span>Dashboard</span></a>
             </li>
            
              @foreach($res as $mod)

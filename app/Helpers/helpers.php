@@ -44,6 +44,7 @@ if (! function_exists('convertMdyToYmd')) {
         return Carbon::createFromFormat('m-d-Y', $date)->format('Y-m-d');
     }
 }
+// functions for website setting display on blades and controllers created by laukesh 
 if (! function_exists('get_setting')) {
     function get_setting($langid="")
     { 
@@ -54,6 +55,7 @@ if (! function_exists('get_setting')) {
 		
     }
 }
+// functions for remove html tags form input filed  created by laukesh 
 if(! function_exists('clean_single_input'))
 {
 	function clean_single_input($content_desc)
@@ -170,6 +172,7 @@ if(! function_exists('clean_single_input'))
 	}
 	
 }
+// functions for  replace Special Char form input filed  created by laukesh 
 if(! function_exists('replaceSpecialChar'))
 {
 	function replaceSpecialChar($content_desc)
@@ -180,7 +183,7 @@ if(! function_exists('replaceSpecialChar'))
 		return $returnText;
 	}
 }
-
+// functions for remove  form input filed  created by laukesh 
 if(! function_exists('clean_data_array'))
 {
 	function clean_data_array($aRR)
@@ -304,6 +307,7 @@ if(! function_exists('clean_data_array'))
 	}
 	
 }
+// functions for check File Extention in pdf format created by laukesh 
 if(!function_exists('checkFileExtention'))
 {
         function checkFileExtention($file)
@@ -316,6 +320,7 @@ if(!function_exists('checkFileExtention'))
 			}
         }
 }
+// functions for store login user activity  created by Laukesh 
 if(!function_exists('audit_trail'))
 {
 	function audit_trail( $data_array = array() )
@@ -339,7 +344,7 @@ if(!function_exists('audit_trail'))
 	}
 }
 /// Module for Admin
-
+// functions for get primary module  created by Laukesh 
 if ( ! function_exists('primarylink_module'))
 {
 	function primarylink_module($language_id, $menu_positions='')
@@ -363,30 +368,32 @@ if ( ! function_exists('primarylink_module'))
 									<option value=""> Select </option>
 									<option value ="0" '.$selected.'>It is Root Category</option>';
 			
-			$whEre = array('module_status'	=> 1,
-							'submenu_id'			=> 0,
-							'module_language_id'		=> $language_id
-						);
-			$nav_query = DB::table('modules')->select('id','submenu_id','module_name','icons','slug','mod_order_id','module_status','publish_id_module','module_language_id')->where($whEre)->get();
-			foreach($nav_query as $row)
-			{
-				$selected = "";
-				if($menu_positions != '')
-				{
-					if($row->id == $menu_positions)
-						$selected="selected";
-				}
-				$returnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>'.$row->module_name.'</strong></option>';
+									$whEre = array('module_status'	=> 1,
+													'submenu_id'			=> 0,
+													'module_language_id'		=> $language_id
+												);
+									$nav_query = DB::table('modules')->select('id','submenu_id','module_name','icons','slug','mod_order_id','module_status','publish_id_module','module_language_id')->where($whEre)->get();
+									foreach($nav_query as $row)
+									{
+										$selected = "";
+										if($menu_positions != '')
+										{
+											if($row->id == $menu_positions)
+												$selected="selected";
+										}
+										$returnValue .= '<option value="'.$row->id.'" '.$selected.'><strong>'.$row->module_name.'</strong></option>';
 
-                                $returnValue .= build_child_m_one($row->id, '', $menu_positions);
-			}
-		$returnValue .=    		'</select>
+														$returnValue .= build_child_m_one($row->id, '', $menu_positions);
+									}
+								$returnValue .=    		'</select>
 							</div>
 						</div>';
 
 		return $returnValue;
 	}
 }
+
+// functions for get child module  created by Laukesh 
 if ( ! function_exists('build_child_m_one'))
 {
 	function build_child_m_one($parent_id, $tempReturnValue, $menu_positions)
@@ -413,7 +420,9 @@ if ( ! function_exists('build_child_m_one'))
 	}
 }
 ############################ Menu For  admin
-
+// functions for get primary  menu  created by Salil
+// modify by  laukesh 
+   
 if ( ! function_exists('primarylink_menu'))
 {
 	function primarylink_menu($language_id, $menu_positions='')
@@ -461,6 +470,8 @@ if ( ! function_exists('primarylink_menu'))
 		return $returnValue;
 	}
 }
+// functions for get child  menu  created by Salil
+// modify by  laukesh 
 if ( ! function_exists('build_child_one'))
 {
 	function build_child_one($parent_id, $tempReturnValue, $menu_positions)
@@ -486,7 +497,8 @@ if ( ! function_exists('build_child_one'))
 		return $tempReturnValue;
 	}
 }
-
+// functions for get child  menu  created by Salil
+// modify by  laukesh 
 if ( ! function_exists('build_child_two'))
 {
 	function build_child_two($parent_id, $tempReturnValue, $menu_positions)
@@ -512,7 +524,8 @@ if ( ! function_exists('build_child_two'))
 		return $tempReturnValue;
 	}
 }
-
+// functions for get child  menu  created by Salil
+// modify by  laukesh 
 if ( ! function_exists('build_child_three'))
 {
 	function build_child_three($parent_id, $tempReturnValue, $menu_positions)
@@ -539,7 +552,8 @@ if ( ! function_exists('build_child_three'))
 	}
 }
 
-
+// functions for get child  menu  created by Salil
+// modify by  laukesh 
 
 if ( ! function_exists('build_child_four'))
 {
@@ -567,7 +581,8 @@ if ( ! function_exists('build_child_four'))
 	}
 }
 
-
+// functions for get child  menu  created by Salil
+// modify by  laukesh 
 
 if ( ! function_exists('build_child_five'))
 {
@@ -594,7 +609,8 @@ if ( ! function_exists('build_child_five'))
 		return $tempReturnValue;
 	}
 }
-
+// functions for get child  menu  created by Salil
+// modify by  laukesh 
 
 if ( ! function_exists('build_child_six'))
 {
@@ -625,7 +641,8 @@ if ( ! function_exists('build_child_six'))
 	}
 }
 
-
+// functions for get child  menu  created by Salil
+// modify by  laukesh 
 if ( ! function_exists('build_child_seven'))
 {
 	function build_child_seven($parent_id, $tempReturnValue, $menu_positions)
@@ -658,7 +675,7 @@ if ( ! function_exists('build_child_seven'))
 ############################menu end
 
 /// Memu for Themes 
-
+// functions for get   menu  created by  laukesh 
 if ( ! function_exists('get_menu'))
 {
 	function get_menu($language_id, $menu_positions, $m_flag_id='')
@@ -673,6 +690,7 @@ if ( ! function_exists('get_menu'))
 		  return $nav_query;
 	}
 }
+// functions for create seo link and text created by  laukesh 
 if ( ! function_exists('seo_url'))
 {
 	function seo_url($seo_url){
@@ -700,6 +718,7 @@ if ( ! function_exists('seo_url'))
 		return strtolower($seo_url).'.php';
 	}
 }
+// functions for cheked status created by  laukesh 
 if ( ! function_exists('get_status'))
 {
 	function get_status()
@@ -713,6 +732,7 @@ if ( ! function_exists('get_status'))
 		return $status;
 	}
 }
+// functions for set postions of menu created by  laukesh 
 if ( ! function_exists('get_content_postion'))
 {
 	function get_content_postion()
@@ -727,6 +747,7 @@ if ( ! function_exists('get_content_postion'))
 		return $postion;
 	}
 }
+// functions for get/set language created by  laukesh 
 if ( ! function_exists('get_language'))
 {
 	function get_language()
@@ -739,6 +760,7 @@ if ( ! function_exists('get_language'))
 		return $language;
 	}
 }
+// functions for get/set status active/inactive created by  laukesh 
 if ( ! function_exists('get_active'))
 {
 	function get_active()
@@ -752,7 +774,7 @@ if ( ! function_exists('get_active'))
 	}
 }
 
-
+// functions for count number of child menu created by  laukesh 
 if ( ! function_exists('has_child'))
 {
 	function has_child( $pid,$langid=1){
@@ -762,6 +784,7 @@ if ( ! function_exists('has_child'))
 		
 	}
 }
+// functions for count number of child modules created by  laukesh 
 if ( ! function_exists('has_m_child'))
 {
 	function has_m_child($pid,$langid=1){
@@ -770,6 +793,7 @@ if ( ! function_exists('has_m_child'))
 		
 	}
 }
+// functions for checked language created by  laukesh 
 function language($val)
 	{
 	if($val=='2')
@@ -789,6 +813,7 @@ function language($val)
 	else
 	echo "English";
 }
+// functions for checked status created by  laukesh 
    function status($val){
 		if($val=='1')
 		{
@@ -805,6 +830,7 @@ function language($val)
 		  echo "Review";
      	}
 	}
+	// functions for checked status of module  created by  laukesh 
 	function status_m($val){
 		if($val=='1')
 		{
@@ -816,7 +842,7 @@ function language($val)
 		}
 	}
 	
-	
+// functions for get parents modules of list in sidebar  created by  laukesh 
 	if ( ! function_exists('admin_sidebar'))
 	{
 		function admin_sidebar($langid=1){
@@ -826,6 +852,7 @@ function language($val)
 			
 		}
 	}
+// functions for get child modules of list in sidebar  created by  laukesh 
 	if ( ! function_exists('admin_sidebar_chid'))
 	{
 		function admin_sidebar_chid($langid=1,$mid){
@@ -835,6 +862,7 @@ function language($val)
 			
 		}
 	}
+	// functions for get/set usertype  created by  laukesh 
 	if ( ! function_exists('get_usertype'))
 	{
 		function get_usertype()
@@ -848,6 +876,7 @@ function language($val)
 			return $language;
 		}
 	}
+		// functions for get/set themestype  created by  laukesh 
 	if ( ! function_exists('get_themestype'))
 	{
 		function get_themestype()
@@ -861,6 +890,7 @@ function language($val)
 			return $Theme;
 		}
 	}
+// functions for get/set Noticetype  created by  laukesh 
 	if ( ! function_exists('get_noticetype'))
 	{
 		function get_noticetype()
@@ -876,6 +906,7 @@ function language($val)
 			return $Theme;
 		}
 	}
+	// functions for get/set circularstype  created by  laukesh 
 	if ( ! function_exists('circularstype'))
 	{
 		function circularstype($type)
@@ -897,6 +928,8 @@ function language($val)
 			return $type;
 		}
 	}
+		// functions for get/set permissions of modules for users  created by  laukesh 
+
 	if ( ! function_exists('show_permissions'))
 	{
 		function show_permissions()
@@ -922,6 +955,7 @@ function language($val)
 			return $$feild;
 		}
 	}
+// functions for get website visitor count page wise created by  laukesh 
 	if(!function_exists('get_visitor_count'))
 	{
 			function get_visitor_count()
@@ -930,6 +964,7 @@ function language($val)
 			    return $counter;
 			}
 	}
+// functions for updates website visitor count  created by  laukesh 
 	if(!function_exists('update_visitor_count'))
 	{
 			function update_visitor_count($visitors_ip, $page)
@@ -960,6 +995,7 @@ function language($val)
 				}
 			}
 	}
+// functions for get user name using id  created by  laukesh 
 	if(!function_exists('get_username'))
 	{
 			function get_username($id)
@@ -968,6 +1004,7 @@ function language($val)
 				return $data->name;
 			}
 	}
+// functions for  get last updated date of pages created by  laukesh 
 	if(!function_exists('get_last_updated_date'))
 	{
 			function get_last_updated_date( $pageTitle = "")
@@ -990,7 +1027,7 @@ function language($val)
 			}
 	}
 	/// clinet Logo 
-
+// functions for  get  clinet Logo  created by  laukesh 
 if ( ! function_exists('get_logolist'))
 {
 	function get_logolist()
@@ -1003,6 +1040,7 @@ if ( ! function_exists('get_logolist'))
 		  return $nav_query;
 	}
 }
+// functions for  get  parent menu name  using title and language id created by  laukesh 
 if ( ! function_exists('get_parent_menu_name'))
 {
 	function get_parent_menu_name($url,$langid1)
@@ -1015,7 +1053,7 @@ if ( ! function_exists('get_parent_menu_name'))
 		  return $result;
 	}
 }
-// check  permission mpdule
+// functions for  check  permission mpdule created by  laukesh 
 if ( ! function_exists('module_permission'))
 {
 	function module_permission($user_id = ''){
@@ -1030,7 +1068,7 @@ if ( ! function_exists('module_permission'))
 
 	}
 }
-// check if user has permission
+//  functions for  check if user has permission created by  laukesh 
 if ( ! function_exists('has_module_permission'))
 {
 	function has_module_permission($permission_name='', $user_id = '',$mid=''){
@@ -1053,7 +1091,7 @@ if ( ! function_exists('has_module_permission'))
 
 	}
 }
-// Title by view title
+// functions for Title by view title created by  laukesh 
 if ( ! function_exists('get_title'))
 {
 	function get_title($title,$langid){

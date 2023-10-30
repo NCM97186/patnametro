@@ -5,14 +5,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\Banner;
 use App\Models\admin\Officer;
-use App\Models\admin\Whatsnew;
 use App\Models\admin\Feedback;
+use App\Models\admin\Whatsnew;
 use App\Models\admin\Circular;
 use App\Models\admin\Menu;
 //use Session;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-
 
 
 class HomeController extends Controller
@@ -23,7 +22,7 @@ class HomeController extends Controller
        
         $langid=session()->get('locale')??1;
         $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'th1';
-        $banner =  Banner::where('txtstatus',3)->where('language',$langid)->select('id','title','language','txtuplode','txtstatus','admin_id','banner_link')->paginate(10);
+        $banner =  Banner::where('txtstatus',3)->where('language',$langid)->orderBy('updated_at', 'DESC')->select('id','title','language','txtuplode','txtstatus','admin_id')->paginate(10);
         $officer = Officer::where('txtstatus',3)->where('designation','MD')->where('language',$langid)->select('id','officers_name','url','designation','contents','language','txtuplode','txtstatus')->first();
         $todate=date('Y-m-d');
         $today= date("Y-m-d", strtotime($todate));
@@ -35,7 +34,7 @@ class HomeController extends Controller
        }if($langid==2){
         $mf=170;
        }
-        $important	 = Menu::where('m_flag_id' ,$mf)->where('approve_status',3)->where('language_id',$langid)->orderBy('page_postion', 'ASC')->select('id','m_id','m_type','m_flag_id','menu_positions','language_id','m_name','m_url','m_title','m_keyword','m_description','content','doc_uplode','linkstatus','approve_status','page_postion','welcomedescription')->paginate(8);
+        $important	 = Menu::where('m_flag_id' ,$mf)->where('approve_status',3)->where('language_id',$langid)->orderBy('page_postion', 'ASC')->select('id','m_id','m_type','m_flag_id','menu_positions','language_id','m_name','m_url','m_title','m_keyword','m_description','content','doc_uplode','linkstatus','approve_status','page_postion','welcomedescription')->paginate(5);
        // dd($important);
         return response()->view("themes/{$themes}/home", compact( 'banner','officer','whatsnew','announcement','title','important'));
     }
@@ -48,7 +47,6 @@ class HomeController extends Controller
         // die();
         return response()->view("themes/{$themes}/feedback", compact('title'));
     }
- 
     public function feed_process(Request $request)
     {
        
@@ -89,4 +87,3 @@ class HomeController extends Controller
 
     }
 }
-         
