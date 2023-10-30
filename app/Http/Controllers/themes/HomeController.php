@@ -73,13 +73,12 @@ class HomeController extends Controller
            $pArray['email']    				= clean_single_input($request->email);
            $pArray['phone']    				= clean_single_input($request->phone);
            $pArray['comments']    			= clean_single_input($request->comments);
-          // dd($pArray);
            $create 	= Feedback::create($pArray);
-        // echo  $create 	= Feedback::create($pArray); //die();
-         
-           if(empty( $create)){
-             echo "heare"; die();
+           if($create){
+           // $mail = Feedback::create();
            }
+
+
            return redirect('feedback')->with('success','Feedback has successfully Submitted');
         }else{
             return redirect('feedback')->with('error','Captcha Is Wrong.');
