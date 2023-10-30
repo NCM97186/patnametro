@@ -8,7 +8,8 @@ use App\Models\admin\Menu;
 use App;
 class AjaxRequestController extends Controller
 {
-   
+   // function for get primary menu on ajax request created by laukesh 
+   // clean_single_input is helpers for remove html tags for input/request
     function get_primarylink_menu(Request $request)
 	{
         if($request->get_primarylink_menu=='get_primarylink_menu'){
@@ -16,11 +17,11 @@ class AjaxRequestController extends Controller
             
             $data = array();
             $data['html'] = primarylink_menu($language);
-           // dd( $data);
-            echo json_encode($data);
+             echo json_encode($data);
             die();
         }
 	}
+ // function for get primary module on ajax request created by laukesh 
     function get_primarylink_module(Request $request)
 	{
         if($request->get_primarylink_module=='get_primarylink_module'){
@@ -28,11 +29,11 @@ class AjaxRequestController extends Controller
             
             $data = array();
             $data['html'] = primarylink_module($language);
-           // dd( $data);
             echo json_encode($data);
             die();
         }
 	}
+     // function for filter menu  on ajax request created by laukesh 
     public function get_filter(Request $request)
     {
         if($request->ajax())
@@ -60,6 +61,7 @@ class AjaxRequestController extends Controller
         }
        
     }
+     // function for update menu orders  on ajax request created by laukesh 
     public function update_menu_orders(Request $request)
     {
         $msg=array();
@@ -100,8 +102,5 @@ class AjaxRequestController extends Controller
         }
         
     }
-    public function refreshCaptcha()
-    {
-        return response()->json(['captcha'=> captcha_img()]);
-    }
+    
 }

@@ -89,8 +89,8 @@
 							<tr>
 								<th>#</th>
 								<th>Menu Name</th>
-								<th>Menu Status</th>
                                 <th>Menu Order</th>
+								<th>Menu Status</th>
 								<th>Language</th>
 								<th>Options</th>
 							</tr>
