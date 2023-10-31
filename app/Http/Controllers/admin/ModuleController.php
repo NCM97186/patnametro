@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Session;
 class ModuleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Module.
      */
     public function index(Request $request): View
     {
@@ -38,7 +38,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new Module.
      */
     public function create()
     {
@@ -48,7 +48,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Module in storage.
      */
     public function store(Request $request) {
        
@@ -70,8 +70,13 @@ class ModuleController extends Controller
             //  'icons' => 'required',
                 'txtstatus' => 'required'
             );
+            $valid
+            =array(
+                 'txtstatus.required' =>'Status field is required'
+                
+            );
         
-                $validator = Validator::make($request->all(), $rules);
+                $validator = Validator::make($request->all(), $rules,$valid);
             
             if ($validator->fails()) {
         
@@ -119,7 +124,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Module.
      */
     public function show(string $id)
     {
@@ -130,7 +135,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified Module.
      */
     public function edit(string $id)
     {
@@ -140,7 +145,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified Module in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -155,8 +160,12 @@ class ModuleController extends Controller
           //  'icons' => 'required',
             'txtstatus' => 'required'
         );
-       
-        $validator = Validator::make($request->all(), $rules);
+        $valid
+        =array(
+             'txtstatus.required' =>'Status field is required'
+            
+        );
+        $validator = Validator::make($request->all(), $rules,$valid);
         if ($validator->fails()) {
       
             return  back()->withErrors($validator)->withInput();
@@ -198,7 +207,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified Module from storage.
      */
     public function destroy(Module $module)
     {

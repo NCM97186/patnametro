@@ -43,7 +43,14 @@ class GalleryController extends Controller
             'txtstatus' => 'required',
             'imguplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
         );
-        $validator = Validator::make($request->all(), $rules);
+        $valid
+        =array(
+            'menu_title.required'=>'Title field  is required',
+             'txtstatus.required' =>'Status field is required',
+             'imguplode.required' => 'Image field is required'
+
+        );
+        $validator = Validator::make($request->all(), $rules, $valid);
         if ($validator->fails()) {
       
             return redirect('admin/gallery/create')->withErrors($validator)->withInput();
@@ -145,6 +152,11 @@ class GalleryController extends Controller
             'language' => 'required',
             'txtstatus' => 'required'
         );
+        $valid
+        =array(
+             'menu_title.required'=>'Title field  is required',
+             'txtstatus.required' =>'Status field is required'
+        );
         if(!empty($request->txtuplode)){
             $rules = array(
                 'txtuplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -153,7 +165,7 @@ class GalleryController extends Controller
             $validator = Validator::make($request->all(), $rules);
 
         }else{
-            $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules, $valid);
         }
         
         

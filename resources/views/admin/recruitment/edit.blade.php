@@ -72,11 +72,8 @@
                                         <input type="radio" name="language" autocomplete="off" id="txtlanguage" value="2"  @if((!empty($data->language)?$data->language:old('language'))==2) checked @endif  class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
                                         
                                     </div>
-                                    @error('language')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                                    @if($errors->has('language'))
+							         <p class="text-danger">{{ $errors->first('language') }}</p> @endif
                                 </div>
                             </div>
                         <div class="row">
@@ -132,11 +129,8 @@
                                   
                                     <input type="radio" name="is_new" autocomplete="off" id="is_new" value="1"   @if((!empty($data->is_new)?$data->is_new:old('is_new'))==1) checked @endif />Yes &nbsp;
                                     <input type="radio" name="is_new" autocomplete="off" id="is_new" value="2"   @if((!empty($data->is_new)?$data->is_new:old('is_new'))==2) checked @endif />No
-                                        @error('language')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                                    @if($errors->has('is_new'))
+							         <p class="text-danger">{{ $errors->first('is_new') }}</p> @endif
                                 </div>
                             </div>
                         </div>

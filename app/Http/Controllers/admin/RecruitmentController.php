@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class RecruitmentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Recruitment.
      */
     public function index()
     {
@@ -22,7 +22,7 @@ class RecruitmentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new Recruitment.
      */
     public function create()
     {
@@ -32,7 +32,7 @@ class RecruitmentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Recruitment in storage.
      */
     public function store(Request $request){ 
        $txtuplode1 ='';
@@ -47,6 +47,15 @@ class RecruitmentController extends Controller
            'startdate' => 'required',
            'enddate' => 'required'
        );
+       $valid
+       =array(
+            'menutype.required'=>'Menu type field  is required',
+            'url.required'=>'Page url field  is required',
+            'startdate.required'=>'Start date  field  is required',
+            'enddate.required'=>'End date  field  is required',
+            'txtstatus.required' =>'Pages Status field is required'
+
+       );
        $validator = '';
        if($request->menutype == 1){
            $rules = array(
@@ -55,7 +64,7 @@ class RecruitmentController extends Controller
                'metadescription' => 'required'
            );
             
-           $validator = Validator::make($request->all(), $rules);
+           $validator = Validator::make($request->all(), $rules. $valid);
        }elseif($request->menutype == 2){
           if (!empty($request->txtuplode)){
 
@@ -88,7 +97,7 @@ class RecruitmentController extends Controller
               
            $validator = Validator::make($request->all(), $rules);
        }
-        $validator = Validator::make($request->all(), $rules);
+       $validator = Validator::make($request->all(), $rules, $valid);
        
        if ($validator->fails()) {
         return  back()->withErrors($validator)->withInput();
@@ -136,7 +145,7 @@ class RecruitmentController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Recruitment.
      */
     public function show(string $id)
     {
@@ -144,7 +153,7 @@ class RecruitmentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified Recruitment.
      */
     public function edit(string $id)
     {
@@ -155,7 +164,7 @@ class RecruitmentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified Recruitment in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -171,6 +180,15 @@ class RecruitmentController extends Controller
            'is_new' => 'required',
            'startdate' => 'required',
            'enddate' => 'required'
+       );
+       $valid
+       =array(
+            'menutype.required'=>'Menu type field  is required',
+            'url.required'=>'Page url field  is required',
+            'startdate.required'=>'Start date  field  is required',
+            'enddate.required'=>'End date  field  is required',
+            'txtstatus.required' =>'Pages Status field is required'
+
        );
        $validator = '';
        if($request->menutype == 1){
@@ -217,7 +235,7 @@ class RecruitmentController extends Controller
               
            $validator = Validator::make($request->all(), $rules);
        }
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules ,$valid);
        
        if ($validator->fails()) {
             return  back()->withErrors($validator)->withInput();
@@ -279,7 +297,7 @@ class RecruitmentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified Recruitment from storage.
      */
     public function destroy(Circular $Circular,$id)
     {

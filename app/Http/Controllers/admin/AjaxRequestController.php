@@ -9,7 +9,7 @@ use App;
 class AjaxRequestController extends Controller
 {
    // function for get primary menu on ajax request created by laukesh 
-   // clean_single_input is helpers for remove html tags for input/request
+   // clean_single_input is helpers function for remove html tags for input/request
     function get_primarylink_menu(Request $request)
 	{
         if($request->get_primarylink_menu=='get_primarylink_menu'){
@@ -93,7 +93,7 @@ class AjaxRequestController extends Controller
 								'approve_status'        => clean_single_input($data->approve_status),
 								'usertype'          	=> 'Admin'
 							);
-							
+				// audit_trail is helpers function for insert menu orders  on ajax request  in audit_trail table created by laukesh 			
 				audit_trail($audit_data);
                 echo json_encode($msg);
                 die();

@@ -49,6 +49,16 @@ class TenderController extends Controller
            'startdate' => 'required',
            'enddate' => 'required'
        );
+       $valid
+       =array(
+            'menutype.required'=>'Menu type field  is required',
+            'url.required'=>'Page url field  is required',
+            'startdate.required'=>'Start date  field  is required',
+            'tendertype.required'=>'Tender type  field  is required',
+            'enddate.required'=>'End date  field  is required',
+            'txtstatus.required' =>'Pages Status field is required'
+
+       );
        $validator = '';
        if($request->menutype == 1){
            $rules = array(
@@ -57,7 +67,7 @@ class TenderController extends Controller
                'metadescription' => 'required'
            );
             
-           $validator = Validator::make($request->all(), $rules);
+           $validator = Validator::make($request->all(), $rules,$valid);
        }elseif($request->menutype == 2){
           if (!empty($request->txtuplode)){
 
@@ -90,7 +100,7 @@ class TenderController extends Controller
               
            $validator = Validator::make($request->all(), $rules);
        }
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules,$valid);
        
        if ($validator->fails()) {
         return  back()->withErrors($validator)->withInput();
@@ -176,6 +186,16 @@ class TenderController extends Controller
            'startdate' => 'required',
            'enddate' => 'required'
        );
+       $valid
+       =array(
+            'menutype.required'=>'Menu type field  is required',
+            'url.required'=>'Page url field  is required',
+            'startdate.required'=>'Start date  field  is required',
+            'tendertype.required'=>'Tender type  field  is required',
+            'enddate.required'=>'End date  field  is required',
+            'txtstatus.required' =>'Pages Status field is required'
+
+       );
        $validator = '';
        if($request->menutype == 1){
            $rules = array(
@@ -184,7 +204,7 @@ class TenderController extends Controller
                'metadescription' => 'required'
            );
             
-           $validator = Validator::make($request->all(), $rules);
+           $validator = Validator::make($request->all(), $rules, $valid);
        }elseif($request->menutype == 2){
 
            if (!empty($request->txtuplode)){
@@ -221,7 +241,7 @@ class TenderController extends Controller
               
            $validator = Validator::make($request->all(), $rules);
        }
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules, $valid);
        
        if ($validator->fails()) {
             return  back()->withErrors($validator)->withInput();

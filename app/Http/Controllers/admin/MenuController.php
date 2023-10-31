@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 class MenuController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Menu.
      */
     public function index(Request $request): View
     {
@@ -42,7 +42,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new Menu.
      */
     public function create()
     {
@@ -52,7 +52,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Menu in storage.
      */
     public function store(Request $request): mixed {
         if(isset($request->search)){
@@ -75,6 +75,14 @@ class MenuController extends Controller
             'txtstatus' => 'required',
             'welcomedescription' => 'required|max:120'
         );
+        $valid
+        =array(
+             'menutype.required'=>'Menu type field  is required',
+             'txtpostion.required'=>'Content postion  field  is required',
+             'welcomedescription.required'=>'Welcome description  field  is required',
+             'txtstatus.required' =>'Pages Status field is required'
+
+        );
         $validator = '';
         if($request->menutype == 1){
             $rules = array(
@@ -83,7 +91,7 @@ class MenuController extends Controller
                 'metadescription' => 'required|max:250'
             );
              
-            $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules,$valid);
 		}elseif($request->menutype == 2){
 			if (!empty($request->txtuplode)){
 
@@ -116,7 +124,7 @@ class MenuController extends Controller
 			   
             $validator = Validator::make($request->all(), $rules);
         }
-            $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules,$valid);
         
         if ($validator->fails()) {
       
@@ -168,7 +176,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Menu.
      */
     public function show(string $id)
     {
@@ -180,7 +188,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified Menu.
      */
     public function edit(string $id)
     {
@@ -191,7 +199,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified Menu in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -205,6 +213,14 @@ class MenuController extends Controller
             'txtpostion' => 'required',
             'txtstatus' => 'required',
             'welcomedescription' => 'required|max:120'
+        );
+        $valid
+        =array(
+             'menutype.required'=>'Menu type field  is required',
+             'txtpostion.required'=>'Content postion  field  is required',
+             'welcomedescription.required'=>'Welcome description  field  is required',
+             'txtstatus.required' =>'Pages Status field is required'
+
         );
         $validator = '';
         if($request->menutype == 1){
@@ -249,7 +265,7 @@ class MenuController extends Controller
 			   
             $validator = Validator::make($request->all(), $rules);
         }
-            $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules, $valid);
         
         if ($validator->fails()) {
       
@@ -319,7 +335,7 @@ class MenuController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified Menu from storage.
      */
     public function destroy(Menu $menu)
     {

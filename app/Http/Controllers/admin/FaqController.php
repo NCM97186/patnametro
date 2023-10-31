@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 class FaqController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Faq.
      */
     public function index()
     {
@@ -39,7 +39,7 @@ class FaqController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new Faq.
      */
     public function create()
     {
@@ -48,7 +48,7 @@ class FaqController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Faq in storage.
      */
     public function store(Request $request)
     {
@@ -63,20 +63,23 @@ class FaqController extends Controller
            }
         if(isset($request->cmdsubmit)){ 
             $request->validate([
-           // 'title' => 'required|alpha|max:255',
+            'title' => 'required|max:255',
             'url' => 'required|max:255',
             'language'=>'required',
             'description'=>'required',
             'txtstatus'=>'required',
 
-            ]);
+            ],
+            ['txtstatus.required'=>'Status field is required']
+        
+        );
           $user_login_id=Auth()->user()->id;
           $Faq = array(
            'title' => clean_single_input($request['title']),
            'url' => clean_single_input($request['url']),
            'page_url' => clean_single_input($request['url']),
            'language' => clean_single_input($request['language']),
-           'description' => clean_single_input($request['description']),
+           'description' => $request['description'] ,
            'txtstatus' => clean_single_input($request['txtstatus']),
            'admin_id'=> $user_login_id,
           );
@@ -106,7 +109,7 @@ class FaqController extends Controller
     
 
     /**
-     * Display the specified resource.
+     * Display the specified Faq.
      */
     public function show(string $id)
     {
@@ -114,7 +117,7 @@ class FaqController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified Faq.
      */
     public function edit($id)
     {
@@ -125,26 +128,27 @@ class FaqController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in Faq.
      */
     public function update(Request $request,$id)
     {
             $id=clean_single_input($id);
             $request->validate([
-            'title' => 'required |alpha|max:255',
+            'title' => 'required|max:255',
             'url' => 'required|max:255',
             'language'=>'required',
             'description'=>'required',
             'txtstatus'=>'required',
 
-            ]);
+            ],
+            ['txtstatus.required'=>'status field is required']);
             $user_login_id=Auth()->user()->id;
             $faqs = Faq::find($id);
             $faqs['title'] = clean_single_input($request['title']);
             $faqs['url'] = clean_single_input($request['url']);
             $faqs['page_url'] = clean_single_input($request['url']);
             $faqs['language'] = clean_single_input($request['language']);
-            $faqs['description'] = clean_single_input($request['description']);
+            $faqs['description'] = $request['description'] ; //clean_single_input($request['description']);
             $faqs['txtstatus'] = clean_single_input($request['txtstatus']);
             $faqs['admin_id']=   $user_login_id;
             $faqs->save();
@@ -168,7 +172,7 @@ class FaqController extends Controller
 }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from Faq.
      */
     public function destroy(faq $faq)
     {
