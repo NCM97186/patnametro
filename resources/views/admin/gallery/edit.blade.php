@@ -76,7 +76,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="file" name="txtuplode" class="input_class  @error('txtuplode') is-invalid @enderror  inline-block" id="txtuplode" />
+                                    <input type="file" name="txtuplode[]" class="input_class  @error('txtuplode') is-invalid @enderror  inline-block" id="txtuplode" />
 									@error('txtuplode')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -99,9 +99,10 @@
                                 $imagelist = explode(",",$data->txtuplode);
                                 ?>
                                 	<?php $rm = 0; foreach($imagelist as $img){ $rm++; ?>
-	                                <img id="thumbImg-<?php echo $rm; ?>" height="100px" width="100px"  class="img-thumbnail" src="{{ URL::asset('public/upload/admin/cmsfiles/photos/thumbnail/')}}/<?php echo $img ; ?>"> 
+                                        <input type="hidden" name="txtuplodedimg[]" id="valImg-<?php echo $img; ?>" value="<?php echo $img; ?>">
+	                                <img id="thumbImg-<?php echo $img; ?>" height="100px" width="100px"  class="img-thumbnail" src="{{ URL::asset('public/upload/admin/cmsfiles/photos/thumbnail/')}}/<?php echo $img ; ?>"> 
 									
-												<p><button type="button" class="btn btn-danger"  onclick="removeImg('<?php echo $img ; ?>, <?php echo $data->id; ?>')">X</button></p>
+									<p><button id="remBTN-<?php echo $img; ?>" type="button" class="btn btn-danger"  onclick="removeImg('<?php echo $img ; ?>, <?php echo $data->id; ?>')">X</button></p>
 										
                                 <?php } ?>
                                 
@@ -164,22 +165,28 @@ function remove_file(ele)
 }
 
 function removeImg(img, id){
+         $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     var linkurl = "{{ url('/admin/delete_images')}}";
+    var imgname=img;
+    
 	$('span.img-removed').remove();
 	$.ajax({
 		'url' : linkurl,
 		'type' : 'POST',
-		'data' : { 'rowid' : countid},
+		'data' : { 'rowid' : imgname},
 		'success' : function(data){
 			var obj = JSON.parse(data);
-			if(obj.response == 1){
-				$('#thumbImg-'+rowid).remove();
-				$('#remBTN-'+rowid).remove();
-				$('#valImg-'+rowid).after('<span class="img-removed" style="color:green;">Image successfully removed.</span>');
-				$('#valImg-'+rowid).remove();
-				$('#valImgID-'+rowid).remove();
+			if(obj){
+                var imagename = img.split(",")[0];
+				$('#thumbImg-'+imagename).remove();
+				$('#remBTN-'+imagename).remove();
+				$('#valImg-'+imagename).after('<span class="img-removed" style="color:green;">Image successfully removed.</span>');
 			}else{
-				$('#valImg-'+rowid).after('<span class="img-removed" style="color:red;">Image not removed. Please try again.</span>');
+				$('#valImg-'+imagename).after('<span class="img-removed" style="color:red;">Image not removed. Please try again.</span>');
 			}
 		}
 		

@@ -65,9 +65,7 @@ class GalleryController extends Controller
             }
             if(!empty($request->imguplode))
             {
-                // print_r($request->imguplode);
-                // die();
-                // $images = array();
+               
               for ($i=0; $i < count($request->imguplode); $i++) 
                { 
                     $imguplode = str_replace(' ','_',clean_single_input($request->menu_title)).'_gallery_'.$i.'.'.$request->imguplode[$i]->extension(); 
@@ -169,7 +167,7 @@ class GalleryController extends Controller
         );
         if(!empty($request->txtuplode)){
             $rules = array(
-                'txtuplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'txtuplode' => 'required'
                 
             );
             $validator = Validator::make($request->all(), $rules);
@@ -190,39 +188,48 @@ class GalleryController extends Controller
             if (!is_dir('public/upload/admin/cmsfiles/photos/thumbnail/')) {
                 mkdir('public/upload/admin/cmsfiles/photos/thumbnail/', 0777, TRUE);
             }
+            $images= [];
             if(!empty($request->txtuplode)){
-
-                $imguplode = str_replace(' ','_',clean_single_input($request->menu_title)).'_gallery'.'.'.$request->txtuplode->extension();  
-                $image = $request->file('txtuplode');
-                $destinationPathThumbnail = public_path('upload/admin/cmsfiles/photos/thumbnail');
-                $img = Image::make($image->path());
-                $img->resize(1350, 380, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($destinationPathThumbnail.'/'.$imguplode);
-             
-                $destinationPath = public_path('upload/admin/cmsfiles/photos/');
-                $image->move($destinationPath, $imguplode);
-
-                $imguplode1 ='upload/admin/cmsfiles/photos/'.$imguplode; //die();
-				
-                if (file_exists($imguplode1)) {
-                    unlink($imguplode1);
-                }
-                $thumbnail1 ='upload/admin/cmsfiles/photos/'.$imguplode; //die();
-				
-                if (file_exists($thumbnail1)) {
-                    unlink($thumbnail1);
-                }
-           
-            }else{
-                $oldimg=$request->oldimg;
+                $time= date('Ymdhis');
+                for ($i=0; $i < count($request->imguplode); $i++) 
+                { 
+                     $imguplode = str_replace(' ','_',clean_single_input($request->menu_title)).'_gallery_'.$time.'_'.$i.'.'.$request->imguplode[$i]->extension(); 
+                     // echo "<pre>"; 
+                     // echo $imguplode;
+                     // echo "<br>";
+                     $images[] = $imguplode;
+                     $image = $request->file('imguplode')[$i];
+                     $destinationPathThumbnail = public_path('upload/admin/cmsfiles/photos/thumbnail');
+                     $img = Image::make($image->path());
+                     $img->resize(1350, 380, function ($constraint) {
+                         $constraint->aspectRatio();
+                     })->save($destinationPathThumbnail.'/'.$imguplode);
+                 
+                     $destinationPath = public_path('upload/admin/cmsfiles/photos/');
+                     $image->move($destinationPath, $imguplode);
+ 
+                     $imguplode1 ='upload/admin/cmsfiles//photos/'.$imguplode; //die();
+                     
+                     if (file_exists($imguplode1)) {
+                         unlink($imguplode);
+                     }
+                     $thumbnail1 ='upload/admin/cmsfiles//photos/'.$destinationPathThumbnail; //die();
+                     
+                     if (file_exists($thumbnail1)) {
+                         unlink($destinationPathThumbnail);
+                     }
+                 }
             }
-           
+            $data = Photogallery::where('id', $id)->select('txtuplode')->first();
+            $olddata= explode(",",$data->txtuplode);
+
+            $inputimage= array_merge($olddata,$images);
+           // dd($inputimage);die();
             $user_login_id=Auth()->user()->id;
             $dataArr = array(); 
             $pArray['title']    					= clean_single_input($request->menu_title); 
             $pArray['language']    					= clean_single_input($request->language); 
-			$pArray['txtuplode']  				    = !empty($imguplode)?$imguplode:$oldimg;
+			$pArray['txtuplode']  				    = implode(',', $inputimage);
 			$pArray['admin_id']  					= $user_login_id;
 			$pArray['txtstatus']  			        = clean_single_input($request->txtstatus);
            // dd($pArray);
@@ -251,17 +258,17 @@ class GalleryController extends Controller
      */
     public function destroy(Photogallery $photogallery,$id)
     {
-		$photogallerys = photogallery::find($id);
-        $photogallerys= $photogallerys->delete();
-       
-        if($delete > 0){
+		$photogallery = photogallery::find($id);
+        $photogallerys= $photogallery->delete();
+     
+        if($photogallerys > 0){
             $user_login_id=Auth()->user()->id;
             $audit_data = array('user_login_id'     =>  $user_login_id,
-                            'page_id'           	=>  $photogallerys->id,
-                            'page_name'             =>  clean_single_input($photogallerys->title),
+                            'page_id'           	=>  $id,
+                            'page_name'             =>  clean_single_input($photogallery->title),
                             'page_action'           =>  'delete',
                             'page_category'         =>  '',
-                            'lang'                  =>  clean_single_input($photogallerys->language),
+                            'lang'                  =>  clean_single_input($photogallery->language),
                             'page_title'        	=> 'photogallerys Model',
                             'approve_status'        => 1,
                             'usertype'          	=> 'Admin'

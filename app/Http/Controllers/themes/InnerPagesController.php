@@ -47,18 +47,12 @@ class InnerPagesController extends Controller
                // $title="Site Map";
                 $data="Data";
                 $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'th1';
-                $m_url='';
-                $m_flag_id='';
-                $id='';
                 return response()->view("themes/{$themes}/siteMaps", compact( 'data','title','id','m_flag_id','m_url'));
             }
             if($slug=='photo-gallery'){
                // $title="Photo Gallery";
                 $data=Photogallery::paginate(10);
                 $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'th1';
-                $m_url='';
-                $m_flag_id='';
-                $id='';
                 return response()->view("themes/{$themes}/innerpagesPhoto", compact( 'data','title','id','m_flag_id','m_url'));
             }
             if($slug=='faqs'){
@@ -66,11 +60,8 @@ class InnerPagesController extends Controller
                  $datas= Faq::where('language', $langid)->where('txtstatus',3)->orderby('updated_at','DESC')->select('id','title','url','admin_id', 'page_url','category','language','description','txtstatus')->paginate(100);
           
                  $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'th1';
-                 $m_url='';
-                 $m_flag_id='';
-                 $id='';
-                 
-                 return response()->view("themes/{$themes}/faqspages", compact( 'datas','title','id','m_flag_id','m_url'));
+               
+                return response()->view("themes/{$themes}/faqspages", compact( 'datas','title','id','m_flag_id','m_url'));
              }
             $themes=!empty(get_setting($langid)->themes)?get_setting($langid)->themes:'th1';
             if($slug=='tender' || $slug=='published-tenders' || $slug=='property-development-business'|| $slug=='gcc-other-guidelines'){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\Menu;
+use App\Models\admin\Photogallery;
 use App;
 class AjaxRequestController extends Controller
 {
@@ -104,6 +105,37 @@ class AjaxRequestController extends Controller
     }
     Public function delete_images(Request $request)
     {
+        $data=explode(',',$request->rowid);
+         $imgname=$data[0];
+         $geid=$data[1];
+         $data = Photogallery::where('id', $geid)->select('txtuplode')->first();
+         $olddata= explode(",",$data->txtuplode);
+         if (($key = array_search($imgname, $olddata)) !== false) {
+            unset($olddata[$key]);
+        }
+         $inputdata= implode(",",$olddata);
+         $pArray['txtuplode']  	= !empty($inputdata)?$inputdata:'';
+         $res= Photogallery::where('id', $geid)->update($pArray);
 
+         $imguplode1 ='upload/admin/cmsfiles//photos/'.$imgname; //die();
+               echo   $imguplode1;
+               echo "<br>";    
+                     if (file_exists($imguplode1)) {
+                         unlink($imgname);
+                     }
+                     $thumbnail1 ='upload/admin/cmsfiles//thumbnail/'.$imgname; //die();
+                     echo $thumbnail1;
+                     die();
+                     if (file_exists($thumbnail1)) {
+                         unlink($imgname);
+                     }
+         if(!empty($res)){
+            $newdata = Photogallery::where('id', $geid)->select('txtuplode')->first();
+            echo json_encode( $newdata);
+         }else{
+            $error="Some error";
+         }
+        
+       die();
     }
 }
