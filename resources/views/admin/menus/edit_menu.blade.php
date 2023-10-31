@@ -111,11 +111,9 @@
                                 <div class="input_class form-group">
                                     <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if((!empty($data->language_id)?$data->language_id:old('language'))==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
                                     <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if((!empty($data->language_id)?$data->language_id:old('language'))==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
-                                    @error('language')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @if($errors->has('language'))
+                                    <p class="text-danger">{{ $errors->first('language') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>

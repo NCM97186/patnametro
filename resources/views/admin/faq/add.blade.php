@@ -37,15 +37,13 @@
                             <div class="input_class form-group">
                                 <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if(old('language')==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
                                 <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if(old('language')==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
-                                @error('language')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                                @if($errors->has('language'))
+                                <p class="text-danger">{{ $errors->first('language') }}</p>
+                                @endif
                             </div>
                         </div>
                     </div>
-                        <div class="row">
+                    <div class="row">
                                     <div class="col-lg-3 col-md-3 col-xm-3">
                                         <div class="form-group">
                                             <label>Title:</label>
@@ -56,11 +54,11 @@
                                         <div class="form-group">
                                             <input name="title" autocomplete="off" onkeypress="return onlyAlphabets(event,this);" type="text" class="input_class form-control" id="user_name" value="{{old('title')}}"/>
                                             @if($errors->has('title'))
-                  <span class="text-danger">{{ $errors->first('title') }}</span>
-                @endif
+                            <span class="text-danger">{{ $errors->first('title') }}</span>
+                            @endif
 
                                               </div>
-                                               
+
                                     </div>
                                 </div>
                                 <div class="row">

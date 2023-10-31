@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 class OfficerMessageController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Officer Messages.
      */
     public function index()
     {
@@ -26,7 +26,7 @@ class OfficerMessageController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new Officer Messages.
      */
     public function create()
     {
@@ -35,7 +35,7 @@ class OfficerMessageController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Officer Messages in storage.
      */
     public function store(Request $request)
     {
@@ -48,7 +48,14 @@ class OfficerMessageController extends Controller
             'txtstatus' => 'required',
             'txtuplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
         );
-         $validator = Validator::make($request->all(), $rules);
+        $valid
+        =array(
+             'txtuplode.required'=>'Image upload field  is required',
+             'contents.required'=>'Message field  is required',
+             'txtstatus.required' =>'Status field is required'
+            
+        );
+         $validator = Validator::make($request->all(), $rules,$valid);
         if ($validator->fails()) {
       
             return redirect('admin/officers/create')->withErrors($validator)->withInput();
@@ -122,7 +129,7 @@ class OfficerMessageController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Officer Messages.
      */
     public function show(string $id)
     {
@@ -155,6 +162,13 @@ class OfficerMessageController extends Controller
             'language' => 'required',
             'txtstatus' => 'required'
         );
+        $valid
+        =array(
+           
+             'contents.required'=>'Message field  is required',
+             'txtstatus.required' =>'Status field is required'
+            
+        );
         if(!empty($request->txtuplode)){
             $rules = array(
                 'txtuplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
@@ -163,7 +177,7 @@ class OfficerMessageController extends Controller
             $validator = Validator::make($request->all(), $rules);
 
         }else{
-            $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules ,$valid);
         }
         
         
@@ -238,7 +252,7 @@ class OfficerMessageController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified Officer Messages from storage.
      */
     public function destroy(Officer $officer)
     {
@@ -256,7 +270,7 @@ class OfficerMessageController extends Controller
                             'approve_status'        => 1,
                             'usertype'          	=> 'Admin'
                         );
-                        
+             //            
             audit_trail($audit_data);
             return redirect('admin/officers')->with('success','Officer deleted successfully');
         }

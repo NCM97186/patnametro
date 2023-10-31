@@ -4,7 +4,8 @@
     $pos=[1,4,2];
     $langid=session()->get('locale')??1;
     $id1=!empty($m_flag_id)?$m_flag_id:$id;
-    $res= get_menu($langid,$pos,$id1) ; $i=1;  
+    $res= get_menu($langid,$pos,$id1);
+    $i=1;  
 @endphp   
 <ul class="list-unstyled ps-0">
     

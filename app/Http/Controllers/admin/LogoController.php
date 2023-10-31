@@ -12,7 +12,7 @@ use Image;
 class LogoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Logo.
      */
     public function index()
     {
@@ -25,7 +25,7 @@ class LogoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new the Logo.
      */
     public function create()
     {
@@ -34,7 +34,7 @@ class LogoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created the Logo in storage.
      */
     public function store(Request $request)
     {
@@ -45,7 +45,14 @@ class LogoController extends Controller
             'txtstatus' => 'required',
             'txtuplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
         );
-         $validator = Validator::make($request->all(), $rules);
+        $valid
+        =array(
+            'menu_title.required'=>'Logo title field  is required',
+             'txtstatus.required' =>'Status field is required',
+             'txtuplode.required' => 'Logo upload field is required'
+
+        );
+         $validator = Validator::make($request->all(), $rules,$valid);
         if ($validator->fails()) {
       
             return redirect('admin/logo/create')->withErrors($validator)->withInput();
@@ -116,7 +123,7 @@ class LogoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified the Logo.
      */
     public function show(string $id)
     {
@@ -124,7 +131,7 @@ class LogoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified Officer Messages.
      */
     public function edit(string $id)
     {
@@ -135,7 +142,7 @@ class LogoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified the Logo in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -147,6 +154,12 @@ class LogoController extends Controller
             'logo_url' => 'required',
             'txtstatus' => 'required'
         );
+        $valid
+        =array(
+            'menu_title.required'=>'Logo title field  is required',
+             'txtstatus.required' =>'Status field is required'
+            
+        );
         if(!empty($request->txtuplode)){
             $rules = array(
                 'txtuplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
@@ -155,7 +168,7 @@ class LogoController extends Controller
             $validator = Validator::make($request->all(), $rules);
 
         }else{
-            $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules, $valid);
         }
         
         
@@ -227,7 +240,7 @@ class LogoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified the Logo from storage.
      */
     public function destroy(Logo $logo)
     {

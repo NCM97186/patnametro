@@ -38,11 +38,9 @@
                                 <div class="input_class form-group">
                                     <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if((!empty($data->language)?$data->language:old('language'))==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
                                     <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if((!empty($data->language)?$data->language:old('language'))==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
-                                    @error('language')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    @if($errors->has('language'))
+                                    <p class="text-danger">{{ $errors->first('language') }}</p>
+                                    @endif
                                 </div>
 						</div>
 					</div>
@@ -78,8 +76,8 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="file" name="txtuplode[]" class="input_class  @error('txtuplode[]') is-invalid @enderror  inline-block" id="txtuplode" />
-									@error('txtuplode[]')
+                                    <input type="file" name="txtuplode" class="input_class  @error('txtuplode') is-invalid @enderror  inline-block" id="txtuplode" />
+									@error('txtuplode')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -128,11 +126,9 @@
                                             <option value="<?php echo $key; ?>" <?php if((!empty($data->txtstatus)?$data->txtstatus:old('txtstatus'))==$key) echo "selected"; ?>><?php echo $value; ?></option>
                                         <?php  }?>
                                 </select>
-                                    @error('txtstatus')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                   @if($errors->has('txtstatus'))
+                                    <p class="text-danger">{{ $errors->first('txtstatus') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>

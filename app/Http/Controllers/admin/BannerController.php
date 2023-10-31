@@ -15,7 +15,7 @@ class BannerController extends Controller
 {
    
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Banner list 30-10-23 by pushpendra.
      */
   
     public function index()
@@ -45,7 +45,7 @@ class BannerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new Banner.
      */
     public function create()
     {
@@ -54,7 +54,7 @@ class BannerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created banner in storage.
      */
     public function store(Request $request)
     {
@@ -75,7 +75,15 @@ class BannerController extends Controller
             'txtstatus' => 'required',
             'txtuplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
         );
-         $validator = Validator::make($request->all(), $rules);
+        $valid
+        =array(
+            'menu_title.required'=>'Menu title field  is required',
+            //'banner_link.required'=>'Image upload field is required',
+            'txtuplode.required'=>'Image upload field is required',
+            'txtstatus.required' =>'status field is required'
+
+        );
+         $validator = Validator::make($request->all(), $rules, $valid);
         if ($validator->fails()) {
       
             return redirect('admin/banner/create')->withErrors($validator)->withInput();
@@ -148,7 +156,7 @@ class BannerController extends Controller
    }
 
     /**
-     * Display the specified resource.
+     * Display the specified banner.
      */
     public function show(string $id)
     {
@@ -156,7 +164,7 @@ class BannerController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified banner.
      */
     public function edit(string $id)
     {
@@ -167,7 +175,7 @@ class BannerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified banner in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -179,6 +187,12 @@ class BannerController extends Controller
             'language' => 'required',
             'txtstatus' => 'required'
         );
+        $valid
+        =array(
+            'menu_title.required'=>'Menu title field  is required',
+             'txtstatus.required' =>'status field is required'
+
+        );
         if(!empty($request->txtuplode)){
             $rules = array(
                 'txtuplode' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
@@ -187,7 +201,7 @@ class BannerController extends Controller
             $validator = Validator::make($request->all(), $rules);
 
         }else{
-            $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $rules, $valid);
         }
         
         
@@ -260,7 +274,7 @@ class BannerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified banner from storage.
      */
     public function destroy(Banner $banner)
     {

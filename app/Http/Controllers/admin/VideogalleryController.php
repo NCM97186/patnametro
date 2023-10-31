@@ -40,9 +40,14 @@ class VideogalleryController extends Controller
             'language' => 'required',
             'txtstatus' => 'required',
              'txtuplode' => 'required',
-       ]);
+       ],[
+        'title.required'=>' Video title field is required',
+        'txtuplode.required'=>'This video link required',
+        'txtstatus.required'=>'Status field is required'
+        ]
+    );
           $user_login_id=Auth()->user()->id;
-         $videogallerys=array(
+           $videogallerys=array(
 
             'title' => clean_single_input($request['title']),
            'language' => clean_single_input($request['language']),
@@ -90,7 +95,11 @@ class VideogalleryController extends Controller
                 'txtstatus'=>'required',
                 'txtuplode'=>'required',
             
-             ]);
+             ],[
+              'title.required'=>' Video title field is required',
+              'txtuplode.required'=>'This video link required',
+              'txtstatus.required'=>'Status field is required'
+              ]);
             $user_login_id=Auth()->user()->id;
             $videogallery = videogallerys::find($id);
             $videogallery['title'] = clean_single_input($request['title']);

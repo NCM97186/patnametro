@@ -111,8 +111,8 @@
                                     <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="1"  @if(old('language')==1) checked @endif class="@error('language') is-invalid @enderror" />English &nbsp;
                                     <input type="radio" name="language" autocomplete="off" id="txtlanguage" onclick="getPage(this.value);" value="2"  @if(old('language')==2) checked @endif class="@error('language') is-invalid @enderror"  />Hindi &nbsp;
                                     @if($errors->has('language'))
-                                <span class="text-danger">{{ $errors->first('language') }}</span>
-                                @endif
+                                    <p class="text-danger">{{ $errors->first('language') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
