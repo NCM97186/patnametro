@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\admin\WebsiteSetting;
 use App\Models\admin\Module;
 use App\Models\admin\Title;
+use App\Models\admin\Configuration;
 use App\Models\Admin_role;
 use Illuminate\Support\Str;
 
@@ -1105,4 +1106,17 @@ if ( ! function_exists('get_title'))
 		
 
 	}
+}
+if ( ! function_exists('get_mailsms_details'))
+{
+	function get_mailsms_details($langid,$cof_type)
+	{
+		$data = Configuration:: where('cof_type', $cof_type)->where('language', $langid)->where('status', '1')->select('language','sms_url','sender_name','sender_mail','cof_type','password','port','contact_msg','reset_pass_msg','reg_msg','feedback_msg')->first();
+		if($data)
+		{
+		return $data;
+		}
+	}
+
+
 }

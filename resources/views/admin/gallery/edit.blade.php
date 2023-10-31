@@ -78,20 +78,38 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="file" name="txtuplode" class="input_class  @error('txtuplode') is-invalid @enderror  inline-block" id="txtuplode" />
-									@error('txtuplode')
+                                    <input type="file" name="txtuplode[]" class="input_class  @error('txtuplode[]') is-invalid @enderror  inline-block" id="txtuplode" />
+									@error('txtuplode[]')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
 								</div>
-                                @if(!empty($data->txtuplode))
-                                <img style="margin-bottom: 5%;" class="w-50 img-responsive" alt="image" id="logoimg" src="{{ URL::asset('public/upload/admin/cmsfiles/photos/thumbnail/')}}/{{$data->txtuplode}}" class="rounded-circle mr-1" />
-                              
-                                @endif
-                                <input type="hidden" name="oldimg" value="{{ !empty($data->txtuplode)?$data->txtuplode:''}}" >
+
+                                <div class="form-group">
+                                <span class="btn btn-success" value="Add More" onclick="add_file();">Add More</span>
                             </div>
-                        </div>
+                            </div>
+                            
+                            <div class="col-12 col-md-6 col-lg-12">
+                            <div class="form-group">
+                            <p id="file_div"></p>
+                            </div>
+                            </div>
+                          
+                                <?php 
+                                $imagelist = explode(",",$data->txtuplode);
+                                ?>
+                                	<?php $rm = 0; foreach($imagelist as $img){ $rm++; ?>
+	                                <img id="thumbImg-<?php echo $rm; ?>" height="100px" width="100px"  class="img-thumbnail" src="{{ URL::asset('public/upload/admin/cmsfiles/photos/thumbnail/')}}/<?php echo $img ; ?>"> 
+									
+												<p><button type="button" class="btn btn-danger"  onclick="removeImg('<?php echo $img ; ?>, <?php echo $data->id; ?>')">X</button></p>
+										
+                                <?php } ?>
+                                
+                            </div>
+                           
+                        </div><br>
 						<div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
@@ -139,3 +157,38 @@
 </div>
 
 @endsection
+<script>
+function add_file()
+{
+	$("#file_div").append("<div><input type='file' name='imguplode[]'><input type='button' class='btn btn-danger' value='REMOVE' onclick=remove_file(this);><div>&nbsp;");
+}
+function remove_file(ele)
+{
+	$(ele).parent().remove();
+}
+
+function removeImg(img, id){
+    var linkurl = "{{ url('/admin/delete_images')}}";
+	$('span.img-removed').remove();
+	$.ajax({
+		'url' : linkurl,
+		'type' : 'POST',
+		'data' : { 'rowid' : countid},
+		'success' : function(data){
+			var obj = JSON.parse(data);
+			if(obj.response == 1){
+				$('#thumbImg-'+rowid).remove();
+				$('#remBTN-'+rowid).remove();
+				$('#valImg-'+rowid).after('<span class="img-removed" style="color:green;">Image successfully removed.</span>');
+				$('#valImg-'+rowid).remove();
+				$('#valImgID-'+rowid).remove();
+			}else{
+				$('#valImg-'+rowid).after('<span class="img-removed" style="color:red;">Image not removed. Please try again.</span>');
+			}
+		}
+		
+	});
+	
+}
+</script>
+</script>

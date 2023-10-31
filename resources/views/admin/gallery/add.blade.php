@@ -77,7 +77,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="file" name="imguplode" class="input_class  @error('imguplode') is-invalid @enderror  inline-block" id="imguplode" />
+                                    <input type="file" name="imguplode[]" class="input_class  @error('imguplode') is-invalid @enderror  inline-block" id="imguplode" />
 									@error('imguplode')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -85,7 +85,18 @@
                                     @enderror
 								</div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <span class="btn btn-success" value="Add More" onclick="add_file();">Add More</span>
+                            </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-12 col-md-6 col-lg-12">
+                            <div class="form-group">
+                            <p id="file_div"></p>
+                            </div>
+                            </div>
+                            </div>
+                        
 						<div class="row">
                             <div class="col-12 col-md-3 col-lg-3">
                                 <div class="form-group">
@@ -132,3 +143,13 @@
     </div>
 </div>
 @endsection
+<script>
+function add_file()
+{
+	$("#file_div").append("<div><input type='file' name='imguplode[]'><input type='button' class='btn btn-danger' value='REMOVE' onclick=remove_file(this);><div>&nbsp;");
+}
+function remove_file(ele)
+{
+	$(ele).parent().remove();
+}
+</script>

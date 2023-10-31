@@ -53,9 +53,9 @@ class HomeController extends Controller
         $rules = array(
             'name' => 'required',
             'email' =>  'required',
-           'phone' => 'required',
-           'comments' => 'required',
-           'CaptchaCode'=>'required'
+            'phone' => 'required',
+            'comments' => 'required',
+            'CaptchaCode'=>'required'
        );
        $validator = Validator::make($request->all(), $rules);
       
@@ -73,8 +73,23 @@ class HomeController extends Controller
            $pArray['comments']    			= clean_single_input($request->comments);
            $create 	= Feedback::create($pArray);
            if($create){
-           // $mail = Feedback::create();
+           $langid=session()->get('locale')??1;
+           $cof_type = "EMAIL";
+           $mail = get_mailsms_details($langid,$cof_type);
+           if($mail){
+           $sender_mail = $mail['sender_mail'];
+           $password = $mail['password'];
+           $port = $mail['port'];
+           $msg = $mail['feedback_msg'];
+
+           $to      = $request->email;
+           $subject = !empty(get_setting($langid)->website_name);
+           $headers = 'From: "$sender_mail"' . "\r\n" .
+                'Reply-To: "$to"' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+            mail($to, $subject, $msg, $headers);
            }
+        }
 
 
            return redirect('feedback')->with('success','Feedback has successfully Submitted');

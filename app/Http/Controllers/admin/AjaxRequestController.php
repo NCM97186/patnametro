@@ -102,5 +102,8 @@ class AjaxRequestController extends Controller
         }
         
     }
-    
+    Public function delete_images(Request $request)
+    {
+
+    }
 }

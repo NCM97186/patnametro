@@ -97,6 +97,7 @@ Route::group(['middleware' => ['auth','modulesAccess']], function () {
         Route::resource('/admin/module', module::class);
         Route::any('/admin/get_primarylink_menu', [AjaxRequestController::class,'get_primarylink_menu'])->name('/admin/get_primarylink_menu');
         Route::any('/admin/get_filter', [AjaxRequestController::class,'get_filter'])->name('/admin/get_filter');
+        Route::any('/admin/delete_images', [AjaxRequestController::class,'delete_images'])->name('/admin/delete_images');
         Route::any('/admin/get_primarylink_module', [AjaxRequestController::class,'get_primarylink_module'])->name('/admin/get_primarylink_module');
         Route::any('/admin/update_menu_orders', [AjaxRequestController::class,'update_menu_orders'])->name('/admin/update_menu_orders');
         Route::resource('/admin/faq', FaqController::class);
