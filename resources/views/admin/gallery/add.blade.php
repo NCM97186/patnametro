@@ -139,6 +139,10 @@
     </div>
 </div>
 @endsection
+ <!-- Name: Kesh Kumar
+      Date: 31-10-23
+      Reason: This Javascript used for the dynamically add input.
+      -->
 <script>
 function add_file()
 {

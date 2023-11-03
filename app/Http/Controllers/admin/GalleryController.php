@@ -34,6 +34,11 @@ class GalleryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+    // Name: Kesh Kumar
+    // Date: 31-10-23
+    // Reason: This Function is used to stored the data in the database and also multiple images stored in the folder and db.
+     
     public function store(Request $request)
     {
         $imguplode ='';
@@ -150,6 +155,12 @@ class GalleryController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+
+    // Name: Kesh Kumar
+    // Date: 31-10-23
+    // Reason: This Function is used to update the data in the database and also multiple images update in the folder and db.
+     
     public function update(Request $request, string $id)
     {
         $validator = '';

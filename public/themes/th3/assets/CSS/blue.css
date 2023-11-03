@@ -78,6 +78,9 @@ p{
 .dropdown-content img{
     width: 30px;
 }
+.header_logo{
+    display: flex;
+}
 
 /* Add your mobile styles here */
 @media (max-width: 768px) {
@@ -852,13 +855,27 @@ letter-spacing: 0.5px;
     color: #FFF;
 text-align: justify;
 font-family: Poppins;
-font-size: 15px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
 letter-spacing: 1.95px;
 width: 590px;
 }
+
+/* 
+Name: Vasudev 
+Date: 02-11-23
+Reason: the MD section area to fix the message text.
+*/
+
+@media (max-width:1380px)
+{ 
+  .the_message p{     
+    line-height:18px; 
+    letter-spacing:1.1px;
+    }
+}
+
 
 .MD .read_more {
     position: relative;
@@ -1436,13 +1453,21 @@ footer .footer_upper a:hover{
     opacity: 0; /* Start with 0 opacity */
     transition: opacity 0.5s ease; /* Fade in/out transition */
     overflow-y:hidden;
-}
+} 
 
+/* 
+Name: Vasudev 
+Date: 02-11-23
+Reason: double scroll when photo open in model.
+*/
+.modal.show{
+    overflow-y:hidden ;
+}
 .modal-content {
     max-width: 80%;
     max-height: 80%;
     display: block;
-    margin: 70px auto;
+    margin: 55px auto;
     transition: transform 0.5s ease; /* Animation for centering */
 }
 
@@ -1491,3 +1516,13 @@ footer .footer_upper a:hover{
     display: flex;
     align-items: center;
   }
+
+  @media print{
+    header {display:none !important;}
+    .header_logo {display:none !important;}
+    nav {display:none !important;}
+    section{display:none;}
+    footer{display:none;}
+    .sidebar{display:none;}
+  }
+  

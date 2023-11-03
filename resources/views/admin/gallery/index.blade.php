@@ -32,17 +32,21 @@
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
+                                    <!-- Name: Kesh Kumar
+                                         Date: 31-10-23
+                                        Reason: This is used for one images show on the list from the explode column.  -->
                                     <tbody>
                                         <?php
 										$count = 1;
 										foreach($list as $row):
+                                            $image =  explode(",",$row->txtuplode);
 									?>
                                         <tr>
                                             <td><?php echo $count++; ?></td>
                                             <td><?php echo $row->title; ?></td>
 											<td>
 								@if(!empty($row->txtuplode))
-                                <img style="margin-bottom: 5%;" class="w-50 img-responsive" alt="image" id="logoimg" src="{{ URL::asset('public/upload/admin/cmsfiles/photos/thumbnail/')}}/{{$row->txtuplode}}" class="rounded-circle mr-1" />
+                                <img style="margin-bottom: 5%; aspect-ratio:6/3;" class="w-50 img-responsive" alt="image" id="logoimg" src="{{ URL::asset('public/upload/admin/cmsfiles/photos/thumbnail/')}}/{{$image[0]}}" class="rounded-circle mr-1" />
                               
                                 @endif</td>
                                              <td>

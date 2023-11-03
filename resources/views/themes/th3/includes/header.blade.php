@@ -71,7 +71,7 @@
                 </div>
                 
             </div>
-        </div>
+        </div>        
 </header>
       
 
@@ -79,7 +79,7 @@
 
 <!-- ----------------------Logo header Start-------------------------- -->
 
-<div class="container-fluid px-5 d-flex justify-content-between header_logo">
+<div class="container-fluid px-5 justify-content-between header_logo">
         <div >
         <a href="{{ url('/')}}"><img src="{{ URL::asset('public/upload/admin/setting/')}}/{{!empty(get_setting($langid1)->logo)?get_setting($langid1)->logo:''}}" alt="{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}" class="w-75" title="{{ !empty(get_setting($langid1)->website_name)?get_setting($langid1)->website_name:'Website Name' }}" /></a>
             

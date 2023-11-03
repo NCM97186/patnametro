@@ -99,7 +99,7 @@
                                 $imagelist = explode(",",$data->txtuplode);
                                 ?>
                                 	<?php $rm = 0; foreach($imagelist as $img){ $rm++; ?>
-                                        <input type="hidden" name="txtuplodedimg[]" id="valImg-<?php echo $img; ?>" value="<?php echo $img; ?>">
+                                        
 	                                <img id="thumbImg-<?php echo $img; ?>" height="100px" width="100px"  class="img-thumbnail" src="{{ URL::asset('public/upload/admin/cmsfiles/photos/thumbnail/')}}/<?php echo $img ; ?>"> 
 									
 									<p><button id="remBTN-<?php echo $img; ?>" type="button" class="btn btn-danger"  onclick="removeImg('<?php echo $img ; ?>, <?php echo $data->id; ?>')">X</button></p>
@@ -154,6 +154,9 @@
 </div>
 
 @endsection
+<!-- Name: Kesh Kumar
+Date: 01-11-23
+Reason: This Javascript used for the dynamically add input and Delete images with ajax.  -->
 <script>
 function add_file()
 {
@@ -179,12 +182,14 @@ function removeImg(img, id){
 		'type' : 'POST',
 		'data' : { 'rowid' : imgname},
 		'success' : function(data){
-			var obj = JSON.parse(data);
+			var obj = data;
 			if(obj){
                 var imagename = img.split(",")[0];
-				$('#thumbImg-'+imagename).remove();
+                $('#thumbImg-'+imagename).remove();
 				$('#remBTN-'+imagename).remove();
+                // alert('#thumbImg-'+imagename);
 				$('#valImg-'+imagename).after('<span class="img-removed" style="color:green;">Image successfully removed.</span>');
+                location.reload();
 			}else{
 				$('#valImg-'+imagename).after('<span class="img-removed" style="color:red;">Image not removed. Please try again.</span>');
 			}

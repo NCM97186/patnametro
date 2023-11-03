@@ -82,4 +82,4 @@
       <input class="login-button" type="submit" value="{{get_title('submit',$langid1)->title}}" />
     </form>
   </div>
-  @endsection
+  @endsection            
