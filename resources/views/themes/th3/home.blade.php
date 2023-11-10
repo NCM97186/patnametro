@@ -63,7 +63,7 @@
     </div>
     <div class="col-lg-5 justify-content-center d-flex flex-column">
         <div class="the_message w-100 px-3">
-           <?php echo mb_strimwidth($officer->contents,0, 700, '...'); ?>
+           <?php echo mb_strimwidth($officer->contents, 0, 910, '...'); ?>
         </div>
         <button class="read_more my-2 mx-3"><a href="officers/{{ $officer->url }}" type="button"> {{get_title('read',$langid1)->title}} </a></button>
        
@@ -71,6 +71,7 @@
         <!-- dribbble -->
        
     </div>
+</div>
 </div>
 
 
@@ -126,14 +127,22 @@
         <div class="col-lg-6 col-md-6 col-12 justify-content-center d-flex align-items-center">
             <div>
                 <div class="py-3">
-                    <p class="line_number">Line-1 (East – West Line): Danapur Cantonment – Khemni Chak</p>
+                    <p class="line_number">Corridor -1: Danapur - Mithapur – Khemni Chak</p>
+                    <p class="station_length">Length: 17.93 km</p>
+                    <p class="station_type">Type: Elevated & Underground</p>
+                    <p class="station_elevated">Elevated: 7.42 km with 8 stations</p>
+                    <p class="station_underground">Underground: 10.51 km with 6 stations</p>
                     <p class="station_number">Number of Stations: 14</p>
-                    <p class="stations">Danapur Cantonment <span class="arrow_right">></span> Saguna More <span class="arrow_right">></span> RPS More <span class="arrow_right">></span> Patliputra (formerly IAS Colony) <span class="arrow_right">></span> Rukanpura <span class="arrow_right">></span> Raja Bazar <span class="arrow_right">></span> Patna Zoo (formerly JD Women’s College) <span class="arrow_right">></span> Vikas Bhawan (formerly Raj Bhavan) <span class="arrow_right">></span> Vidyut Bhawan <span class="arrow_right">></span> Patna Junction (interchange) <span class="arrow_right">></span> Mithapur <span class="arrow_right">></span> Ramkrishna Nagar & Jaganpur and Khemni Chak (interchange)</p>
+                    <p class="stations">Danapur <span class="arrow_right">></span> Saguna More <span class="arrow_right">></span> RPS More <span class="arrow_right">></span> Patliputra<span class="arrow_right">></span> Rukanpura <span class="arrow_right">></span> Raja Bazar <span class="arrow_right">></span> Patna Zoo<span class="arrow_right">></span> Vikas Bhawan<span class="arrow_right">></span> Vidyut Bhawan <span class="arrow_right">></span> Patna Station (interchange) <span class="arrow_right">></span> Mithapur <span class="arrow_right">></span> Ramkrishna Nagar <span class="arrow_right">></span> Jaganpur and Khemni Chak (interchange)</p>
                 </div>
                 <div class="py-3">
-                    <p class="line_number">Line-2 (North – South Line): Patna Junction Railway Station – New ISBT</p>
+                    <p class="line_number">Corridor-2 (North – South Line): Patna Station – Patliputra Bus Terminal</p>
+                    <p class="station_length">Length: 14.57 km</p>
+                    <p class="station_type">Type: Elevated & Underground</p>
+                    <p class="station_elevated">Elevated: 6.49 km with 5 stations</p>
+                    <p class="station_underground">Underground: 8.08 km with 7 stations</p>
                     <p class="station_number">Number of Stations: 12</p>
-                    <p class="stations">Danapur Cantonment <span class="arrow_right">></span> Saguna More <span class="arrow_right">></span> RPS More <span class="arrow_right">></span> Patliputra (formerly IAS Colony) <span class="arrow_right">></span> Rukanpura <span class="arrow_right">></span> Raja Bazar <span class="arrow_right">></span> Patna Zoo (formerly JD Women’s College) <span class="arrow_right">></span> Vikas Bhawan (formerly Raj Bhavan) <span class="arrow_right">></span> Vidyut Bhawan <span class="arrow_right">></span> Patna Junction (interchange) <span class="arrow_right">></span> Mithapur <span class="arrow_right">></span> Ramkrishna Nagar & Jaganpur and Khemni Chak (interchange)</p>
+                    <p class="stations">Patna Station (Interchange) <span class="arrow_right">></span> Akashvani <span class="arrow_right">></span> Gandhi Maidan <span class="arrow_right">></span> PMCH <span class="arrow_right">></span> University <span class="arrow_right">></span> MoinUI Haq Stadium <span class="arrow_right">></span> Rajendra Nagar <span class="arrow_right">></span> Malahi Pakri <span class="arrow_right">></span> Khemni Chak (Interchange) <span class="arrow_right">></span> Bhootnath <span class="arrow_right">></span> Zero Mile and Patliputra Bus Terminal</p>
                 </div>
             </div>
         </div>

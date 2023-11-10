@@ -25,8 +25,8 @@
                
 
             
-               @include("../themes.{$themes}.includes.footer")
+              </div>
             </div>
-         </div>
+            @include("../themes.{$themes}.includes.footer")
       </body>
 </html>
